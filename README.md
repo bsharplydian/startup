@@ -26,3 +26,14 @@ The default DND character sheet is great for a lot of things, but tracking your 
     
 
 ## Sketches
+
+### Login Screen
+![login](mockup-1.png)
+### Character Selection
+![games](mockup-2.png)
+![dm](mockup-3.png)
+![player](mockup-4.png)
+
+### Inventory
+![inventory](mockup-5.png)
+![inventorydetail](mockup-6.png)
