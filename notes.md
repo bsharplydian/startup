@@ -4,9 +4,12 @@
 GitHub conflicts:
  - easily merged using VS Code, which allows you to choose a commit to keep
 
- ## HTML
+## HTML
 I'm familiar with basic HTML, so this section was mostly review. There were a few things I thought were interesting:
 - \<img> tags don't have a closing tag since they don't contain any text
 - scaling the width of an image automatically scales the height
 - links require the https:// prefix to work correctly
 - I wonder if there's a way to store the header or footer information separately so that it can be easily duplicated and modified across pages
+### Playing with HTML examples and Deploying Simon
+- I really like the workflow of modifying my HTML through VS Code. Having a mock version of the page running on localhost makes it super easy to update and tweak things quickly.
+- Running the deploy script helped me understand how my key fits into the picture. I need to give my domain my private key to prove that I'm authorized to deploy a set of changes.
