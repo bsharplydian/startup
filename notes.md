@@ -13,3 +13,9 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 ### Playing with HTML examples and Deploying Simon
 - I really like the workflow of modifying my HTML through VS Code. Having a mock version of the page running on localhost makes it super easy to update and tweak things quickly.
 - Running the deploy script helped me understand how my key fits into the picture. I need to give my domain my private key to prove that I'm authorized to deploy a set of changes.
+
+## CSS
+- pseudo selectors will work well when I want to show a new inventory item or modify a thing when the user hovers over it
+- transformations are absolute, not relative
+- have the docs available to reference constantly, there's so much here that trying to memorize it all would be a lost cause
+- check out the home page example at [this instruction page](https://github.com/webprogramming260/.github/blob/main/profile/css/practice/practice.md) for a dropdown menu; you might be able to use it for the SRD
