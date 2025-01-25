@@ -23,14 +23,71 @@
         <hr>
     </header>
     <main>
-        <!-- back to characters button (nav) -->
-        <!-- character name -->
-        <!-- notification of new items added by DM -->
-        <!-- equipment title -->
-            <!-- scrollable table (label row stays in place) -->
-            <!-- table contains a list of items? not 100% sure how it's gonna look -->
-                <!-- maybe the scrollable table could just be a list of tables -->
-            
+        <a href="./games.html">&#8592 back to character select</a>
+        <h2>Kabalaka la Kabalabalakalabakan
+            <button type="submit">The DM added an item!</button>
+        </h2>
+        <h3>Equipment</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Damage</th>
+                <th>Properties</th>
+                <th>Weight</th>
+                <th>Cost</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Mysterious Note</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>An assassin's order found on the body of a mercenary. It's signed O.W.H.</td>
+            </tr>
+            <tr>
+                <td>Quarterstaff</td>
+                <td>Weapon (Simple, Melee)</td>
+                <td>1d6 bludgeoning</td>
+                <td>Versatile (1d8)</td>
+                <td>4</td>
+                <td>2 sp</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Torch (10)</td> <!--add a column for quantity-->
+                <td>Adventuring Gear</td>
+                <td>1 fire</td>
+                <td></td>
+                <td>1</td>
+                <td>1 cp</td>
+                <td>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</td>
+            </tr>
+        </table>
+        <!-- scrollable table (label row stays in place) -->
+        <!-- table contains a list of items? not 100% sure how it's gonna look -->
+            <!-- maybe the scrollable table could just be a list of tables -->
+        
+        <h3>Magic Items <span>(1/3 Attuned)</span></h3>
+        <table>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Rarity</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td> <!--need to find a way to persist the checkbox state-->
+                <td>Ring of Protection</td>
+                <td>Rare</td>
+                <td>Ring</td>
+                <td>Ring, rare (requires attunement)<br/>
+                    You gain a +1 bonus to AC and saving throws while wearing this ring.</td>
+            </tr>
+        </table>
         <!-- attuned magic items title -->
             <!-- x/3 note, 3 is clickable and can be edited, but isn't just in a fillable box (like the what if scores on canvas) -->
             <!-- similar list containing all magic items, with highlights next to the ones they are attuned to -->
