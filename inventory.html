@@ -93,21 +93,30 @@
         
         <form>
             <h3>Add an Item</h3>
-            <label>Search the SRD</label>
-            <input type="search"><br>
+            <label for="srd">Search the SRD</label>
+            <input id="srd" type="search"><br>
             <label for="name">Name</label>
             <input id="name" type="text"><br>
             <label for="type">Equipment Category</label>
             <select id="type" name="type" multiple>
-                <option value="adventuring-gear"><checkbox></checkbox>Adventuring Gear</option>
+                <option value="adventuring-gear">Adventuring Gear</option>
                 <option value="ammunition">Ammunition</option>
                 <option value="arcane-foci">Arcane Foci</option>
                 <option value="armor">Armor</option>
                 <option value="artisans-tools">Artisan's Tools</option>
                 <option value="druidic-foci">Druidic Foci</option>
                 <option value="placeholder">list placeholder</option>
+            </select><br>
+            <label for="damage">Damage</label>
+            <input type="text" size="1">
+            <select id="dice" name="dice">
+                <option value="d4">d4</option>
+                <option value="d6">d6</option>
+                <option value="d8">d8</option>
+                <option value="d10">d10</option>
+                <option value="d12">d12</option>
+                <option value="d20">d20</option>
             </select>
-            
             
         </form>
         <!-- add an item form with boxes for name, type, damage, etc. -->
