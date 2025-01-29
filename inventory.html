@@ -27,6 +27,9 @@
         <h2>Kabalaka la Kabalabalakalabakan
             <button type="submit">The DM added an item!</button>
         </h2>
+        <table>
+        <tr>
+        <td>
         <h3>Equipment</h3>
         <table>
             <tr>
@@ -36,7 +39,7 @@
                 <th>Properties</th>
                 <th>Weight</th>
                 <th>Cost</th>
-                <th>Description</th>
+                <th>Description (will only appear when item is selected)</th>
             </tr>
             <tr>
                 <td>Mysterious Note</td>
@@ -69,7 +72,10 @@
         <!-- scrollable table (label row stays in place) -->
         <!-- table contains a list of items? not 100% sure how it's gonna look -->
             <!-- maybe the scrollable table could just be a list of tables -->
+        
         <button type="submit">Remove Items</button>
+        </td>
+        <td>
         <h3>Magic Items <span>(1/3 Attuned)</span></h3>
         <table>
             <tr>
@@ -91,7 +97,7 @@
         <button type="submit">Remove Items</button>
         <!-- x/3 note, 3 is clickable and can be edited, but isn't just in a fillable box (like the what if scores on canvas) -->
         <!-- highlight attuned items -->
-        
+        <hr>
         <form>
             <h3>Add an Item</h3>
             <label for="srd">Search the SRD</label>
@@ -102,7 +108,6 @@
                 <li>Alchemist's fire (flask)</li>
                 <li>Alchemist's Supplies</li>
             </ul>
-            <h4>Item Info</h4>
             <label for="name">Name</label>
             <input id="name" type="text"><br>
             <label for="type">Equipment Category</label>
@@ -136,7 +141,7 @@
                 <option value="reach">Reach</option>
                 <option value="special">Special</option>
                 <option value="thrown">Thrown</option>
-                <option value="two-handed">Two Handed</option>
+                <option value="two-handed">Two-Handed</option>
                 <option value="versatile">Versatile</option>
             </select><br>
             <label for="weight">Weight</label>
@@ -155,6 +160,9 @@
         <!-- add an item form with boxes for name, type, damage, etc. -->
             <!-- top box is a search bar for the SRD, which will autofill the form with info for the selected item -->
             <!-- add item button -->
+        </td>
+        </tr>
+        </table>
     </main>
     <footer>
         <hr>
