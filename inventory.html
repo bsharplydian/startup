@@ -25,7 +25,7 @@
     <main>
         <a href="./games.html">&#8592 back to character select</a>
         <h2>Kabalaka la Kabalabalakalabakan
-            <button type="submit">The DM added an item!</button>
+            <button type="submit">The DM added an item! (notification through websocket)</button>
         </h2>
         <table>
         <tr>
@@ -68,6 +68,9 @@
                 <td>1 cp</td>
                 <td>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</td>
             </tr>
+            <tr>
+                <td>etc (database)</td>
+            </tr>
         </table>
         <!-- scrollable table (label row stays in place) -->
         <!-- table contains a list of items? not 100% sure how it's gonna look -->
@@ -93,6 +96,10 @@
                 <td>Ring, rare (requires attunement)<br/>
                     You gain a +1 bonus to AC and saving throws while wearing this ring.</td>
             </tr>
+            <tr>
+                <td></td>
+                <td>etc (database)</td>
+            </tr>
         </table>
         <button type="submit">Remove Items</button>
         <!-- x/3 note, 3 is clickable and can be edited, but isn't just in a fillable box (like the what if scores on canvas) -->
@@ -102,7 +109,7 @@
             <h3>Add an Item</h3>
             <label for="srd">Search the SRD</label>
             <input id="srd" type="search"><br>
-            <ul>(dropdown menu that will appear and filter based on user input. selecting an item will autofill the form below.)
+            <ul>(dropdown menu that will appear and filter based on user input. selecting an item will autofill the form below. Uses <a href="https://5e-bits.github.io/docs/">this API</a>)
                 <li>Abacus</li>
                 <li>Acid (vial)</li>
                 <li>Alchemist's fire (flask)</li>
@@ -120,6 +127,7 @@
                 <option value="druidic-foci">Druidic Foci</option>
                 <option value="placeholder">list placeholder</option>
             </select><br>
+            <!-- It'd be cool if the equipment category determined when other inputs like damage show up -->
             <label for="damage">Damage</label>
             <input type="text" size="1">
             <select id="dice" name="dice">
