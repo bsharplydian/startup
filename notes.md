@@ -16,6 +16,8 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 ### Working on startup HTML
 - I'm not sure the best way to organize the games and inventory. In the end I settled for lists and tables, but I may need to change the implementation if styling it the way I want doesn't work.
 - Eventually decided to put the icon and name on the login screen into the header. I might put it back to the middle of the screen once I can try out some different styles.
+- maybe put the inventory sections into a table for two columns? You might need to use css for that instead
+- 
 
 ## CSS
 - pseudo selectors will work well when I want to show a new inventory item or modify a thing when the user hovers over it
