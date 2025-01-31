@@ -8,10 +8,14 @@ body {
 }
 header {
     flex: 0 80px;
+    margin: 0px;
+    background: rgb(30, 70, 30);
+    display: flex;
+    align-items: center;
 }
 header nav{
     flex: 0 80px;
-    background: rgb(30, 70, 30);
+    
     margin: 0px;
     display: flex;
     flex-direction: row;
@@ -25,6 +29,14 @@ header nav{
 menu {
     flex: 1;
     display: flex;
+    flex-direction: row !important;
+    list-style: none;
+    align-items: center;
+    margin: 0px;
+}
+menu .nav-item {
+    padding: 0.3em;
+    text-decoration: wavy white;
 }
 header .username {
     float: right;
@@ -33,6 +45,7 @@ header .username {
 main {
     flex: 1;
     background: rgb(40, 40, 40);
+    color: rgb(250, 250, 250);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -41,4 +54,8 @@ main {
 
 footer {
     flex: 0 30px;
+    background: rgb(30, 30, 30);
+}
+footer a {
+    float: right;
 }
