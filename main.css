@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    flex-direction: column;
+    /* size: 100v; */
+    margin: 0px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: rgb(240, 240, 240)
+}
+header {
+    flex: 0 80px;
+}
+header nav{
+    flex: 0 80px;
+    background: rgb(30, 70, 30);
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.title {
+    padding: 1em;
+    font-size: 30px;
+}
+menu {
+    flex: 1;
+    display: flex;
+}
+header .username {
+    float: right;
+}
+
+main {
+    flex: 1;
+    background: rgb(40, 40, 40);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer {
+    flex: 0 30px;
+}
