@@ -9,8 +9,9 @@
 </head>
 <body>
     <header class="container-fluid">
-         <nav class="navbar fixed-top navbar-dark">
-            <a class="title navbar-brand" href="#">The Bag of Holding</a>
+        <a class="title" href="#">The Bag of Holding</a>
+         <nav class="navbar navbar-dark">
+            
             <!-- <img src="./BoH-logo.png" width="75"> -->
             <menu class="navbar-nav">
                 <li class="nav-item">
@@ -27,18 +28,24 @@
          </nav>
     </header>
     <main>
-        <h3>Login</h3>
         <div>
-            <span>Username</span>
-            <input type="text", placeholder="yourname@example.com">
-        </div>
-        <div>
-            <span>Password</span>
-            <input type="password", placeholder="password">
-        </div>
-        <div>
-            <button type="submit">Login</button>
-            <button type="submit">Create Account</button>
+            <h1>Welcome</h1>
+            <form method="get" action="games.html">
+                <div class="username login-item">
+                    <span class="login-label">Username</span>
+                    <input type="text">
+                    <div class="whitespace"></div>
+                </div>
+                <div class="password login-item">
+                    <span class="login-label">Password</span>
+                    <input type="password">
+                    <div class="whitespace"></div>
+                </div>
+                <div class="login-item login-buttons">
+                    <button type="submit" >Login</button>
+                    <button type="submit">Create Account</button>
+                </div>
+            </form>
         </div>
     </main>
     <footer>
