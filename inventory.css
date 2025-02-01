@@ -1,3 +1,29 @@
 header nav{
     justify-content: right !important;
 }
+.char-select-link {
+    text-decoration: none;
+    padding: 1em;
+    color: rgb(200, 200, 200);
+}
+.char-select-link:hover {
+    color: rgb(240, 240, 240);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background: rgb(40, 40, 40);
+    border: solid rgb(78, 78, 200);
+}
+.form-element {
+    color: white;
+    display: flex;
+    padding: 0.25em 1em;
+}
+.form-label {
+    flex: 1;
+}
+.form-input {
+    flex: 2;
+}

@@ -3,11 +3,6 @@ header nav{
 }
 
 main {
-    flex: 1;
-    background: rgb(40, 40, 40);
-    color: rgb(250, 250, 250);
-    display: flex;
-    flex-direction: column;
     justify-content: top;
     align-items: left;
     padding-left: 2em;
