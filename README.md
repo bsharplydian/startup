@@ -37,3 +37,12 @@ The default DND character sheet is great for a lot of things, but tracking your 
 ### Inventory
 ![inventory](mockup-5.png)
 ![inventorydetail](mockup-6.png)
+
+## HTML Deliverable
+For this deliverable, I added general structure to my website and made "rough draft" decisions for representing various components.
+- HTML pages: I added 3 pages - a login page, a character selection page, and an inventory page
+- Links: Each page has a link to every other page in the menu bar. I will probably make some changes (removing links from the login page, for example) as I experiment with everything.
+- Text: Mostly contains placeholder text for the inventory items and characters that will eventually be fetched from the database, but also has menu items, descriptions, and a form
+- Images: contains a mock image for each character, as well as a mock logo
+- DB/Login: Inventory items, games, characters, and login info will be stored in a database. The front page has username/password boxes and a button to login or create an account
+- WebSocket: The form will send messages to the database to add items to one's inventory, and the notification on the Inventory page informs a player when their DM has added an item to their inventory.
