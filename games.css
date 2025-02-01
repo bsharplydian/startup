@@ -61,11 +61,19 @@ main {
     color: rgb(250, 250, 250);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: left;
+    padding-left: 2em;
+    padding-top: 4em;
 }
 .accordion {
+    --bs-accordion-bg: #222 !important;
+    --bs-accordion-border-color: rgb(78, 78, 200) !important;
     width: 75vw;
+}
+.accordion-button{
+    background-color:rgb(30, 30, 30) !important;
+    outline: rgb(60, 60, 60) !important;
 }
 .characters {
     display: flex;
@@ -76,6 +84,7 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 1em;
+    background:rgb(40, 40, 40)
 }
 
 footer {
