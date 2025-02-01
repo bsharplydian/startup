@@ -69,6 +69,10 @@ main {
 .accordion {
     --bs-accordion-bg: #222 !important;
     --bs-accordion-border-color: rgb(78, 78, 200) !important;
+    --bs-accordion-btn-color: white !important;
+    --bs-accordion-active-color: rgb(78, 78, 200) !important;
+    --bs-accordion-btn-focus-border-color: white !important;
+    --bs-accordion-btn-focus-box-shadow: white !important;
     width: 75vw;
 }
 .accordion-button{
@@ -80,11 +84,17 @@ main {
     flex-direction: row;
 }
 .character {
+    flex: 0 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1em;
+    margin: 0.5em;
     background:rgb(40, 40, 40)
+}
+a {
+    text-decoration: none !important;
+    color: white !important;
 }
 
 footer {
