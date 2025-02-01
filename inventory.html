@@ -167,19 +167,40 @@
             </div>
             <div class="form-element">
                 <label class="form-label" for="properties">Properties</label>
-                <select class="form-input" id="properties" name="properties" multiple>
-                    <option value="ammunition">Ammunition</option>
-                    <option value="finesse">Finesse</option>
-                    <option value="heavy">Heavy</option>
-                    <option value="light">Light</option>
-                    <option value="loading">Loading</option>
-                    <option value="monk">Monk</option>
-                    <option value="reach">Reach</option>
-                    <option value="special">Special</option>
-                    <option value="thrown">Thrown</option>
-                    <option value="two-handed">Two-Handed</option>
-                    <option value="versatile">Versatile</option>
-                </select>
+                <div class="btn-group form-input" role="group">
+                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck1">Ammunition</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck2">Finesse</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck3">Heavy</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck4">Light</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck5">Loading</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck6">Monk</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck7">Reach</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck8" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck8">Special</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck9" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck9">Thrown</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck10" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck10">Two-Handed</label>
+
+                    <input type="checkbox" class="btn-check" id="btncheck11" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck11">Versatile</label>
+                  </div>
             </div>
             <div class="form-element">
                 <label class="form-label" for="weight">Weight</label>
@@ -198,7 +219,9 @@
                 <label class="form-label" for="description">Description</label><br>
                 <textarea class="form-input" name="description" cols="40" rows="5"></textarea>
             </div>
-            <button type="submit" class="add-item-button form-input">Add Item</button>
+            <div class="form-element">
+                <button type="submit" class="add-item-button form-input">Add Item</button>
+            </div>
         </form>
         <!-- add an item form with boxes for name, type, damage, etc. -->
             <!-- top box is a search bar for the SRD, which will autofill the form with info for the selected item -->
