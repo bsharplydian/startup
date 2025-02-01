@@ -1,47 +1,7 @@
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-header {
-    flex: 0 80px;
-    margin: 0px;
-    background: rgb(78, 78, 200);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 header nav{
-    flex: 0 100px;
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
     justify-content: right !important;
-    align-items: center;
 }
-.title {
-    flex: 1;
-    padding: 0.5em;
-    font-size: 30px;
-    text-decoration: none;
-    color: rgb(250, 250, 250);
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-}
-.title:hover {
-    color: rgb(250, 250, 250);   
-}
-menu {
-    flex: 1;
-    display: flex;
-    flex-direction: row !important;
-    list-style: none;
-    align-items: center;
-    margin: 0px;
-    height: 25px;
-}
-menu .nav-item {
-    padding: 0.3em;
-}
+
 .user-info {
     padding-left: 0.3em;
 }
@@ -95,13 +55,4 @@ main {
 a {
     text-decoration: none !important;
     color: white !important;
-}
-
-footer {
-    flex: 0 30px;
-    background: rgb(30, 30, 30);
-    color: rgb(250, 250, 250);
-}
-footer a {
-    float: right;
 }
