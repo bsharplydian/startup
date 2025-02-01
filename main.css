@@ -48,7 +48,18 @@ menu .nav-item {
 header .username {
     float: right;
 }
-
+.user-info {
+    padding-left: 0.3em;
+}
+.user {
+    padding-left: 0.3em;
+    text-decoration: none;
+    color: rgb(250, 250, 250);
+    padding-right: 10px;
+}
+.user:hover {
+    color:rgb(250, 250, 250);
+}
 footer {
     flex: 0 30px;
     background: rgb(30, 30, 30);
