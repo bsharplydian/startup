@@ -35,3 +35,6 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
     - child has flex: min max;
 - use bootstrap for dropdown menus/search results?
 - accordion would be super useful for inventory items, if you can figure out a way to put a bunch of the info in the menu bar
+    - accordion works! use bootstrap and override the default styles
+- up next: fix 'add game' button, add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
+ 
