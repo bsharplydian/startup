@@ -28,7 +28,23 @@ form {
 }
 .form-input {
     flex: 2;
+    padding: 0px 5px;
+    margin: 0px 5px;
+}
+.add-item-button-element {
+    flex: 0 10px;
+    align-self: end;
+    display: flex;
+    margin-bottom: 4px;
 }
 .add-item-button {
-    flex: 0 100px;
+    background-color: rgb(78, 78, 200) !important;
+    border: none !important;
+}
+
+form input, form select, form textarea{
+    background: rgb(60, 60, 60);
+    border: none;
+    border-radius: 5px;
+    color: white;
 }
