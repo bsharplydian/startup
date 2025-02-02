@@ -37,4 +37,12 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - accordion would be super useful for inventory items, if you can figure out a way to put a bunch of the info in the menu bar
     - accordion works! use bootstrap and override the default styles
 - up next: fix 'add game' button, add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
- 
+
+- [this guy](https://forum.bootstrapstudio.io/t/i-want-to-do-a-table-with-accordion-rows/10261) has a similar problem to me with the inventory stuff. maybe check out their solution
+- up next:
+    - add collapsible table rows to inventory
+    - add collapsible table rows to magic items
+    - fix add game button in games page
+    - add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
+    - touch up table style
+    - MAKE EVERYTHING PORTABLE TO SMALL SCREENS
