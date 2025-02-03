@@ -39,47 +39,129 @@
         <div class="inventory-modules">
         <div class="equipment inventory-module">
             <h3>Equipment</h3>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Damage</th>
-                    <th>Properties</th>
-                    <th>Weight</th>
-                    <th>Cost</th>
-                    <th>Description (will only appear when item is selected)</th>
-                </tr>
-                <tr>
-                    <td>Mysterious Note</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>An assassin's order found on the body of a mercenary. It's signed O.W.H.</td>
-                </tr>
-                <tr>
-                    <td>Quarterstaff</td>
-                    <td>Weapon (Simple, Melee)</td>
-                    <td>1d6 bludgeoning</td>
-                    <td>Versatile (1d8)</td>
-                    <td>4</td>
-                    <td>2 sp</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Torch (10)</td> <!--add a column for quantity-->
-                    <td>Adventuring Gear</td>
-                    <td>1 fire</td>
-                    <td></td>
-                    <td>1</td>
-                    <td>1 cp</td>
-                    <td>A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.</td>
-                </tr>
-                <tr>
-                    <td>etc (database)</td>
-                </tr>
-            </table>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <div class="item-info-header item-info">
+                    <div class="attr">
+                      Name
+                    </div>
+                    <div class="attr">
+                      Type
+                    </div>
+                    <div class="attr">
+                      Damage
+                    </div>
+                    <div class="attr">
+                      Properties
+                    </div>
+                    <div class="attr">
+                      Weight
+                    </div>
+                    <div class="attr">
+                      Cost
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <div class="item-info">
+                        <div class="attr">
+                          Quarterstaff
+                        </div>
+                        <div class="attr">
+                          Weapon
+                        </div>
+                        <div class="attr">
+                          1d6 bludgeoning
+                        </div>
+                        <div class="attr">
+                          Versatile (1d8)
+                        </div>
+                        <div class="attr">
+                          4
+                        </div>
+                        <div class="attr">
+                          2 sp
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="empty-description">
+                        This item has no description.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <div class="item-info">
+                        <div class="attr">
+                          Mysterious Note
+                        </div>
+                        <div class="attr">
+          
+                        </div>
+                        <div class="attr">
+          
+                        </div>
+                        <div class="attr">
+          
+                        </div>
+                        <div class="attr">
+          
+                        </div>
+                        <div class="attr">
+          
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="description">
+                        An assassin's order found on the body of a mercenary. It's signed O.W.H.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <div class="item-info">
+                        <div class="attr">
+                          Torch (10)
+                        </div>
+                        <div class="attr">
+                          Adventuring Gear
+                        </div>
+                        <div class="attr">
+                          1 fire
+                        </div>
+                        <div class="attr">
+          
+                        </div>
+                        <div class="attr">
+                          1
+                        </div>
+                        <div class="attr">
+                          1 cp
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="description">
+                        A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <!-- scrollable table (label row stays in place) -->
             <!-- table contains a list of items? not 100% sure how it's gonna look -->
                 <!-- maybe the scrollable table could just be a list of tables -->
