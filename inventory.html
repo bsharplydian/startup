@@ -37,276 +37,277 @@
             <button type="submit">The DM added an item! (notification through websocket)</button>
         </h2>
         <div class="inventory-modules">
-        <div class="equipment inventory-module">
-            <h3>Equipment</h3>
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <div class="item-info-header item-info">
-                    <div class="attr">
-                      Name
+            <div class="inventory-left">
+                <div class="equipment inventory-module">
+                    <h3>Equipment</h3>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                        <div class="item-info-header item-info">
+                            <div class="attr">
+                            Name
+                            </div>
+                            <div class="attr">
+                            Type
+                            </div>
+                            <div class="attr">
+                            Damage
+                            </div>
+                            <div class="attr">
+                            Properties
+                            </div>
+                            <div class="attr">
+                            Weight
+                            </div>
+                            <div class="attr">
+                            Cost
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <div class="item-info">
+                                <div class="attr">
+                                Quarterstaff
+                                </div>
+                                <div class="attr">
+                                Weapon
+                                </div>
+                                <div class="attr">
+                                1d6 bludgeoning
+                                </div>
+                                <div class="attr">
+                                Versatile (1d8)
+                                </div>
+                                <div class="attr">
+                                4
+                                </div>
+                                <div class="attr">
+                                2 sp
+                                </div>
+                            </div>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                            <div class="empty-description">
+                                This item has no description.
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <div class="item-info">
+                                <div class="attr">
+                                Mysterious Note
+                                </div>
+                                <div class="attr">
+                
+                                </div>
+                                <div class="attr">
+                
+                                </div>
+                                <div class="attr">
+                
+                                </div>
+                                <div class="attr">
+                
+                                </div>
+                                <div class="attr">
+                
+                                </div>
+                            </div>
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                            <div class="description">
+                                An assassin's order found on the body of a mercenary. It's signed O.W.H.
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <div class="item-info">
+                                <div class="attr">
+                                Torch (10)
+                                </div>
+                                <div class="attr">
+                                Adventuring Gear
+                                </div>
+                                <div class="attr">
+                                1 fire
+                                </div>
+                                <div class="attr">
+                
+                                </div>
+                                <div class="attr">
+                                1
+                                </div>
+                                <div class="attr">
+                                1 cp
+                                </div>
+                            </div>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                            <div class="description">
+                                A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                    <div class="attr">
-                      Type
-                    </div>
-                    <div class="attr">
-                      Damage
-                    </div>
-                    <div class="attr">
-                      Properties
-                    </div>
-                    <div class="attr">
-                      Weight
-                    </div>
-                    <div class="attr">
-                      Cost
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <div class="item-info">
-                        <div class="attr">
-                          Quarterstaff
-                        </div>
-                        <div class="attr">
-                          Weapon
-                        </div>
-                        <div class="attr">
-                          1d6 bludgeoning
-                        </div>
-                        <div class="attr">
-                          Versatile (1d8)
-                        </div>
-                        <div class="attr">
-                          4
-                        </div>
-                        <div class="attr">
-                          2 sp
-                        </div>
-                      </div>
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="empty-description">
-                        This item has no description.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      <div class="item-info">
-                        <div class="attr">
-                          Mysterious Note
-                        </div>
-                        <div class="attr">
-          
-                        </div>
-                        <div class="attr">
-          
-                        </div>
-                        <div class="attr">
-          
-                        </div>
-                        <div class="attr">
-          
-                        </div>
-                        <div class="attr">
-          
-                        </div>
-                      </div>
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="description">
-                        An assassin's order found on the body of a mercenary. It's signed O.W.H.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      <div class="item-info">
-                        <div class="attr">
-                          Torch (10)
-                        </div>
-                        <div class="attr">
-                          Adventuring Gear
-                        </div>
-                        <div class="attr">
-                          1 fire
-                        </div>
-                        <div class="attr">
-          
-                        </div>
-                        <div class="attr">
-                          1
-                        </div>
-                        <div class="attr">
-                          1 cp
-                        </div>
-                      </div>
-                    </button>
-                  </h2>
-                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <div class="description">
-                        A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <!-- scrollable table (label row stays in place) -->
-            <!-- table contains a list of items? not 100% sure how it's gonna look -->
-                <!-- maybe the scrollable table could just be a list of tables -->
-            
-            <button type="submit">Remove Items</button>
-        </div>
-        <div class="magic-items inventory-module">
-            <h3>Magic Items <span>(1/3 Attuned)</span></h3>
-            <table>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Rarity</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" checked></td> <!--need to find a way to persist the checkbox state-->
-                    <td>Ring of Protection</td>
-                    <td>Rare</td>
-                    <td>Ring</td>
-                    <td>Ring, rare (requires attunement)<br/>
-                        You gain a +1 bonus to AC and saving throws while wearing this ring.</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>etc (database)</td>
-                </tr>
-            </table>
-            <button type="submit">Remove Items</button>
-        </div>
-        <!-- x/3 note, 3 is clickable and can be edited, but isn't just in a fillable box (like the what if scores on canvas) -->
-        <!-- highlight attuned items -->
-        <div class="item-form inventory-module">
-            <form>
-                <div class="form-element">
-                    <h3>Add an Item</h3>
-                </div>
-                <div class="form-element">
-                    <label class="form-label" for="srd">Search the SRD</label>
-                    <input class="form-input" id="srd" type="search">
-                </div>
-                <div class="form-element">
-                    <label class="form-label" for="name">Name</label>
-                    <input class="form-input" id="name" type="text">
-                </div>
-                <div class="form-element">
-                    <label class="form-label" for="type">Equipment Category</label>
-                    <select class="form-input" id="type" name="type" multiple>
-                        <option value="adventuring-gear">Adventuring Gear</option>
-                        <option value="ammunition">Ammunition</option>
-                        <option value="arcane-foci">Arcane Foci</option>
-                        <option value="armor">Armor</option>
-                        <option value="artisans-tools">Artisan's Tools</option>
-                        <option value="druidic-foci">Druidic Foci</option>
-                        <option value="placeholder">list placeholder</option>
-                    </select>
-                </div>
-                <!-- It'd be cool if the equipment category determined when other inputs like damage show up -->
-                <div class="form-element">
-                    <label class="form-label" for="damage">Damage</label>
-                    <input class="form-input" type="text" size="1">
-                    <select class="form-input" id="dice" name="dice">
-                        <option value="d4">d4</option>
-                        <option value="d6">d6</option>
-                        <option value="d8">d8</option>
-                        <option value="d10">d10</option>
-                        <option value="d12">d12</option>
-                        <option value="d20">d20</option>
-                    </select>
-                    <select class="form-input" id="damage-type" name="damage-type">
-                        <option value="bludgeoning">bludgeoning</option>
-                        <option value="slashing">slashing</option>
-                        <option value="piercing">piercing</option>
-                        <option value="fire">fire</option>
-                        <option value="thunder">thunder</option>
-                        <option value="lightning">lightning</option>
-                        <option value="cold">cold</option>
-                        <option value="poison">poison</option>
-                        <option value="acid">acid</option>
-                        <option value="radiant">radiant</option>
-                        <option value="necrotic">necrotic</option>
-                        <option value="force">force</option>
-                        <option value="psychic">psychic</option>
-                    </select>
-                </div>
-                <div class="form-element">
-                    <label class="form-label" for="properties">Properties</label>
-                    <div class="btn-group form-input row row-cols-5" role="group">
-                        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck1">Ammunition</label>
                     
-                        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck2">Finesse</label>
-                    
-                        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck3">Heavy</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck4">Light</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck5">Loading</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck6">Monk</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck7">Reach</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck8" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck8">Special</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck9" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck9">Thrown</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck10" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck10">Two-Handed</label>
-
-                        <input type="checkbox" class="btn-check" id="btncheck11" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btncheck11">Versatile</label>
-                    </div>
+                    <button type="submit">Remove Items</button>
                 </div>
-                <div class="form-element">
-                    <label class="form-label" for="weight">Weight</label>
-                    <input class="form-input" id="weight" type="number">
+                <div class="magic-items inventory-module">
+                    <h3>Magic Items <span>(1/3 Attuned)</span></h3>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Rarity</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" checked></td> <!--need to find a way to persist the checkbox state-->
+                            <td>Ring of Protection</td>
+                            <td>Rare</td>
+                            <td>Ring</td>
+                            <td>Ring, rare (requires attunement)<br/>
+                                You gain a +1 bonus to AC and saving throws while wearing this ring.</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>etc (database)</td>
+                        </tr>
+                    </table>
+                    <button type="submit">Remove Items</button>
+                    <!-- x/3 note, 3 is clickable and can be edited, but isn't just in a fillable box (like the what if scores on canvas) -->
+                    <!-- highlight attuned items -->
                 </div>
-                <div class="form-element">
-                    <label class="form-label" for="cost">Cost</label>
-                    <input class="form-input" id="cost" type="number">
-                    <select class="form-input" id="currency" name="currency">
-                        <option value="gp">gp</option>
-                        <option value="sp">sp</option>
-                        <option value="cp">cp</option>
-                    </select>
+            </div>
+            <div class="inventory-right">
+                <div class="item-form inventory-module">
+                    <form>
+                        <div class="form-element">
+                            <h3>Add an Item</h3>
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="srd">Search the SRD</label>
+                            <input class="form-input" id="srd" type="search">
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="name">Name</label>
+                            <input class="form-input" id="name" type="text">
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="type">Equipment Category</label>
+                            <select class="form-input" id="type" name="type" multiple>
+                                <option value="adventuring-gear">Adventuring Gear</option>
+                                <option value="ammunition">Ammunition</option>
+                                <option value="arcane-foci">Arcane Foci</option>
+                                <option value="armor">Armor</option>
+                                <option value="artisans-tools">Artisan's Tools</option>
+                                <option value="druidic-foci">Druidic Foci</option>
+                                <option value="placeholder">list placeholder</option>
+                            </select>
+                        </div>
+                        <!-- It'd be cool if the equipment category determined when other inputs like damage show up -->
+                        <div class="form-element">
+                            <label class="form-label" for="damage">Damage</label>
+                            <input class="form-input" type="text" size="1">
+                            <select class="form-input" id="dice" name="dice">
+                                <option value="d4">d4</option>
+                                <option value="d6">d6</option>
+                                <option value="d8">d8</option>
+                                <option value="d10">d10</option>
+                                <option value="d12">d12</option>
+                                <option value="d20">d20</option>
+                            </select>
+                            <select class="form-input" id="damage-type" name="damage-type">
+                                <option value="bludgeoning">bludgeoning</option>
+                                <option value="slashing">slashing</option>
+                                <option value="piercing">piercing</option>
+                                <option value="fire">fire</option>
+                                <option value="thunder">thunder</option>
+                                <option value="lightning">lightning</option>
+                                <option value="cold">cold</option>
+                                <option value="poison">poison</option>
+                                <option value="acid">acid</option>
+                                <option value="radiant">radiant</option>
+                                <option value="necrotic">necrotic</option>
+                                <option value="force">force</option>
+                                <option value="psychic">psychic</option>
+                            </select>
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="properties">Properties</label>
+                            <div class="btn-group form-input row row-cols-3" role="group">
+                                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck1">Ammunition</label>
+                            
+                                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck2">Finesse</label>
+                            
+                                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck3">Heavy</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck4">Light</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck5">Loading</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck6">Monk</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck7">Reach</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck8" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck8">Special</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck9" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck9">Thrown</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck10" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck10">Two-Handed</label>
+
+                                <input type="checkbox" class="btn-check" id="btncheck11" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck11">Versatile</label>
+                            </div>
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="weight">Weight</label>
+                            <input class="form-input" id="weight" type="number">
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="cost">Cost</label>
+                            <input class="form-input" id="cost" type="number">
+                            <select class="form-input" id="currency" name="currency">
+                                <option value="gp">gp</option>
+                                <option value="sp">sp</option>
+                                <option value="cp">cp</option>
+                            </select>
+                        </div>
+                        <div class="form-element">
+                            <label class="form-label" for="description">Description</label><br>
+                            <textarea class="form-input" name="description" cols="40" rows="5"></textarea>
+                        </div>
+                        <div class="form-element add-item-button-element">
+                            <button type="submit" class="add-item-button form-input btn btn-primary">Add Item</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-element">
-                    <label class="form-label" for="description">Description</label><br>
-                    <textarea class="form-input" name="description" cols="40" rows="5"></textarea>
-                </div>
-                <div class="form-element add-item-button-element">
-                    <button type="submit" class="add-item-button form-input btn btn-primary">Add Item</button>
-                </div>
-            </form>
-        </div>
+            </div>
         </div>
     </main>
     <footer>
