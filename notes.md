@@ -40,10 +40,12 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 
 - [this guy](https://forum.bootstrapstudio.io/t/i-want-to-do-a-table-with-accordion-rows/10261) has a similar problem to me with the inventory stuff. maybe check out their solution
 - up next:
+    - small screen style:
+        - equipment menu
+        - character select
     - add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
     - add styles to be used when the user wants to remove an item
     - touch up table style
-    - MAKE EVERYTHING PORTABLE TO SMALL SCREENS
 
 - column breaks: add a `<div>` with class w-100 that only shows up if on a small screen
 - idea! what if I make the inventory accordion resizable by shunting extra divs to the inside when it shrinks
