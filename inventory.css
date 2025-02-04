@@ -1,6 +1,4 @@
-header nav{
-    justify-content: right !important;
-}
+
 .char-select-link {
     text-decoration: none;
     padding: 1em;
@@ -98,4 +96,20 @@ form input, form select, form textarea{
     border: none;
     border-radius: 5px;
     color: white;
+}
+
+@media (max-width: 1000px){
+    .inventory-modules {
+        flex-direction: column;
+        justify-content: center;
+    }
+    form {
+        margin-left: 2em;
+        margin-top: 1em;
+    }
+}
+@media (max-width: 600px) {
+    .row-cols-3>* {
+        width: 50% !important;
+    }
 }

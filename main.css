@@ -4,7 +4,8 @@ body {
     height: 100%;
     margin: 0px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: rgb(240, 240, 240)
+    color: rgb(240, 240, 240);
+    min-width: 375px;
 }
 header {
     flex: 0 80px;
@@ -34,7 +35,7 @@ header nav{
     color: rgb(250, 250, 250);   
 }
 menu {
-    flex: 1;
+    flex: 1 calc(100vh - 110px);
     display: flex;
     flex-direction: row !important;
     list-style: none;
@@ -55,7 +56,7 @@ header .username {
     padding-left: 0.3em;
     text-decoration: none;
     color: rgb(250, 250, 250);
-    padding-right: 10px;
+    padding-right: 0.2em;
 }
 .user:hover {
     color:rgb(250, 250, 250);
@@ -76,4 +77,28 @@ footer {
 }
 footer a {
     float: right;
+}
+
+@media (max-width: 500px) {
+    header {
+        flex-direction: column;
+    }
+    .title {
+        padding-bottom: 0;
+    }
+    .navbar {
+        flex-direction: row;
+        align-content: center;
+        flex-wrap: nowrap !important;
+        margin: 0;
+        padding: 0 !important;
+        flex: 0 40px;
+    }
+    .user-info {
+        flex: 1;
+        padding-right: 0.5em;
+    }
+    .navbar-nav {
+        flex: 0;
+    }
 }
