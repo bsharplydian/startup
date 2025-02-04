@@ -9,32 +9,45 @@ header nav{
 .char-select-link:hover {
     color: rgb(240, 240, 240);
 }
+.char-name {
+    padding: 0 1em;
+}
 .accordion {
-    padding: 2em;
-  }
-  .accordion-button {
+    --bs-accordion-bg: #222 !important;
+    --bs-accordion-border-color: rgb(78, 78, 200) !important;
+    --bs-accordion-btn-color: white !important;
+    --bs-accordion-active-color: rgb(78, 78, 200) !important;
+    --bs-accordion-btn-focus-border-color: white !important;
+    --bs-accordion-btn-focus-box-shadow: white !important;
+    --bs-accordion-color: white !important;
+    color: white;
+    padding-right: 2em;
+}
+.accordion-button {
     padding-left: 0em !important;
     padding-right: 0em !important;
-  }
+    background-color:rgb(30, 30, 30) !important;
+    outline: rgb(60, 60, 60) !important;
+}
   
-  .accordion-button::after {
+.accordion-button::after {
     content: none !important;
-  }
+}
   
-  .item-info {
+.item-info {
     display: flex;
     flex-direction: row;
     width: 100%;
-  }
+}
   
-  .attr {
+.attr {
     padding-left: 1.25rem;
     flex: 1;
-  }
+}
   
-  .description {
+.description {
     font-style: italic;
-  }
+}
 .inventory-modules{
     padding-top: 2em;
     display: flex;
