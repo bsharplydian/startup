@@ -10,6 +10,12 @@
 .char-name {
     padding: 0 1em;
 }
+.notif-button {
+    width: 100px;
+    margin: 0 2em;
+    background-color: #FFFF4e !important;
+    color: #383888 !important;
+}
 .accordion {
     --bs-accordion-bg: #222 !important;
     --bs-accordion-border-color: rgb(78, 78, 200) !important;
