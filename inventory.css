@@ -80,6 +80,12 @@ form {
     padding: 0px 5px;
     margin: 0px 5px;
 }
+.btn-outline-primary {
+    --bs-btn-color: rgb(78, 78, 200) !important;
+    --bs-btn-border-color: rgb(78, 78, 200) !important;
+    --bs-btn-active-bg: rgb(78, 78, 200) !important;
+    --bs-btn-active-border-color: #4e4ec8 !important;
+}
 .add-item-button-element {
     flex: 0 10px;
     align-self: end;
@@ -106,10 +112,5 @@ form input, form select, form textarea{
     form {
         margin-left: 2em;
         margin-top: 1em;
-    }
-}
-@media (max-width: 600px) {
-    .row-cols-3>* {
-        width: 50% !important;
     }
 }
