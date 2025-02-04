@@ -50,3 +50,8 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - idea! what if I make the inventory accordion resizable by shunting extra divs to the inside when it shrinks
     - figure out how to move divs to a different location based on size of screen
     - description will always be in the accordion body
+
+#### questions i need to answer
+- who can create games?
+- who can see characters?
+- who can create characters within games?

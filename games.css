@@ -34,6 +34,31 @@ main {
     margin: 0.5em;
     background:rgb(40, 40, 40)
 }
+.add-game-button{
+    margin: 1em 0;
+    width: 10em;
+    background-color: rgb(78, 78, 200) !important;
+    border: none !important;
+}
+.add-game-form {
+    border: solid rgb(78, 78, 200);
+    width: 300px;
+    /* display: none; */
+}
+.add-game-title {
+    margin: 0.5em;
+}
+.game-text {
+    margin: 1em;
+}
+.game-radio {
+    margin-left: 1em;
+}
+.submit-game-button{
+    margin-bottom: 0.75em;
+    background-color: rgb(78, 78, 200) !important;
+    border: none !important;
+}
 main a {
     text-decoration: none !important;
     color: white !important;
