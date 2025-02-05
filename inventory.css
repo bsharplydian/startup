@@ -10,12 +10,15 @@ header nav{
     color: rgb(240, 240, 240);
 }
 .char-name {
-    padding: 0 1em;
+}
+.name-module {
+    display: flex;
+    flex-direction: row;
 }
 .notif-button {
     width: 100px;
-    margin: 0 2em;
     background-color: #4EC84E !important;
+    margin: 0 1em;
 }
 /* USE THIS FOR THE ERASING COLOR #C84E4E */
 .accordion {
