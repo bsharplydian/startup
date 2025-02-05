@@ -12,6 +12,7 @@ header nav{
 .name-module {
     display: flex;
     flex-direction: row;
+    padding-bottom: 2em;
 }
 .notif-button {
     width: 100px;

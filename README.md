@@ -48,7 +48,7 @@ For this deliverable, I added general structure to my website and made "rough dr
 - WebSocket: The form will send messages to the database to add items to one's inventory, and the notification on the Inventory page informs a player when their DM has added an item to their inventory.
 
 ## CSS Deliverable
-For this deliverable, I gave everything a color scheme and a proper style. There are a few things that will require JavaScript to finish styling (like revealing the "add game" menu or putting checkboxes in front of items when the user presses "remove items").
+For this deliverable, I gave everything a color scheme and a proper style. There are a few things that will require JavaScript to finish styling (like revealing the "add game" menu, highlighting a recently added item, or putting checkboxes in front of items when the user presses "remove items").
 - Header, footer, and main content body: styled in main.css with minimal changes as needed on individual pages
 - Navigation elements: removed underline and made hyperlinks white. Added accordions to store characters and item descriptions.
 - Responsive to window resizing: This one was tricky, but I figured out a way for each column in the inventory to move individually as the window gets smaller, keeping as much info in the table as possible. Leftover information is moved to the description box. Everything else, including the header and navigation, inventory layout, and character buttons, is also responsive.
