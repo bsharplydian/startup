@@ -9,8 +9,6 @@ header nav{
 .char-select-link:hover {
     color: rgb(240, 240, 240);
 }
-.char-name {
-}
 .name-module {
     display: flex;
     flex-direction: row;
@@ -173,10 +171,22 @@ form {
     flex: 1;
     padding-right: 1em;
 }
+.form-input-module {
+    flex: 2.5;
+    display: flex;
+}
 .form-input {
-    flex: 2;
+    flex: 1;
     padding: 0px 5px;
     margin: 0px 5px;
+}
+.row {
+    --bs-gutter-x: 0rem !important;
+}
+@media (max-width: 500px) {
+    .row-cols-2>* {
+        width: 100% !important;
+    }
 }
 .btn-outline-primary {
     --bs-btn-color: rgb(78, 78, 200) !important;

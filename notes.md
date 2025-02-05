@@ -40,13 +40,13 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 
 - [this guy](https://forum.bootstrapstudio.io/t/i-want-to-do-a-table-with-accordion-rows/10261) has a similar problem to me with the inventory stuff. maybe check out their solution
 - up next:
-    - small screen style:
-        - equipment menu
-    - add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
     - add styles to be used when the user wants to remove an item
     - touch up table style
 
 #### questions i need to answer
 - who can create games?
+    - anyone, it will just have different positions
 - who can see characters?
+    - dm can see all; players can only see characters they themselves created (or they can see the other ones but they're grayed out)
 - who can create characters within games?
+    - only players
