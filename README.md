@@ -46,3 +46,12 @@ For this deliverable, I added general structure to my website and made "rough dr
 - Images: contains a mock image for each character, as well as a mock logo
 - DB/Login: Inventory items, games, characters, and login info will be stored in a database. The front page has username/password boxes and a button to login or create an account
 - WebSocket: The form will send messages to the database to add items to one's inventory, and the notification on the Inventory page informs a player when their DM has added an item to their inventory.
+
+## CSS Deliverable
+For this deliverable, I gave everything a color scheme and a proper style. There are a few things that will require JavaScript to finish styling (like revealing the "add game" menu or putting checkboxes in front of items when the user presses "remove items").
+- Header, footer, and main content body: styled in main.css with minimal changes as needed on individual pages
+- Navigation elements: removed underline and made hyperlinks white. Added accordions to store characters and item descriptions.
+- Responsive to window resizing: This one was tricky, but I figured out a way for each column in the inventory to move individually as the window gets smaller, keeping as much info in the table as possible. Leftover information is moved to the description box. Everything else, including the header and navigation, inventory layout, and character buttons, is also responsive.
+- Application elements: chose a consistent color scheme and used appropriate whitespace. I might do some fine-tuning but it looks alright for now.
+- Application text content: got rid of times new roman and used consistent fonts throughout the application
+- Application images: character portraits resize based on screen size
