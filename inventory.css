@@ -50,6 +50,58 @@ header nav{
     padding-left: 1.25rem;
     flex: 1;
 }
+.weight-outside, .cost-outside {
+    flex: 0.5;
+}
+
+.attr-inside {
+    display: none;
+    flex-direction: row;
+}
+.type-label, .damage-label, .properties-label, .weight-label, .cost-label, .description-label {
+    width: 100px;
+    font-weight: 600;
+}
+@media (max-width: 840px) {
+    .cost-outside {
+        display: none;
+    }
+    .cost-inside {
+        display: flex;
+    }
+}
+@media (max-width: 750px) {
+    .weight-outside {
+        display: none;
+    }
+    .weight-inside {
+        display: flex;
+    }
+}
+@media (max-width: 660px) {
+    .properties-outside {
+        display: none;
+    }
+    .properties-inside {
+        display: flex;
+    }
+}
+@media (max-width: 550px) {
+    .type-outside {
+        display: none;
+    }
+    .type-inside {
+        display: flex;
+    }
+}
+@media (max-width: 500px) {
+    .damage-outside {
+        display: none;
+    }
+    .damage-inside {
+        display: flex;
+    }
+}
   
 .description {
     font-style: italic;
@@ -112,7 +164,7 @@ form input, form select, form textarea{
     color: white;
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1100px){
     .inventory-modules {
         flex-direction: column;
         justify-content: center;
