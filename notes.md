@@ -42,15 +42,9 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - up next:
     - small screen style:
         - equipment menu
-        - character select
     - add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
     - add styles to be used when the user wants to remove an item
     - touch up table style
-
-- column breaks: add a `<div>` with class w-100 that only shows up if on a small screen
-- idea! what if I make the inventory accordion resizable by shunting extra divs to the inside when it shrinks
-    - figure out how to move divs to a different location based on size of screen
-    - description will always be in the accordion body
 
 #### questions i need to answer
 - who can create games?

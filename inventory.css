@@ -21,6 +21,23 @@ header nav{
     margin: 0 1em;
 }
 /* USE THIS FOR THE ERASING COLOR #C84E4E */
+.remove-items-button {
+    background-color: #C84E4E !important;
+    border:none !important;
+    margin: 0.5em 0;
+    width: fit-content;
+}
+.change-attunement-button {
+    border: none !important;
+}
+.button-group {
+    align-self: end;
+}
+.inventory-module {
+    padding-right: 2em;
+    display: flex;
+    flex-direction: column;
+}
 .accordion {
     --bs-accordion-bg: #222 !important;
     --bs-accordion-border-color: rgb(78, 78, 200) !important;
@@ -30,7 +47,6 @@ header nav{
     --bs-accordion-btn-focus-box-shadow: white !important;
     --bs-accordion-color: white !important;
     color: white;
-    padding-right: 2em;
 }
 .accordion-button {
     padding-left: 0em !important;
@@ -61,11 +77,11 @@ header nav{
     display: none;
     flex-direction: row;
 }
-.type-label, .damage-label, .properties-label, .weight-label, .cost-label, .description-label {
+.type-label, .damage-label, .properties-label, .weight-label, .cost-label, .description-label, .magic-type-label, .rarity-label, .magic-description-label {
     width: 100px;
     font-weight: 600;
 }
-.description-label {
+.description-label, .magic-description-label {
     display: none;
 }
 @media (max-width: 840px) {
@@ -95,12 +111,24 @@ header nav{
     .properties-inside {
         display: flex;
     }
+    .magic-type-outside {
+        display: none;
+    }
+    .magic-type-inside {
+        display: flex;
+    }
 }
 @media (max-width: 550px) {
     .damage-outside {
         display: none;
     }
     .damage-inside {
+        display: flex;
+    }
+    .rarity-outside {
+        display: none;
+    }
+    .rarity-inside {
         display: flex;
     }
 }
@@ -113,7 +141,7 @@ header nav{
     }
 }
   
-.description {
+.description, .magic-description {
     font-style: italic;
 }
 .inventory-modules{
