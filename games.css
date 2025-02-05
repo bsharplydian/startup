@@ -24,6 +24,7 @@ main {
 .characters {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .character {
     flex: 0 150px;
@@ -33,6 +34,29 @@ main {
     padding: 1em;
     margin: 0.5em;
     background:rgb(40, 40, 40)
+}
+@media (max-width: 500px) {
+    .characters {
+        flex-direction: column;
+        align-items: start;
+    }
+    .accordion {
+        width: 80vw;
+    }
+    .accordion-body {
+        padding-left: 0.5em !important;
+    }
+    .character {
+        flex-direction: row;
+        flex: 0;
+        width: 95%;
+        padding: 0.5em;
+    }
+    .char-image {
+        width: 40px;
+        height: auto;
+        margin-right: 1em;
+    }
 }
 .add-game-button{
     margin: 1em 0;
