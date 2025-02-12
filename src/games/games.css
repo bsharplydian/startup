@@ -1,13 +1,14 @@
-header nav{
+header nav {
     justify-content: right !important;
 }
 
 main {
-    justify-content: top;
-    align-items: left;
+    justify-content: left;
+    align-items: start;
     padding-left: 2em;
     padding-top: 4em;
 }
+
 .accordion {
     --bs-accordion-bg: #222 !important;
     --bs-accordion-border-color: rgb(78, 78, 200) !important;
@@ -17,15 +18,18 @@ main {
     --bs-accordion-btn-focus-box-shadow: white !important;
     width: 75vw;
 }
-.accordion-button{
-    background-color:rgb(30, 30, 30) !important;
+
+.accordion-button {
+    background-color: rgb(30, 30, 30) !important;
     outline: rgb(60, 60, 60) !important;
 }
+
 .characters {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .character {
     flex: 0 175px;
     display: flex;
@@ -33,56 +37,68 @@ main {
     align-items: center;
     padding: 1em;
     margin: 0.5em;
-    background:rgb(40, 40, 40)
+    background: rgb(40, 40, 40)
 }
+
 @media (max-width: 700px) {
     .characters {
         flex-direction: column;
         align-items: start;
     }
+
     .accordion {
         width: 80vw;
     }
+
     .accordion-body {
         padding-left: 0.5em !important;
     }
+
     .character {
         flex-direction: row;
         flex: 0;
         width: 95%;
         padding: 0.5em;
     }
+
     .char-image {
         width: 40px;
         height: auto;
         margin-right: 1em;
     }
 }
-.add-game-button{
+
+.add-game-button {
     margin: 1em 0;
     width: 10em;
     background-color: rgb(78, 78, 200) !important;
     border: none !important;
 }
+
 .add-game-form {
     border: solid rgb(78, 78, 200);
     width: 300px;
     /* display: none; */
 }
+
 .add-game-title {
     margin: 0.5em;
 }
+
 .game-text {
     margin: 1em;
 }
+
 .game-radio {
     margin-left: 1em;
 }
-.submit-game-button{
+
+.submit-game-button {
     margin-bottom: 0.75em;
     background-color: rgb(78, 78, 200) !important;
     border: none !important;
 }
+
 main a {
     text-decoration: none !important;
     color: white !important;

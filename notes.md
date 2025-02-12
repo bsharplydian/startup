@@ -55,3 +55,6 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 ### reading notes
 - you'll need to include your `<nav>` element inside of your `<Routes>` element since your first page is different than the others
     -actully use two Routes elements, one of them with the nav and the other with the main content
+### implementation next steps
+- figure out how to activate bootstrap
+- figure out how to STOP PAGES FROM USING EACH OTHERS' CSS

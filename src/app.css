@@ -3,7 +3,6 @@
     flex-direction: column;
     height: 100vh;
     margin: 0px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: rgb(240, 240, 240);
     min-width: 375px;
 }
@@ -30,8 +29,6 @@ main {
     flex: 1 calc(100vh - 110px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .title {
