@@ -11,22 +11,22 @@ export default function App() {
         <BrowserRouter>
             <div className="body bg-dark text-light">
                 <header className="container-fluid">
-                    <a className="title" href="#">The Bag of Holding</a>
+                    <div className="title">The Bag of Holding</div>
                     <nav className="navbar navbar-dark">
                         <div className="user-info">
-                            <a className="user" href="games.html">Current User</a>
+                            <NavLink className="user" to="games">Current User</NavLink>
                             <img src="char-placeholder.png" height="20px"></img>
                         </div>
                         {/* <img src="./BoH-logo.png" width="75"> --> */}
                         <menu className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link" href="./index.html">Login</a>
+                                <NavLink className="nav-link" to="">Login</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="./games.html">Games</a>
+                                <NavLink className="nav-link" to="games">Games</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="./inventory.html">Inventory</a>
+                                <NavLink className="nav-link" to="inventory">Inventory</NavLink>
                             </li>
                         </menu>
 
