@@ -1,38 +1,47 @@
+.login-main {
 
-main {
-    
     justify-content: center;
     align-items: center;
 }
-main div {
+
+.welcome {
     text-align: center;
 }
-main form {
+
+.login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
 }
-.username, .password{
+
+.username,
+.password {
     width: 100vw;
     display: flex;
     text-align: right;
     align-items: center;
 }
-.login-label, .whitespace {
+
+.login-label,
+.whitespace {
     flex: 1;
     padding-right: 0.5em;
 }
+
 .login-item {
     padding: 0.2em;
 }
+
 .login-buttons {
     padding-top: 1em;
 }
-main form input {
+
+.login-form input {
     border-radius: 5px;
     padding-left: 5px;
 }
+
 .login-button {
     border-radius: 15px;
     background: rgb(78, 78, 200);
@@ -40,9 +49,11 @@ main form input {
     border: none;
     height: 30px;
 }
+
 .create-account-btn {
     background: none;
 }
+
 .login-button-text {
     padding: 0px 10px;
 }

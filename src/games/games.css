@@ -2,7 +2,7 @@ header nav {
     justify-content: right !important;
 }
 
-main {
+.games-main {
     justify-content: left;
     align-items: start;
     padding-left: 2em;

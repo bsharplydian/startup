@@ -1,5 +1,11 @@
 import React from 'react';
 import './inventory.css';
+import Accordion from 'react-bootstrap/Accordion';
+import AccordionItem from 'react-bootstrap/AccordionItem';
+import AccordionHeader from 'react-bootstrap/AccordionHeader';
+import AccordionButton from 'react-bootstrap/AccordionButton';
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 export function Inventory() {
     return (
         <main>
@@ -13,8 +19,8 @@ export function Inventory() {
                     </div>
                     <div className="equipment inventory-module">
                         <h3>Equipment</h3>
-                        <div className="accordion" id="accordionExample">
-                            <div className="accordion-item">
+                        <Accordion>
+                            <Accordion.Item>
                                 <div className="item-info-header item-info">
                                     <div className="attr">
                                         Name
@@ -35,170 +41,158 @@ export function Inventory() {
                                         Cost
                                     </div>
                                 </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h2 className="accordion-header" id="headingOne">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <div className="item-info">
-                                            <div className="attr">
-                                                Quarterstaff
-                                            </div>
-                                            <div className="attr type-outside">
-                                                Weapon
-                                            </div>
-                                            <div className="attr damage-outside">
-                                                1d6 bludgeoning
-                                            </div>
-                                            <div className="attr properties-outside">
-                                                Versatile (1d8)
-                                            </div>
-                                            <div className="attr weight-outside">
-                                                4
-                                            </div>
-                                            <div className="attr cost-outside">
-                                                2 sp
-                                            </div>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header id="headingOne">
+                                    <div className="item-info">
+                                        <div className="attr">
+                                            Quarterstaff
                                         </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div className="accordion-body">
-                                        <div className="attr-inside type-inside">
-                                            <div className="type-label">Type</div>
-                                            <div className="type-value">Weapon</div>
+                                        <div className="attr type-outside">
+                                            Weapon
                                         </div>
-                                        <div className="attr-inside damage-inside">
-                                            <div className="damage-label">Damage</div>
-                                            <div className="damage-value">1d6 bludgeoning</div>
+                                        <div className="attr damage-outside">
+                                            1d6 bludgeoning
                                         </div>
-                                        <div className="attr-inside properties-inside">
-                                            <div className="properties-label">Properties</div>
-                                            <div className="properties-value">Versatile (1d8)</div>
+                                        <div className="attr properties-outside">
+                                            Versatile (1d8)
                                         </div>
-                                        <div className="attr-inside weight-inside">
-                                            <div className="weight-label">Weight</div>
-                                            <div className="weight-value">4</div>
+                                        <div className="attr weight-outside">
+                                            4
                                         </div>
-                                        <div className="attr-inside cost-inside">
-                                            <div className="cost-label">Cost</div>
-                                            <div className="cost-value">2 sp</div>
-                                        </div>
-                                        <div className="description-label">
-                                            Description
-                                        </div>
-                                        <div className="empty-description">
-                                            This item has no description.
+                                        <div className="attr cost-outside">
+                                            2 sp
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h2 className="accordion-header" id="headingTwo">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <div className="item-info">
-                                            <div className="attr">
-                                                Mysterious Note
-                                            </div>
-                                            <div className="attr type-outside">
-
-                                            </div>
-                                            <div className="attr damage-outside">
-
-                                            </div>
-                                            <div className="attr properties-outside">
-
-                                            </div>
-                                            <div className="attr weight-outside">
-
-                                            </div>
-                                            <div className="attr cost-outside">
-
-                                            </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="attr-inside type-inside">
+                                        <div className="type-label">Type</div>
+                                        <div className="type-value">Weapon</div>
+                                    </div>
+                                    <div className="attr-inside damage-inside">
+                                        <div className="damage-label">Damage</div>
+                                        <div className="damage-value">1d6 bludgeoning</div>
+                                    </div>
+                                    <div className="attr-inside properties-inside">
+                                        <div className="properties-label">Properties</div>
+                                        <div className="properties-value">Versatile (1d8)</div>
+                                    </div>
+                                    <div className="attr-inside weight-inside">
+                                        <div className="weight-label">Weight</div>
+                                        <div className="weight-value">4</div>
+                                    </div>
+                                    <div className="attr-inside cost-inside">
+                                        <div className="cost-label">Cost</div>
+                                        <div className="cost-value">2 sp</div>
+                                    </div>
+                                    <div className="description-label">
+                                        Description
+                                    </div>
+                                    <div className="empty-description">
+                                        This item has no description.
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="1">
+                                <Accordion.Header>
+                                    <div className="item-info">
+                                        <div className="attr">
+                                            Mysterious Note
                                         </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div className="accordion-body">
-                                        <div className="attr-inside type-inside">
-
-                                        </div>
-                                        <div className="attr-inside damage-inside">
-
-                                        </div>
-                                        <div className="attr-inside properties-inside">
-
-                                        </div>
-                                        <div className="attr-inside weight-inside">
+                                        <div className="attr type-outside">
 
                                         </div>
-                                        <div className="attr-inside cost-inside">
+                                        <div className="attr damage-outside">
 
                                         </div>
-                                        <div className="description-label">
-                                            Description
+                                        <div className="attr properties-outside">
+
                                         </div>
-                                        <div className="description">
-                                            An assassin's order found on the body of a mercenary. It's signed O.W.H.
+                                        <div className="attr weight-outside">
+
+                                        </div>
+                                        <div className="attr cost-outside">
+
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h2 className="accordion-header" id="headingThree">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        <div className="item-info">
-                                            <div className="attr">
-                                                Torch (10)
-                                            </div>
-                                            <div className="attr type-outside">
-                                                Adventuring Gear
-                                            </div>
-                                            <div className="attr damage-outside">
-                                                1 fire
-                                            </div>
-                                            <div className="attr properties-outside">
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="attr-inside type-inside">
 
-                                            </div>
-                                            <div className="attr weight-outside">
-                                                1
-                                            </div>
-                                            <div className="attr cost-outside">
-                                                1 cp
-                                            </div>
+                                    </div>
+                                    <div className="attr-inside damage-inside">
+
+                                    </div>
+                                    <div className="attr-inside properties-inside">
+
+                                    </div>
+                                    <div className="attr-inside weight-inside">
+
+                                    </div>
+                                    <div className="attr-inside cost-inside">
+
+                                    </div>
+                                    <div className="description-label">
+                                        Description
+                                    </div>
+                                    <div className="description">
+                                        An assassin's order found on the body of a mercenary. It's signed O.W.H.
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="2">
+                                <Accordion.Header>
+                                    <div className="item-info">
+                                        <div className="attr">
+                                            Torch (10)
                                         </div>
-                                    </button>
-                                </h2>
-                                <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div className="accordion-body">
-                                        <div className="attr-inside type-inside">
-                                            <div className="type-label">Type</div>
-                                            <div className="type-value">Adventuring Gear</div>
+                                        <div className="attr type-outside">
+                                            Adventuring Gear
                                         </div>
-                                        <div className="attr-inside damage-inside">
-                                            <div className="damage-label">Damage</div>
-                                            <div className="damage-value">1 fire</div>
+                                        <div className="attr damage-outside">
+                                            1 fire
                                         </div>
-                                        <div className="attr-inside properties-inside">
+                                        <div className="attr properties-outside">
 
                                         </div>
-                                        <div className="attr-inside weight-inside">
-                                            <div className="weight-label">Weight</div>
-                                            <div className="weight-value">1</div>
+                                        <div className="attr weight-outside">
+                                            1
                                         </div>
-                                        <div className="attr-inside cost-inside">
-                                            <div className="cost-label">Cost</div>
-                                            <div className="cost-value">1 cp</div>
-                                        </div>
-                                        <div className="description-label">
-                                            Description
-                                        </div>
-                                        <div className="description">
-                                            A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
+                                        <div className="attr cost-outside">
+                                            1 cp
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="attr-inside type-inside">
+                                        <div className="type-label">Type</div>
+                                        <div className="type-value">Adventuring Gear</div>
+                                    </div>
+                                    <div className="attr-inside damage-inside">
+                                        <div className="damage-label">Damage</div>
+                                        <div className="damage-value">1 fire</div>
+                                    </div>
+                                    <div className="attr-inside properties-inside">
+
+                                    </div>
+                                    <div className="attr-inside weight-inside">
+                                        <div className="weight-label">Weight</div>
+                                        <div className="weight-value">1</div>
+                                    </div>
+                                    <div className="attr-inside cost-inside">
+                                        <div className="cost-label">Cost</div>
+                                        <div className="cost-value">1 cp</div>
+                                    </div>
+                                    <div className="description-label">
+                                        Description
+                                    </div>
+                                    <div className="description">
+                                        A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
                         <div className="button-group">
                             <button type="submit" className="remove-items-button btn btn-primary">Remove Items</button>
                         </div>
@@ -273,8 +267,8 @@ export function Inventory() {
                     </div>
                 </div>
                 <div className="inventory-right">
-                    <div className="item-form inventory-module">
-                        <form>
+                    <div className="item-form-container inventory-module">
+                        <form className="item-form">
                             <div className="form-element">
                                 <h3>Add an Item</h3>
                             </div>
