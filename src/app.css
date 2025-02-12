@@ -1,4 +1,4 @@
-body {
+.body {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -7,6 +7,7 @@ body {
     color: rgb(240, 240, 240);
     min-width: 375px;
 }
+
 header {
     flex: 0 80px;
     margin: 0px;
@@ -15,7 +16,8 @@ header {
     align-items: center;
     justify-content: center;
 }
-header nav{
+
+header nav {
     flex: 0 100px;
     margin: 0px;
     display: flex;
@@ -23,17 +25,20 @@ header nav{
     justify-content: center;
     align-items: center;
 }
+
 .title {
     flex: 1;
     padding: 0.5em;
     font-size: 30px;
     text-decoration: none;
     color: rgb(250, 250, 250);
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
+
 .title:hover {
-    color: rgb(250, 250, 250);   
+    color: rgb(250, 250, 250);
 }
+
 menu {
     flex: 1 calc(100vh - 110px);
     display: flex;
@@ -41,26 +46,32 @@ menu {
     list-style: none;
     align-items: center;
     margin: 0px;
-    
+
 }
+
 menu .nav-item {
     padding: 0.3em;
 }
+
 header .username {
     float: right;
 }
+
 .user-info {
     padding-left: 0.3em;
 }
+
 .user {
     padding-left: 0.3em;
     text-decoration: none;
     color: rgb(250, 250, 250);
     padding-right: 0.2em;
 }
+
 .user:hover {
-    color:rgb(250, 250, 250);
+    color: rgb(250, 250, 250);
 }
+
 /* Main Body */
 main {
     flex: 1;
@@ -75,6 +86,7 @@ footer {
     background: rgb(30, 30, 30);
     color: rgb(250, 250, 250);
 }
+
 footer a {
     float: right;
 }
@@ -83,9 +95,11 @@ footer a {
     header {
         flex-direction: column;
     }
+
     .title {
         padding-bottom: 0;
     }
+
     .navbar {
         flex-direction: row;
         align-content: center;
@@ -94,10 +108,12 @@ footer a {
         padding: 0 !important;
         flex: 0 40px;
     }
+
     .user-info {
         flex: 1;
         padding-right: 0.5em;
     }
+
     .navbar-nav {
         flex: 0;
     }
