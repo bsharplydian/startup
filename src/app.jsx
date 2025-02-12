@@ -18,7 +18,7 @@ export default function App() {
                             <a className="nav-link" href="./index.html">Login</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="./games.html">Games</a>
+                            <a className="nav-link" href="./games.html">Games</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="./inventory.html">Inventory</a>
