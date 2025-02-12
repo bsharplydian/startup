@@ -33,7 +33,12 @@ export default function App() {
                     </nav>
                 </header>
 
-                <main>app components here</main>
+                <Routes>
+                    <Route path='/' element={<Login />} exact />
+                    <Route path='/games' element={<Games />} />
+                    <Route path='/inventory' element={<Inventory />} />
+                    <Route path='*' element={<NotFound />} />
+                </Routes>
 
                 <footer>
                     <div className="container-fluid">
@@ -45,5 +50,14 @@ export default function App() {
             </div>
         </BrowserRouter>
 
+    );
+}
+
+function NotFound() {
+    return (
+        <main className="container-fluid bg-tertiary text-center">
+            <h1>404</h1>
+            You reach into your Bag of Holding and find it empty.
+        </main>
     );
 }
