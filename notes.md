@@ -50,3 +50,8 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
     - dm can see all; players can only see characters they themselves created (or they can see the other ones but they're grayed out)
 - who can create characters within games?
     - only players
+
+## React!
+### reading notes
+- you'll need to include your `<nav>` element inside of your `<Routes>` element since your first page is different than the others
+    -actully use two Routes elements, one of them with the nav and the other with the main content
