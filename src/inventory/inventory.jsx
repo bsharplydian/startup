@@ -16,7 +16,7 @@ export function Inventory() {
                     </div>
                     <div className="equipment inventory-module">
                         <h3>Equipment</h3>
-                        <Accordion>
+                        <Accordion className="inventory-accordion">
                             <Accordion.Item>
                                 <div className="item-info-header item-info">
                                     <div className="attr">
@@ -196,7 +196,7 @@ export function Inventory() {
                     </div>
                     <div className="magic-items inventory-module">
                         <h3>Magic Items <span>(1/3 Attuned)</span></h3>
-                        <Accordion>
+                        <Accordion className="inventory-accordion">
                             <Accordion.Item>
                                 <div className="item-info-header item-info">
                                     <div className="attr">

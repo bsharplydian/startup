@@ -16,6 +16,7 @@ header nav {
     display: flex;
     flex-direction: row;
     padding-bottom: 2em;
+    padding-right: 1em;
 }
 
 .notif-button {
@@ -34,6 +35,7 @@ header nav {
 
 .change-attunement-button {
     border: none !important;
+    margin-right: 0.5em;
 }
 
 .button-group {
@@ -57,9 +59,11 @@ header nav {
     color: white;
 }
 
+.inventory-accordion {
+    width: 100% !important;
+}
+
 .accordion-button {
-    padding-left: 0em !important;
-    padding-right: 0em !important;
     background-color: rgb(30, 30, 30) !important;
     outline: rgb(60, 60, 60) !important;
 }
@@ -74,8 +78,11 @@ header nav {
     width: 100%;
 }
 
+.item-info-header {
+    padding: 0 1.25rem;
+}
+
 .attr {
-    padding-left: 1.25rem;
     flex: 1;
 }
 
@@ -196,14 +203,13 @@ header nav {
     padding-top: 2em;
     display: flex;
     flex-direction: row;
-    width: 100%;
-    border: 2px solid red;
-    overflow: visible !important;
+    width: 100vw;
 }
 
 .inventory-left {
     padding-left: 2em;
-    flex: 1;
+    flex: 2;
+    min-width: 0;
 }
 
 .inventory-right {
@@ -281,15 +287,17 @@ header nav {
 .add-item-button {
     background-color: rgb(78, 78, 200) !important;
     border: none !important;
+    padding: 0.2em 0.5em;
 }
 
 form input,
 form select,
 form textarea {
-    background: rgb(60, 60, 60);
-    border: none;
-    border-radius: 5px;
-    color: white;
+
+    background-color: rgb(60, 60, 60) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    color: white !important;
 }
 
 @media (max-width: 1100px) {
@@ -302,7 +310,7 @@ form textarea {
         padding: 0;
     }
 
-    form {
+    .item-form {
         margin-left: 2em;
         margin-top: 1em;
     }
