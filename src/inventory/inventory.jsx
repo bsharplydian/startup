@@ -1,9 +1,6 @@
 import React from 'react';
 import './inventory.css';
 import Accordion from 'react-bootstrap/Accordion';
-import AccordionItem from 'react-bootstrap/AccordionItem';
-import AccordionHeader from 'react-bootstrap/AccordionHeader';
-import AccordionButton from 'react-bootstrap/AccordionButton';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export function Inventory() {
@@ -43,7 +40,7 @@ export function Inventory() {
                                 </div>
                             </Accordion.Item>
                             <Accordion.Item eventKey="0">
-                                <Accordion.Header id="headingOne">
+                                <Accordion.Header>
                                     <div className="item-info">
                                         <div className="attr">
                                             Quarterstaff
@@ -199,8 +196,8 @@ export function Inventory() {
                     </div>
                     <div className="magic-items inventory-module">
                         <h3>Magic Items <span>(1/3 Attuned)</span></h3>
-                        <div className="accordion" id="accordionExample">
-                            <div className="accordion-item">
+                        <Accordion>
+                            <Accordion.Item>
                                 <div className="item-info-header item-info">
                                     <div className="attr">
                                         Name
@@ -215,49 +212,45 @@ export function Inventory() {
                                         Type
                                     </div>
                                 </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h2 className="accordion-header" id="magicHeadingOne">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#magicCollapseOne" aria-expanded="true" aria-controls="magicCollapseOne">
-                                        <div className="item-info">
-                                            <div className="attr">
-                                                Ring of Protection
-                                            </div>
-                                            <div className="attr">
-                                                yes
-                                            </div>
-                                            <div className="attr rarity-outside">
-                                                Rare
-                                            </div>
-                                            <div className="attr magic-type-outside">
-                                                Ring
-                                            </div>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>
+                                    <div className="item-info">
+                                        <div className="attr">
+                                            Ring of Protection
                                         </div>
-                                    </button>
-                                </h2>
-                                <div id="magicCollapseOne" className="accordion-collapse collapse" aria-labelledby="magicHeadingOne" data-bs-parent="#accordionExample">
-                                    <div className="accordion-body">
-                                        <div className="attr-inside rarity-inside">
-                                            <div className="rarity-label">Rarity</div>
-                                            <div className="rarity-value">Rare</div>
+                                        <div className="attr">
+                                            yes
                                         </div>
-                                        <div className="attr-inside magic-type-inside">
-                                            <div className="magic-type-label">Type</div>
-                                            <div className="magic-type-value">Ring</div>
+                                        <div className="attr rarity-outside">
+                                            Rare
                                         </div>
-                                        <div className="magic-description-label">
-                                            Description
-                                        </div>
-                                        <div className="magic-description">
-                                            Ring, rare (requires attunement)
-                                            You gain a +1 bonus to AC and saving throws while wearing this ring.
+                                        <div className="attr magic-type-outside">
+                                            Ring
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="attr-inside rarity-inside">
+                                        <div className="rarity-label">Rarity</div>
+                                        <div className="rarity-value">Rare</div>
+                                    </div>
+                                    <div className="attr-inside magic-type-inside">
+                                        <div className="magic-type-label">Type</div>
+                                        <div className="magic-type-value">Ring</div>
+                                    </div>
+                                    <div className="magic-description-label">
+                                        Description
+                                    </div>
+                                    <div className="magic-description">
+                                        Ring, rare (requires attunement)
+                                        You gain a +1 bonus to AC and saving throws while wearing this ring.
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
 
 
-                        </div>
+                        </Accordion>
                         <div className="button-group">
                             <button type="submit" className="change-attunement-button btn btn-primary">Change Attunement</button>
                             <button type="submit" className="remove-items-button btn btn-primary">Remove Items</button>
@@ -268,7 +261,7 @@ export function Inventory() {
                 </div>
                 <div className="inventory-right">
                     <div className="item-form-container inventory-module">
-                        <form className="item-form">
+                        <form className="item-form" autocomplete="off">
                             <div className="form-element">
                                 <h3>Add an Item</h3>
                             </div>
