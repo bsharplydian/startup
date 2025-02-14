@@ -76,7 +76,7 @@ export function Games() {
             </Accordion>
             <button className="btn btn-primary add-game-button">Add Game</button>
             <form className="add-game-form" autocomplete="off">
-                <h3 className="add-game-title">Add Link Game</h3>
+                <h3 className="add-game-title">Add Game</h3>
                 <div className="mb-3 game-text">
                     <input type="text" className="form-control game-input" id="gameName" placeholder="Name"></input>
                 </div>
