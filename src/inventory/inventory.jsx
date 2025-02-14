@@ -2,11 +2,12 @@ import React from 'react';
 import './inventory.css';
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link } from "react-router-dom";
 
 export function Inventory() {
     return (
         <main>
-            <a className="char-select-link" href="./games.html">{"\u2190"} back to character select</a>
+            <Link className="char-select-link" to="/games">{"\u2190"} back to character select</Link>
 
             <div className="inventory-modules">
                 <div className="inventory-left">

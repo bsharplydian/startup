@@ -1,12 +1,12 @@
 import React from 'react';
 import './login.css';
-
+import { Link } from "react-router-dom"
 export function Login() {
     return (
         <main className="login-main">
             <div>
                 <h1 className="welcome">Welcome</h1>
-                <form className="login-form" method="get" action="games.html">
+                <form className="login-form" method="get" action="games">
                     <div className="username login-item">
                         <span className="login-label">Username</span>
                         <input type="text"></input>

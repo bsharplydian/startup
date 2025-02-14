@@ -214,7 +214,7 @@ header nav {
 
 .inventory-right {
     flex: 1;
-    padding-right: 2em;
+    padding-right: 1em;
 }
 
 .item-form-container {
@@ -226,6 +226,8 @@ header nav {
     flex-direction: column;
     background: rgb(40, 40, 40);
     border: solid rgb(78, 78, 200);
+    margin-bottom: 2em;
+    margin-top: -2em;
 }
 
 .form-element {

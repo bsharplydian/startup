@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './games.css';
 import Accordion from 'react-bootstrap/Accordion';
+import { Link } from "react-router-dom"
 
 export function Games() {
     return (
@@ -15,27 +16,27 @@ export function Games() {
                     <Accordion.Body>
                         <div className="characters">
                             <div className="character">
-                                <a href="./inventory.html"><img src="./char-placeholder.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Kabalaka la Kabalabalakalabakan</a>
+                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Kaba</Link>
                             </div>
                             <div className="character">
-                                <a href="./inventory.html"><img src="./char-placeholder.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Crow</a>
+                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Crow</Link>
                             </div>
                             <div className="character">
-                                <a href="./inventory.html"><img src="./char-placeholder.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Gin</a>
+                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Gin</Link>
                             </div>
                             <div className="character">
-                                <a href="./inventory.html"><img src="./char-placeholder.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Gonokosukirishurigeiton</a>
+                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Gonokosukirishurigeiton</Link>
                             </div>
                             <div className="character">
-                                <a href="./inventory.html"><img src="./char-placeholder.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Lonri</a>
+                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Lonri</Link>
                             </div>
                             <div className="character">
-                                <a><img src="./add.png" width="100" className="char-image"></img></a>
+                                <Link><img src="./add.png" width="100" className="char-image"></img></Link>
                             </div>
                         </div>
                     </Accordion.Body>
@@ -47,11 +48,11 @@ export function Games() {
                     <Accordion.Body>
                         <div className="characters">
                             <div className="character">
-                                <a href="./inventory.html"><img src="./harrison_gunn_ralraymee.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Harrison Gunn</a>
+                                <Link to="/inventory"><img src="./harrison_gunn_ralraymee.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Harrison Gunn</Link>
                             </div>
                             <div className="character">
-                                <a><img src="./add.png" width="100" className="char-image"></img></a>
+                                <Link><img src="./add.png" width="100" className="char-image"></img></Link>
                             </div>
                         </div>
                     </Accordion.Body>
@@ -63,11 +64,11 @@ export function Games() {
                     <Accordion.Body>
                         <div className="characters">
                             <div className="character">
-                                <a href="./inventory.html"><img src="./char-placeholder.png" width="100" className="char-image"></img></a>
-                                <a href="./inventory.html">Tyrenol Painkiller</a>
+                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                <Link to="/inventory">Tyrenol Painkiller</Link>
                             </div>
                             <div className="character">
-                                <a><img src="./add.png" width="100" className="char-image"></img></a>
+                                <Link><img src="./add.png" width="100" className="char-image"></img></Link>
                             </div>
                         </div>
                     </Accordion.Body>
@@ -75,7 +76,7 @@ export function Games() {
             </Accordion>
             <button className="btn btn-primary add-game-button">Add Game</button>
             <form className="add-game-form" autocomplete="off">
-                <h3 className="add-game-title">Add a Game</h3>
+                <h3 className="add-game-title">Add Link Game</h3>
                 <div className="mb-3 game-text">
                     <input type="text" className="form-control game-input" id="gameName" placeholder="Name"></input>
                 </div>
