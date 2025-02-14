@@ -55,3 +55,13 @@ For this deliverable, I gave everything a color scheme and a proper style. There
 - Application elements: chose a consistent color scheme and used appropriate whitespace. I might do some fine-tuning but it looks alright for now.
 - Application text content: got rid of times new roman and used consistent fonts throughout the application
 - Application images: character portraits resize based on screen size
+
+## React pt. 1 Deliverable
+For this deliverable, I made my application compatible with React. I organized my files to work with Vite and moved my HTML into JavaScript functions using React. I also modified my Bootstrap accordions, since React has library functions that I can use instead of nesting divs inside of each other (besides being necessary for functionality, it also makes my code look much cleaner). Finally, I fixed a lot of CSS issues that came from the differences between HTML and JSX files.
+- Bundled using Vite: The file structure and commands work, and I've been using Vite to test my code on localhost
+- Multiple react components:
+    - app.jsx contains the header, footer, and router
+    - login.jsx contains the login form
+    - games.jsx contains the lists of games and characters
+    - inventory.jsx contains the equipment and magic item lists along with the add item form
+- React router: Contains imported functions from the other components. Router loads content from various functions based on the path in the web address.
