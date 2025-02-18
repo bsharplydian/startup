@@ -39,9 +39,6 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - up next: fix 'add game' button, add an 'add character' button to each game (and add a way to put in the information, it might be just a name and a pic)
 
 - [this guy](https://forum.bootstrapstudio.io/t/i-want-to-do-a-table-with-accordion-rows/10261) has a similar problem to me with the inventory stuff. maybe check out their solution
-- up next:
-    - add styles to be used when the user wants to remove an item
-    - touch up table style
 
 #### questions i need to answer
 - who can create games?
@@ -50,6 +47,7 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
     - dm can see all; players can only see characters they themselves created (or they can see the other ones but they're grayed out)
 - who can create characters within games?
     - only players
+- what if you want to make a character outside of a game? is it too ambitious to make that an option?
 
 ## React!
 ### reading notes
@@ -59,3 +57,10 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - add game button shows/hides menu
 - add character button shows/hides dropdown
 - dynamic searchbar in add item
+
+### syntax stuff
+| syntax | description |
+| ---: | --- |
+| `{condition && (<html>)}` | html only displays when condition is true |
+| `const [var, varSetter] = React.useState(initialVar)` | defines a var and varSetter function. var initializes with the value of initialVar. |
+| `React.useEffect(() => {}, [])` | sets up a function to render based on updates from items in the dependency list (if dependency list is not included, it renders every frame; if it is included but empty, it renders on the first frame only) |

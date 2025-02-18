@@ -5,7 +5,7 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom'
 import { Login } from './login/login';
 import { Inventory } from './inventory/inventory';
 import { Games } from './games/games';
-
+import { AuthState } from './login/authState';
 export default function App() {
     return (
         <BrowserRouter>
@@ -34,7 +34,7 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login />} exact />
+                    <Route path='/' element={<Login userName={"dave"} authState={AuthState.Authenticated} />} exact />
                     <Route path='/games' element={<Games />} />
                     <Route path='/inventory' element={<Inventory />} />
                     <Route path='*' element={<NotFound />} />
