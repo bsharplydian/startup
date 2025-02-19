@@ -19,13 +19,13 @@ export default function App() {
                     <nav className="navbar navbar-dark">
                         {authState == AuthState.Authenticated && (
                             <div className="user-info">
-                                <NavLink className="user" to="games">Current User</NavLink>
+                                <NavLink className="user" to="games">{username}</NavLink>
                                 <img src="char-placeholder.png" height="20px"></img>
                             </div>
                         )}
                         {authState === AuthState.Unauthenticated && (
                             <div className="user-info">
-                                <NavLink className="user">Not Logged In</NavLink>
+                                <NavLink className="user">Not logged in</NavLink>
                                 <img src="char-placeholder.png" height="20px"></img>
                             </div>
                         )}

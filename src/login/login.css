@@ -50,6 +50,10 @@
     height: 30px;
 }
 
+.login-button:disabled {
+    opacity: 50%;
+}
+
 .secondary-btn {
     background: none;
 }

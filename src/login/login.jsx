@@ -40,8 +40,8 @@ export function Login({ username, authState, onAuthChange }) {
                         <div className="whitespace"></div>
                     </div>
                     <div className="login-item login-buttons">
-                        <button className="login-button" onClick={() => login()} ><span className="login-button-text">Login</span></button>
-                        <button className="login-button secondary-btn" onClick={() => login()}><span className="login-button-text">Create Account</span></button>
+                        <button className="login-button" onClick={() => login()} disabled={!newUsername || !password}><span className="login-button-text">Login</span></button>
+                        <button className="login-button secondary-btn" onClick={() => login()} disabled={!newUsername || !password}><span className="login-button-text">Create Account</span></button>
                     </div>
                 </div>}
                 {authState === AuthState.Authenticated &&

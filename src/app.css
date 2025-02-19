@@ -29,6 +29,10 @@ header {
     justify-content: right !important
 }
 
+.nav-item {
+    padding-left: 0.7em;
+}
+
 main {
     flex: 1 calc(100vh - 110px);
     display: flex;
@@ -63,14 +67,14 @@ header .username {
 }
 
 .user-info {
-    /* padding-left: 0.3em; */
+    padding-left: 0.3em;
 }
 
 .user {
     padding-left: 0.3em;
     text-decoration: none;
-    color: rgb(250, 250, 250);
-    padding-right: 0.2em;
+    color: #ddd;
+    padding-right: 0.7em;
 }
 
 .user:hover {
