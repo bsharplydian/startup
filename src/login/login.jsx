@@ -2,39 +2,58 @@ import React from 'react';
 import './login.css';
 import { Link } from "react-router-dom"
 import { AuthState } from './authState.js'
-export function Login({ userName, authState }) {
+import { useNavigate } from 'react-router-dom'
 
+import Button from 'react-bootstrap/Button'
+export function Login({ username, authState, onAuthChange }) {
+    const [newUsername, setNewUsername] = React.useState(username)
+    const [password, setPassword] = React.useState('')
+    const [displayError, setDisplayError] = React.useState(null)
+
+    const navigate = useNavigate();
+    async function login() {
+        localStorage.setItem('username', newUsername)
+        onAuthChange(newUsername, AuthState.Authenticated)
+    }
+    async function createUser() {
+        localStorage.setItem('username', newUsername)
+        onAuthChange(newUsername, AuthState.Authenticated)
+    }
+    async function logout() {
+        localStorage.removeItem('username')
+        onAuthChange(username, AuthState.Unauthenticated)
+    }
     return (
         <main className="login-main">
             <div>
-                {authState !== AuthState.Unknown && <h1 className="welcome">Welcome</h1>}
-
-                {authState === AuthState.Unauthenticated && <form className="login-form" method="get" action="games">
+                {authState === AuthState.Unauthenticated && <h1 className="welcome">Welcome</h1>}
+                {authState === AuthState.Authenticated && <h3 className="welcome">Roll for initiative.</h3>}
+                {authState === AuthState.Unauthenticated && <div className="login-form">
                     <div className="username login-item">
                         <span className="login-label">Username</span>
-                        <input type="text"></input>
+                        <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
                         <div className="whitespace"></div>
                     </div>
                     <div className="password login-item">
                         <span className="login-label">Password</span>
-                        <input type="password"></input>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <div className="whitespace"></div>
                     </div>
                     <div className="login-item login-buttons">
-                        <button className="login-button" type="submit" ><span className="login-button-text">Login</span></button>
-                        <button className="login-button create-account-btn" type="submit"><span className="login-button-text">Create Account</span></button>
+                        <button className="login-button" onClick={() => login()} ><span className="login-button-text">Login</span></button>
+                        <button className="login-button secondary-btn" onClick={() => login()}><span className="login-button-text">Create Account</span></button>
                     </div>
-                </form>}
+                </div>}
                 {authState === AuthState.Authenticated &&
-                    <form className="login-form">
+                    <div className="login-form">
                         <div className="login-item">
-                            <span className="login-item">{userName}</span>
+                            <span className="login-item">{username}</span>
                         </div>
                         <div className="login-item login-buttons">
-                            <button className="login-button" type="submit" ><span className="login-button-text">Play</span></button>
-                            <button className="login-button create-account-btn" type="submit"><span className="login-button-text">Logout</span></button>
+                            <button className="login-button" onClick={() => navigate('/games')}><span className="login-button-text">Start</span></button>
+                            <button className="login-button secondary-btn" onClick={() => logout()}><span className="login-button-text">Logout</span></button>
                         </div>
-                    </form>
+                    </div>
                 }
             </div>
         </main>
