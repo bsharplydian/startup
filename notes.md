@@ -55,9 +55,22 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
     -actully use two Routes elements, one of them with the nav and the other with the main content
 ### goals for react implementation
 - add game button shows/hides menu
-- add character button shows/hides dropdown
-- dynamic searchbar in add item
+    - adding a game puts it into the local storage as json
 
+- add character button shows/hides dropdown
+    - adding a character puts it into local storage under game
+- dynamic searchbar in add item
+    - adding an item builds json and puts it into local storage
+#### functions needed:
+/games:
+- addGame - takes a game name and a role, and creates a game with the format `{"gameName": "gameName", "dm": "dmName", "characters":[{"playerName": "kyler", "charName": "zetramah"}]}`
+- addChar - takes a character name (given by a dropdown), the player's username, and a game name (given by the accordion section) and adds that character and player to the "characters" portion of the given game
+- chars should send player to the correct inventory when clicked, confirming that they are authorized to view the page
+/inventory:
+- addItem - takes item information for each input box and puts it in local storage. equipment/magic items list should update.
+- removeItems - adds check boxes to onscreen item list, storing each checked item and then removing them from the equipment or magic items stored data
+- attuneItems - adds check boxes to onscreen magic item list, getting current state of each item and then storing the modified state when the user clicks 'done'
+- searchSRD - displays a dynamic dropdown menu as user types, then disables the input if the user selects an item
 ### syntax stuff
 | syntax | description |
 | ---: | --- |
