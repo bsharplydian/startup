@@ -5,6 +5,7 @@
     margin: 0px;
     color: rgb(240, 240, 240);
     min-width: 375px;
+    overflow-x: hidden !important;
 }
 
 header {

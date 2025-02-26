@@ -186,7 +186,7 @@ export function Inventory() {
                                         Description
                                     </div>
                                     <div className="description">
-                                        A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
+                                        A torch burns htmlFor 1 hour, providing bright light in a 20-foot radius and dim light htmlFor an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage.
                                     </div>
                                 </Accordion.Body>
                             </Accordion.Item>
@@ -267,19 +267,19 @@ export function Inventory() {
                                 <h3>Add an Item</h3>
                             </div>
                             <div className="form-element">
-                                <label className="form-label" for="srd">Search the SRD</label>
+                                <label className="form-label" htmlFor="srd">Search the SRD</label>
                                 <div className="form-input-module">
                                     <input className="form-input" id="srd" type="search"></input>
                                 </div>
                             </div>
                             <div className="form-element">
-                                <label className="form-label" for="name">Name</label>
+                                <label className="form-label" htmlFor="name">Name</label>
                                 <div className="form-input-module">
                                     <input className="form-input" id="name" type="text"></input>
                                 </div>
                             </div>
                             <div className="form-element">
-                                <label className="form-label" for="type">Equipment Category</label>
+                                <label className="form-label" htmlFor="type">Equipment Category</label>
                                 <div className="form-input-module">
                                     <select className="form-input" id="type" name="type">
                                         <option value="adventuring-gear">Adventuring Gear</option>
@@ -294,7 +294,7 @@ export function Inventory() {
                             </div>
                             {/* <!-- It'd be cool if the equipment category determined when other inputs like damage show up --> */}
                             <div className="form-element">
-                                <label className="form-label" for="damage">Damage</label>
+                                <label className="form-label" htmlFor="damage">Damage</label>
                                 <div className="form-input-module">
                                     <input className="form-input" type="text" size="1"></input>
                                     <select className="form-input" id="dice" name="dice">
@@ -325,52 +325,52 @@ export function Inventory() {
                                 </div>
                             </div>
                             <div className="form-element">
-                                <label className="form-label" for="properties">Properties</label>
+                                <label className="form-label" htmlFor="properties">Properties</label>
                                 <div className="form-input-module">
                                     <div className="btn-group form-input row row-cols-2" role="group">
                                         <input type="checkbox" className="btn-check" id="btncheck1" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck1">Ammunition</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck1">Ammunition</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck2" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck2">Finesse</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck2">Finesse</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck3" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck3">Heavy</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck3">Heavy</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck4" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck4">Light</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck4">Light</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck5" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck5">Loading</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck5">Loading</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck6" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck6">Monk</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck6">Monk</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck7" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck7">Reach</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck7">Reach</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck8" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck8">Special</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck8">Special</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck9" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck9">Thrown</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck9">Thrown</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck10" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck10">Two-Handed</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck10">Two-Handed</label>
 
                                         <input type="checkbox" className="btn-check" id="btncheck11" autocomplete="off"></input>
-                                        <label className="btn btn-outline-primary" for="btncheck11">Versatile</label>
+                                        <label className="btn btn-outline-primary" htmlFor="btncheck11">Versatile</label>
                                     </div>
                                 </div>
                             </div>
                             <div className="form-element">
-                                <label className="form-label" for="weight">Weight</label>
+                                <label className="form-label" htmlFor="weight">Weight</label>
                                 <div className="form-input-module">
                                     <input className="form-input" id="weight" type="number"></input>
                                 </div>
                             </div>
                             <div className="form-element">
-                                <label className="form-label" for="cost">Cost</label>
+                                <label className="form-label" htmlFor="cost">Cost</label>
                                 <div className="form-input-module">
                                     <input className="form-input" id="cost" type="number"></input>
                                     <select className="form-input" id="currency" name="currency">
@@ -381,7 +381,7 @@ export function Inventory() {
                                 </div>
                             </div>
                             <div className="form-element form-description">
-                                <label className="form-label" for="description">Description</label>
+                                <label className="form-label" htmlFor="description">Description</label>
                                 <div className="form-input-module">
                                     <textarea className="form-input" name="description" cols="40" rows="5"></textarea>
                                 </div>

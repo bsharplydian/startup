@@ -4,7 +4,12 @@ import './games.css';
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from "react-router-dom"
 
-export function Games() {
+export function Games(props) {
+    const username = props.username;
+    const [addGameVisible, setAddGameVisible] = React.useState(false);
+    const [games, setGames] = React.useState(localStorage.getItem("games"));
+
+
     return (
         <main className="games-main">
             <h1>Games</h1>
@@ -74,22 +79,24 @@ export function Games() {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <button className="btn btn-primary add-game-button">Add Game</button>
-            <form className="add-game-form" autocomplete="off">
-                <h3 className="add-game-title">Add Game</h3>
-                <div className="mb-3 game-text">
-                    <input type="text" className="form-control game-input" id="gameName" placeholder="Name"></input>
-                </div>
-                <div className="form-check form-check-inline game-radio">
-                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></input>
-                    <label className="form-check-label" for="inlineRadio1">DM</label>
-                </div>
-                <div className="form-check form-check-inline game-radio">
-                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"></input>
-                    <label className="form-check-label" for="inlineRadio2">Player</label>
-                </div>
-                <button className="btn btn-primary submit-game-button">Add</button>
-            </form>
+            <button className="btn btn-primary add-game-button" onClick={() => setAddGameVisible(true)}>Add Game</button>
+            {addGameVisible === true &&
+                <form className="add-game-form" autoComplete="off">
+                    <h3 className="add-game-title">Add Game</h3>
+                    <div className="mb-3 game-text">
+                        <input type="text" className="form-control game-input" id="gameName" placeholder="Name"></input>
+                    </div>
+                    <div className="form-check form-check-inline game-radio">
+                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"></input>
+                        <label className="form-check-label" htmlFor="inlineRadio1">DM</label>
+                    </div>
+                    <div className="form-check form-check-inline game-radio">
+                        <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"></input>
+                        <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
+                    </div>
+                    <button className="btn btn-primary submit-game-button">Add</button>
+                </form>
+            }
         </main>
     );
 }
