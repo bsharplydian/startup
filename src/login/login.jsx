@@ -26,7 +26,7 @@ export function Login({ username, authState, onAuthChange }) {
                 x.startsWith('games/'))
             .forEach(x =>
                 localStorage.removeItem(x))
-        localStorage.removeItem(gameIDs)
+        localStorage.removeItem('gameIDs')
         onAuthChange(username, AuthState.Unauthenticated)
     }
     return (
