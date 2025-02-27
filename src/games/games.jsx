@@ -11,6 +11,7 @@ export function Games(props) {
     const [games, setGames] = React.useState(getStoredGames() || {})
     const [newGameName, setNewGameName] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
+    const [charInputs, setCharInputs] = React.useState({});
 
     // useEffect(() => {
 
@@ -29,25 +30,30 @@ export function Games(props) {
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
         do {
-            var id = Math.floor(Math.random() * 1000)
+            var id = Math.floor(Math.random() * 1000);
         }
         while (gameIDs.indexOf(id) !== -1);
-        var newGameIDs = [...gameIDs, id]
+        var newGameIDs = [...gameIDs, id];
 
 
         let newDm = null;
-        let newPlayers = []
+        let newPlayers = [];
         if (playerType === "dm") {
             newDm = username;
         }
-        var game = { gameID: id, gameName: newGameName, dm: newDm, players: newPlayers }
-        localStorage.setItem("games/" + id, JSON.stringify(game))
-        localStorage.setItem("gameIDs", JSON.stringify(newGameIDs))
-        setAddGameVisible(false)
-        setGames({ ...games, [id]: game })
-        setGameIDs(newGameIDs)
+        var game = { gameID: id, gameName: newGameName, dm: newDm, players: newPlayers };
+        localStorage.setItem("games/" + id, JSON.stringify(game));
+        localStorage.setItem("gameIDs", JSON.stringify(newGameIDs));
+        setAddGameVisible(false);
+        setGames({ ...games, [id]: game });
+        setGameIDs(newGameIDs);
     }
-
+    function addCharInput(value, index) {
+        let newCharInputs = charInputs;
+        newCharInputs[index] = value;
+        setCharInputs(newCharInputs)
+        console.log(charInputs)
+    }
     function GameAccordion() {
 
         return (
@@ -75,6 +81,13 @@ export function Games(props) {
                                     })}
                                     <div className="character">
                                         <Link><img src="./add.png" width="100" className="char-image"></img></Link>
+                                        <input
+                                            type="text"
+                                            autoComplete="off"
+                                            className="char-name-input"
+                                            placeholder="Character Name"
+                                            value={charInputs[gameID]}
+                                            onChange={(e) => addCharInput(e.target.value, gameID)}></input>
                                     </div>
                                 </div>
                             </Accordion.Body>
