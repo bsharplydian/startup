@@ -12,7 +12,7 @@ export function Games(props) {
     const [newGameName, setNewGameName] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
     const [charInputs, setCharInputs] = React.useState({});
-
+    const [openItem, setOpenItem] = React.useState(-1);
     // useEffect(() => {
 
     // }, [gameIDs])
@@ -52,26 +52,40 @@ export function Games(props) {
         let newCharInputs = charInputs;
         newCharInputs[index] = value;
         setCharInputs(newCharInputs)
-        console.log(charInputs)
+    }
+    function addPlayerToGame(newCharName, gameID) {
+        let newGame = games[gameID]
+        let newGames = games;
+        do {
+            var id = Math.floor(Math.random() * 1000);
+        }
+        while (gameIDs.indexOf(id) !== -1);
+        newGame["players"].push({ charID: id, playerName: username, charName: newCharName })
+        newGames[gameID] = newGame
+        localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
+        setGames(newGames)
+        setCharInputs({})
+    }
+    function findActiveKey() {
+        return openItem.toString()
     }
     function GameAccordion() {
-
+        //defaultActiveKey={"-1"} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}
         return (
-            <Accordion >
+            <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
                 {gameIDs.map((gameID) => {
                     var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: { "loading...": "loading..." } }
-                    var playerList = currentGame.players
-                    console.log(playerList)
+                    var charList = currentGame.players.map((charInfo) => (charInfo.charName))
                     return (
 
-                        <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()} >
+                        <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
                             <Accordion.Header>
                                 {currentGame.gameName}
                                 {/* get and add player role too */}
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="characters">
-                                    {['e', 'a', 'sports'].map((character) => {
+                                    {charList.map((character) => {
                                         return (
                                             <div className="character" key={character}>
                                                 <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
@@ -80,7 +94,7 @@ export function Games(props) {
                                         )
                                     })}
                                     <div className="character">
-                                        <Link><img src="./add.png" width="100" className="char-image"></img></Link>
+                                        <button onClick={() => addPlayerToGame(charInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
                                         <input
                                             type="text"
                                             autoComplete="off"
