@@ -62,7 +62,7 @@ export default function App() {
                     }
                         exact
                     />
-                    <Route path='/games' element={<Games />} />
+                    <Route path='/games' element={<Games username={username} />} />
                     <Route path='/inventory' element={<Inventory />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>

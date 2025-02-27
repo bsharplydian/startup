@@ -63,7 +63,7 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
     - adding an item builds json and puts it into local storage
 #### functions needed:
 /games:
-- [ ] addGame - takes a game name and a role, and creates a game with the format `{"gameName": "gameName", "dm": "dmName", "characters":[{"playerName": "kyler", "charName": "zetramah"}]}`
+- [x] addGame - takes a game name and a role, and creates a game with the format `{gameName: "gameName", dm: "dmName", characters:[{playerName: "kyler", charName: "zetramah"}, ...]}`
 - [ ] addChar - takes a character name (given by a dropdown), the player's username, and a game name (given by the accordion section) and adds that character and player to the "characters" portion of the given game
 - [ ] chars should send player to the correct inventory when clicked, confirming that they are authorized to view the page. This is done by getting the correct name and inventory items from the database (or in this case, local storage)
 

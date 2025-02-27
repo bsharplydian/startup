@@ -7,24 +7,27 @@ import { Link } from "react-router-dom"
 export function Games(props) {
     const username = props.username;
     const [addGameVisible, setAddGameVisible] = React.useState(false);
-    const [gameIDs, setGameIDs] = React.useState(localStorage.getItem("gameIDs") || []);
+    const [gameIDs, setGameIDs] = React.useState(JSON.parse(localStorage.getItem("gameIDs")) || []);
     const [newGameName, setNewGameName] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
+
     async function addGame(newGameName, playerType) {
-        console.log(playerType)
-        console.log(newGameName)
         // generates a random game id and adds a game with the given info to localstorage
         do {
             var id = Math.floor(Math.random() * 1000)
         }
-        while (id in gameIDs);
+        while (gameIDs.indexOf(id) !== -1);
+        var newGameIDs = [...gameIDs, id]
+        setGameIDs(newGameIDs)
+
         let newDm = null;
         let newPlayers = []
         if (playerType === "dm") {
-            let newDm = username;
+            newDm = username;
         }
         var game = { gameID: id, gameName: newGameName, dm: newDm, players: newPlayers }
         localStorage.setItem("games/" + id, JSON.stringify(game))
+        localStorage.setItem("gameIDs", JSON.stringify(newGameIDs))
         setAddGameVisible(false)
     }
 
