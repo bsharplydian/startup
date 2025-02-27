@@ -8,9 +8,21 @@ export function Games(props) {
     const username = props.username;
     const [addGameVisible, setAddGameVisible] = React.useState(false);
     const [gameIDs, setGameIDs] = React.useState(JSON.parse(localStorage.getItem("gameIDs")) || []);
+    const [games, setGames] = React.useState(getStoredGames() || {})
     const [newGameName, setNewGameName] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
-
+    function getStoredGames() {
+        var games = {}
+        Object.keys(localStorage)
+            .filter(x =>
+                x.startsWith('games/'))
+            .forEach(x => {
+                let game = (JSON.parse(localStorage.getItem(x)))
+                games[game.gameID] = game
+            })
+        console.log(games)
+        return games
+    }
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
         do {
@@ -30,76 +42,85 @@ export function Games(props) {
         localStorage.setItem("gameIDs", JSON.stringify(newGameIDs))
         setAddGameVisible(false)
     }
+    // <div className="characters">
+    // <div className="character">
+    //     <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+    //     <Link to="/inventory">Kaba</Link>
+    // </div>
+    // <div className="character">
+    //     <Link><img src="./add.png" width="100" className="char-image"></img></Link>
+    // </div>
+    // </div>
+    function GameAccordion() {
+        // const [activeKey, setActiveKey] = React.useState(null);
+        return (
+            <Accordion >
+                {gameIDs.map((gameID) => {
+                    var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading", dm: "none", players: { "none": "none" } }
+                    var playerList = currentGame.characters
+                    console.log(gameID)
+                    return (
 
+                        // <GameAccordionItem gameName={currentGame.gameName} eventKey={index} key={index} charList={["wow", "wowww", "wowwww"]} />
+                        <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()} >
+                            <Accordion.Header>
+                                {currentGame.gameName}
+                                {/* get and add player role too */}
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                {/* <GameAccordionCharacters charList={['e', 'a', 'sports']} /> */}
+                                <div className="characters">
+                                    {['e', 'a', 'sports'].map((character) => {
+                                        return (
+                                            <div className="character" key={character}>
+                                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                                <Link to="/inventory">{character}</Link>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    )
+                })
+                }
+            </Accordion >
+        )
+    }
+
+    function GameAccordionItem({ gameName, eventKey, charList }) {
+        return (
+            <Accordion.Item eventKey={toString(eventKey)}>
+                <Accordion.Header>
+                    {gameName}
+                    {/* get and add player role too */}
+                </Accordion.Header>
+                <Accordion.Body>
+                    <GameAccordionCharacters charList={charList} />
+                </Accordion.Body>
+            </Accordion.Item>
+        )
+    }
+    function GameAccordionCharacters({ charList }) {
+        return (
+            <div className="characters">
+                {charList.map((character) => {
+                    return (
+                        <div className="character" key={character}>
+                            <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                            <Link to="/inventory">{character}</Link>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
     return (
         <main className="games-main">
             <h1>Games</h1>
-            <Accordion>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                        The Tides of Chaos (DM)
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        <div className="characters">
-                            <div className="character">
-                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Kaba</Link>
-                            </div>
-                            <div className="character">
-                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Crow</Link>
-                            </div>
-                            <div className="character">
-                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Gin</Link>
-                            </div>
-                            <div className="character">
-                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Gonokosukirishurigeiton</Link>
-                            </div>
-                            <div className="character">
-                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Lonri</Link>
-                            </div>
-                            <div className="character">
-                                <Link><img src="./add.png" width="100" className="char-image"></img></Link>
-                            </div>
-                        </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                    <Accordion.Header>
-                        Grim Hollow (Player)
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        <div className="characters">
-                            <div className="character">
-                                <Link to="/inventory"><img src="./harrison_gunn_ralraymee.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Harrison Gunn</Link>
-                            </div>
-                            <div className="character">
-                                <Link><img src="./add.png" width="100" className="char-image"></img></Link>
-                            </div>
-                        </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="2">
-                    <Accordion.Header>
-                        Dragons of Stormwreck Isle (Player)
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        <div className="characters">
-                            <div className="character">
-                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                <Link to="/inventory">Tyrenol Painkiller</Link>
-                            </div>
-                            <div className="character">
-                                <Link><img src="./add.png" width="100" className="char-image"></img></Link>
-                            </div>
-                        </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
+
+            <GameAccordion />
+
             <button className="btn btn-primary add-game-button" onClick={() => setAddGameVisible(true)}>Add Game</button>
             {addGameVisible === true &&
                 <div className="add-game-form" autoComplete="off">
