@@ -21,6 +21,11 @@ export function Login({ username, authState, onAuthChange }) {
     }
     async function logout() {
         localStorage.removeItem('username')
+        Object.keys(localStorage)
+            .filter(x =>
+                x.startsWith('games/'))
+            .forEach(x =>
+                localStorage.removeItem(x))
         onAuthChange(username, AuthState.Unauthenticated)
     }
     return (

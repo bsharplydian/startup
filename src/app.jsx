@@ -32,7 +32,8 @@ export default function App() {
                         {/* <img src="./BoH-logo.png" width="75"> --> */}
                         <menu className="navbar-nav">
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="">Login</NavLink>
+                                {authState !== AuthState.Authenticated && <NavLink className="nav-link" to="">Login</NavLink>}
+                                {authState === AuthState.Authenticated && <NavLink className="nav-link" to="">Logout</NavLink>}
                             </li>
                             {authState === AuthState.Authenticated && (
                                 <li className="nav-item">

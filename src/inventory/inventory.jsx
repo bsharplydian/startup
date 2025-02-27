@@ -262,7 +262,7 @@ export function Inventory() {
                 </div>
                 <div className="inventory-right">
                     <div className="item-form-container inventory-module">
-                        <form className="item-form" autocomplete="off">
+                        <form className="item-form" autoComplete="off">
                             <div className="form-element">
                                 <h3>Add an Item</h3>
                             </div>
