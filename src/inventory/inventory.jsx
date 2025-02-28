@@ -7,21 +7,33 @@ import { Link } from "react-router-dom";
 export function Inventory(props) {
     const gameID = JSON.parse(localStorage.getItem("currInv"))[0]
     const charID = JSON.parse(localStorage.getItem("currInv"))[1]
-    const [equipment, setEquipment] = React.useState(JSON.parse(localStorage.getItem("invs/" + gameID + "/" + charID))["equipment"])
-    const [magicItems, setMagicItems] = React.useState(JSON.parse(localStorage.getItem("invs/" + gameID + "/" + charID))["magic_items"])
+    const [inventory, setInventory] = React.useState(JSON.parse(localStorage.getItem("invs/" + gameID + "/" + charID)))
+    const [equipment, setEquipment] = React.useState(inventory["equipment"])
+    const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
 
     // form data
-    const [addName, getAddName] = React.useState()
-    const [addCategory, getAddCategory] = React.useState()
-    const [addDamage, getAddDamage] = React.useState()
-    const [addDamageNumDice, getAddDamageNumDice] = React.useState()
-    const [addDamageDie, getAddDamageDie] = React.useState()
-    const [addProperties, getAddProperties] = React.useState()
-    const [addWeight, getAddWeight] = React.useState()
-    const [addCost, getAddCost] = React.useState()
-    const [addCurrency, getAddCurrency] = React.useState()
-    const [addDescription, getAddDescription] = React.useState()
+    const [addName, setAddName] = React.useState('')
+    const [addCategory, setAddCategory] = React.useState('')
+    const [addNumDice, setAddNumDice] = React.useState('')
+    const [addDamageDie, setAddDamageDie] = React.useState('')
+    const [addDamageType, setAddDamageType] = React.useState('')
+    const [addProperties, setAddProperties] = React.useState([])
+    const [addWeight, setAddWeight] = React.useState('')
+    const [addCost, setAddCost] = React.useState('')
+    const [addCurrency, setAddCurrency] = React.useState('')
+    const [addDescription, setAddDescription] = React.useState('')
 
+    const properties = [
+        "Ammunition", "Finesse", "Heavy", "Light", "Loading",
+        "Monk", "Reach", "Special", "Thrown", "Two-Handed", "Versatile"
+    ];
+    const handlePropertyChange = (e) => {
+        if (addProperties.includes(e)) {
+            setAddProperties(addProperties.filter((item) => item !== e))
+        } else {
+            setAddProperties([...addProperties, e])
+        }
+    }
     // 5e-bits data
     // const [equipmentCategories, setEquipmentCategories] = React.useState({})
     // const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
@@ -40,7 +52,28 @@ export function Inventory(props) {
             }
         }
     }
+    function addItem() {
+        let newItem = {
+            name: addName,
+            category: addCategory,
+            numDice: addNumDice,
+            damageDie: addDamageDie,
+            damageType: addDamageType,
+            properties: addProperties,
+            weight: addWeight,
+            cost: addCost,
+            currency: addCurrency,
+            description: addDescription
+        }
+        let newEquipment = equipment
+        let newInventory = inventory
+        newEquipment.push(newItem)
+        newInventory["equipment"] = newEquipment
 
+        localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
+        setEquipment([...newEquipment])
+        setInventory(newInventory)
+    }
     // const myHeaders = new Headers();
     // myHeaders.append("Accept", "application/json");
     // const requestOptions = {
@@ -103,7 +136,7 @@ export function Inventory(props) {
     function InventoryAccordion() {
         return (
             <Accordion className="inventory-accordion">
-                <Accordion.Item>
+                <Accordion.Item key="header">
                     <div className="item-info-header item-info">
                         <div className="attr">
                             Name
@@ -126,18 +159,19 @@ export function Inventory(props) {
                     </div>
                 </Accordion.Item>
                 {equipment.map((item, index) => {
+                    console.log(equipment)
                     return (
-                        <Accordion.Item eventKey={index.toString()}>
+                        <Accordion.Item eventKey={index.toString()} key={index.toString()}>
                             <Accordion.Header>
                                 <div className="item-info">
                                     <div className="attr">
                                         {item["name"]}
                                     </div>
                                     <div className="attr type-outside">
-                                        {item["type"]}
+                                        {item["category"]}
                                     </div>
                                     <div className="attr damage-outside">
-                                        {item["damage"]}
+                                        {item["numDice"]}{item["damageDie"]} {item["damageType"]}
                                     </div>
                                     <div className="attr properties-outside">
                                         {item["properties"]}
@@ -146,18 +180,18 @@ export function Inventory(props) {
                                         {item["weight"]}
                                     </div>
                                     <div className="attr cost-outside">
-                                        {item["cost"]}
+                                        {item["cost"]} {item["currency"]}
                                     </div>
                                 </div>
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="attr-inside type-inside">
                                     <div className="type-label">Type</div>
-                                    <div className="type-value">{item["type"]}</div>
+                                    <div className="type-value">{item["category"]}</div>
                                 </div>
                                 <div className="attr-inside damage-inside">
                                     <div className="damage-label">Damage</div>
-                                    <div className="damage-value">{item["damage"]}</div>
+                                    <div className="damage-value">{item["numDice"]}{item["damageDie"]} {item["damageType"]}</div>
                                 </div>
                                 <div className="attr-inside properties-inside">
                                     <div className="properties-label">Properties</div>
@@ -169,13 +203,13 @@ export function Inventory(props) {
                                 </div>
                                 <div className="attr-inside cost-inside">
                                     <div className="cost-label">Cost</div>
-                                    <div className="cost-value">{item["cost"]}</div>
+                                    <div className="cost-value">{item["cost"]} {item["currency"]}</div>
                                 </div>
                                 <div className="description-label">
                                     Description
                                 </div>
-                                <div className="empty-description">
-                                    {item["description"]}
+                                <div className="description">
+                                    {item["description"] || "This item has no description."}
                                 </div>
                             </Accordion.Body>
                         </Accordion.Item>
@@ -275,26 +309,27 @@ export function Inventory(props) {
                             <div className="form-element">
                                 <label className="form-label" htmlFor="srd">Search the SRD</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" id="srd" type="search" autoComplete="off" disabled={true}></input>
+                                    <input className="form-input" id="srd" type="search" autoComplete="off" disabled={true} placeholder="3rd party API will be here next phase"></input>
                                 </div>
                             </div>
                             <div className="form-element">
                                 <label className="form-label" htmlFor="name">Name</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" id="name" type="text" autoComplete="off"></input>
+                                    <input className="form-input" id="name" type="text" autoComplete="off" value={addName} onChange={(e) => { setAddName(e.target.value) }}></input>
                                 </div>
                             </div>
                             <div className="form-element">
                                 <label className="form-label" htmlFor="type">Equipment Category</label>
                                 <div className="form-input-module">
-                                    <select className="form-input" id="type" name="type">
-                                        <option value="adventuring-gear">Adventuring Gear</option>
-                                        <option value="ammunition">Ammunition</option>
-                                        <option value="arcane-foci">Arcane Foci</option>
-                                        <option value="armor">Armor</option>
-                                        <option value="artisans-tools">Artisan's Tools</option>
-                                        <option value="druidic-foci">Druidic Foci</option>
-                                        <option value="placeholder">list placeholder</option>
+                                    <select className="form-input" id="type" name="type" value={addCategory} onChange={(e) => { setAddCategory(e.target.value) }}>
+                                        <option value=""></option>
+                                        <option value="Adventuring Gear">Adventuring Gear</option>
+                                        <option value="Ammunition">Ammunition</option>
+                                        <option value="Arcane Foci">Arcane Foci</option>
+                                        <option value="Armor">Armor</option>
+                                        <option value="Artisan's Tools">Artisan's Tools</option>
+                                        <option value="Druidic Foci">Druidic Foci</option>
+                                        <option value="List Placeholder">list placeholder</option>
                                     </select>
                                 </div>
                             </div>
@@ -302,8 +337,8 @@ export function Inventory(props) {
                             <div className="form-element">
                                 <label className="form-label" htmlFor="damage">Damage</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" type="text" size="1"></input>
-                                    <select className="form-input" id="dice" name="dice">
+                                    <input className="form-input" type="number" size="1" value={addNumDice} onChange={(e) => { setAddNumDice(e.target.value) }}></input>
+                                    <select className="form-input" id="dice" name="dice" value={addDamageDie} onChange={(e) => { setAddDamageDie(e.target.value) }}>
                                         <option value="-">-</option>
                                         <option value="d4">d4</option>
                                         <option value="d6">d6</option>
@@ -312,7 +347,7 @@ export function Inventory(props) {
                                         <option value="d12">d12</option>
                                         <option value="d20">d20</option>
                                     </select>
-                                    <select className="form-input" id="damage-type" name="damage-type">
+                                    <select className="form-input" id="damage-type" name="damage-type" value={addDamageType} onChange={(e) => { setAddDamageType(e.target.value) }}>
                                         <option value="-">-</option>
                                         <option value="bludgeoning">bludgeoning</option>
                                         <option value="slashing">slashing</option>
@@ -334,52 +369,33 @@ export function Inventory(props) {
                                 <label className="form-label" htmlFor="properties">Properties</label>
                                 <div className="form-input-module">
                                     <div className="btn-group form-input row row-cols-2" role="group">
-                                        <input type="checkbox" className="btn-check" id="btncheck1" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck1">Ammunition</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck2">Finesse</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck3">Heavy</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck4" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck4">Light</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck5" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck5">Loading</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck6" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck6">Monk</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck7" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck7">Reach</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck8" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck8">Special</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck9" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck9">Thrown</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck10" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck10">Two-Handed</label>
-
-                                        <input type="checkbox" className="btn-check" id="btncheck11" autoComplete="off"></input>
-                                        <label className="btn btn-outline-primary" htmlFor="btncheck11">Versatile</label>
+                                        {properties.map((property, index) => (
+                                            <React.Fragment key={property}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="btn-check"
+                                                    id={`btncheck${index}`}
+                                                    autoComplete="off"
+                                                    checked={addProperties.includes(property)}
+                                                    onChange={() => handlePropertyChange(property)}></input>
+                                                <label className="btn btn-outline-primary" htmlFor={`btncheck${index}`}>{property}</label>
+                                            </React.Fragment>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
                             <div className="form-element">
                                 <label className="form-label" htmlFor="weight">Weight</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" id="weight" type="number"></input>
+                                    <input className="form-input" id="weight" type="number" value={addWeight} onChange={(e) => { setAddWeight(e.target.value) }}></input>
                                 </div>
                             </div>
                             <div className="form-element">
                                 <label className="form-label" htmlFor="cost">Cost</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" id="cost" type="number"></input>
-                                    <select className="form-input" id="currency" name="currency">
+                                    <input className="form-input" id="cost" type="number" value={addCost} onChange={(e) => { setAddCost(e.target.value) }}></input>
+                                    <select className="form-input" id="currency" name="currency" value={addCurrency} onChange={(e) => { setAddCurrency(e.target.value) }}>
+                                        <option value=""></option>
                                         <option value="gp">gp</option>
                                         <option value="sp">sp</option>
                                         <option value="cp">cp</option>
@@ -389,11 +405,11 @@ export function Inventory(props) {
                             <div className="form-element form-description">
                                 <label className="form-label" htmlFor="description">Description</label>
                                 <div className="form-input-module">
-                                    <textarea className="form-input" name="description" cols="40" rows="5" autoComplete="off"></textarea>
+                                    <textarea className="form-input" name="description" cols="40" rows="5" autoComplete="off" value={addDescription} onChange={(e) => { setAddDescription(e.target.value) }}></textarea>
                                 </div>
                             </div>
                             <div className="form-element add-item-button-element">
-                                <button type="submit" className="add-item-button form-input btn btn-primary">Add Item</button>
+                                <button onClick={() => addItem()} className="add-item-button form-input btn btn-primary">Add Item</button>
                             </div>
                         </div>
                     </div>

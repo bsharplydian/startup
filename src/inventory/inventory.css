@@ -44,6 +44,10 @@
     flex-direction: column;
 }
 
+.magic-items {
+    display: none;
+}
+
 .accordion {
     --bs-accordion-bg: #222 !important;
     --bs-accordion-border-color: rgb(78, 78, 200) !important;
