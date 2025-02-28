@@ -13,6 +13,8 @@ export default function App() {
     const [authState, setAuthState] = React.useState(currentAuthState);
     const [invGameID, setInvGameID] = React.useState();
     const [invCharID, setInvCharID] = React.useState();
+
+
     return (
         <BrowserRouter>
             <div className="body bg-dark text-light">
@@ -67,10 +69,9 @@ export default function App() {
                     <Route path='/games' element={<Games
                         username={username}
                         onInvIDChange={(gameID, charID) => {
+                            localStorage.setItem("currInv", JSON.stringify([gameID, charID]))
                             setInvGameID(gameID)
                             setInvCharID(charID)
-                            console.log(gameID)
-                            console.log(charID)
                         }}
                     />
                     }

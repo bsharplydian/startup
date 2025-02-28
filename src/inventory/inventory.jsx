@@ -5,6 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 
 export function Inventory(props) {
+    let charGame = JSON.parse(localStorage.getItem("games/" + JSON.parse(localStorage.getItem("currInv"))[0]))
+    let charInfo = getCharInfo(JSON.parse(localStorage.getItem("currInv"))[1], charGame)
+    console.log(charInfo)
+    let charName = charInfo["charName"]
+    function getCharInfo(id, game) {
+        for (const i in game["players"]) {
+            if (game["players"][i]["charID"] === id) {
+                return game["players"][i]
+            }
+        }
+    }
     return (
         <main>
             <Link className="char-select-link" to="/games">{"\u2190"} back to character select</Link>
@@ -12,7 +23,7 @@ export function Inventory(props) {
             <div className="inventory-modules">
                 <div className="inventory-left">
                     <div className="name-module">
-                        <h2 className="char-name">Kabalaka la Kabalabalakalabakan</h2>
+                        <h2 className="char-name">{charName}</h2>
                         <button className="btn btn-secondary notif-button" type="submit">New Item!</button>
                     </div>
                     <div className="equipment inventory-module">
@@ -328,37 +339,37 @@ export function Inventory(props) {
                                 <label className="form-label" htmlFor="properties">Properties</label>
                                 <div className="form-input-module">
                                     <div className="btn-group form-input row row-cols-2" role="group">
-                                        <input type="checkbox" className="btn-check" id="btncheck1" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck1" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck1">Ammunition</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck2" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck2">Finesse</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck3" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck3">Heavy</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck4" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck4" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck4">Light</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck5" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck5" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck5">Loading</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck6" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck6" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck6">Monk</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck7" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck7" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck7">Reach</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck8" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck8" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck8">Special</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck9" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck9" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck9">Thrown</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck10" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck10" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck10">Two-Handed</label>
 
-                                        <input type="checkbox" className="btn-check" id="btncheck11" autocomplete="off"></input>
+                                        <input type="checkbox" className="btn-check" id="btncheck11" autoComplete="off"></input>
                                         <label className="btn btn-outline-primary" htmlFor="btncheck11">Versatile</label>
                                     </div>
                                 </div>

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './games.css';
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 export function Games(props) {
     const username = props.username;
@@ -13,9 +14,8 @@ export function Games(props) {
     const [playerType, setPlayerType] = React.useState("");
     const [charInputs, setCharInputs] = React.useState({});
     const [openItem, setOpenItem] = React.useState(-1);
-    // useEffect(() => {
+    const navigate = useNavigate()
 
-    // }, [gameIDs])
     function getStoredGames() {
         var games = {}
         Object.keys(localStorage)
@@ -70,6 +70,10 @@ export function Games(props) {
     function findActiveKey() {
         return openItem.toString()
     }
+    function switchToInventory(gameID, charID) {
+        props.onInvIDChange(gameID, charID)
+        navigate("/inventory")
+    }
     function GameAccordion() {
         return (
             <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
@@ -87,8 +91,8 @@ export function Games(props) {
                                     {currentGame.players.map((charInfo) => {
                                         return (
                                             <div className="character" key={charInfo.charID}>
-                                                <Link to="/inventory" onClick={() => props.onInvIDChange(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                                <Link to="/inventory" onClick={() => props.onInvIDChange(gameID, charInfo.charID)}>{charInfo.charName}</Link>
+                                                <button onClick={() => switchToInventory(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
+                                                <p onClick={() => switchToInventory(gameID, charInfo.charID)}>{charInfo.charName}</p>
                                             </div>
                                         )
                                     })}
