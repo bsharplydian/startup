@@ -63,6 +63,7 @@ export function Games(props) {
         newGame["players"].push({ charID: id, playerName: username, charName: newCharName })
         newGames[gameID] = newGame
         localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
+        localStorage.setItem("invs/" + gameID + "/" + id, JSON.stringify({ "equipment": [], "magic_items": [] }))
         setGames(newGames)
         setCharInputs({})
     }

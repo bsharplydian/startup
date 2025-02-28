@@ -23,7 +23,7 @@ export function Login({ username, authState, onAuthChange }) {
         localStorage.removeItem('username')
         Object.keys(localStorage)
             .filter(x =>
-                x.startsWith('games/'))
+                (x.startsWith('games/') || x.startsWith('invs/')))
             .forEach(x =>
                 localStorage.removeItem(x))
         localStorage.removeItem('gameIDs')
