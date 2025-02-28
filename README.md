@@ -65,3 +65,21 @@ For this deliverable, I made my application compatible with React. I organized m
     - games.jsx contains the lists of games and characters
     - inventory.jsx contains the equipment and magic item lists along with the add item form
 - React router: Contains imported functions from the other components. Router loads content from various functions based on the path in the web address.
+
+## React pt. 2 Deliverable
+For this deliverable, I added reactivity to all major app components.
+- All functionality implemented or mocked out - I'm most of the way there, but this is significantly more work than I was expecting. I'm confident that my effort demonstrates my learning and abilities in React.
+    - logging in puts the username and password in local storage
+    - the add game button shows the add game menu, and adding a game hides the menu
+    - adding a game puts the game name in local storage
+    - adding a character to a game puts them in local storage under the game
+    - clicking a character sends information to the inventory component so that it displays the correct data from localStorage
+    - the add item form dynamically updates the state so that it has all of the requisite information when the user presses 'add item'
+    - adding an item puts it in local storage
+- implementing useState and useEffect - I found plenty of places where useState was necessary, but the interaction in my application doesn't necessitate useEffect at the moment.
+    - things I use useState for:
+        - keeping track of username and authState
+        - keeping track of all form data
+        - showing/hiding components
+        - getting data from local storage
+    - I think that implementing a dynamic search with my 3rd party API in the next phase will need useEffect.
