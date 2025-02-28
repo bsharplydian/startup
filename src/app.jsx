@@ -44,11 +44,6 @@ export default function App() {
                                     <NavLink className="nav-link" to="games">Games</NavLink>
                                 </li>
                             )}
-                            {authState === AuthState.Authenticated && (
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="inventory">Inventory</NavLink>
-                                </li>
-                            )}
                         </menu>
 
                     </nav>
