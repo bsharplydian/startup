@@ -23,11 +23,11 @@ export function Inventory(props) {
     const [addDescription, getAddDescription] = React.useState()
 
     // 5e-bits data
-    const [equipmentCategories, setEquipmentCategories] = React.useState({})
-    const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
-    const [magicItemsLibrary, setMagicItemsLibrary] = React.useState({})
-    const [damageTypes, setDamageTypes] = React.useState({})
-    const [weaponProperties, setWeaponProperties] = React.useState({})
+    // const [equipmentCategories, setEquipmentCategories] = React.useState({})
+    // const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
+    // const [magicItemsLibrary, setMagicItemsLibrary] = React.useState({})
+    // const [damageTypes, setDamageTypes] = React.useState({})
+    // const [weaponProperties, setWeaponProperties] = React.useState({})
 
     const charGame = JSON.parse(localStorage.getItem("games/" + gameID))
     const charInfo = getCharInfo(charID, charGame["players"])
@@ -41,63 +41,63 @@ export function Inventory(props) {
         }
     }
 
-    const myHeaders = new Headers();
-    myHeaders.append("Accept", "application/json");
-    const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow"
-    };
+    // const myHeaders = new Headers();
+    // myHeaders.append("Accept", "application/json");
+    // const requestOptions = {
+    //     method: "GET",
+    //     headers: myHeaders,
+    //     redirect: "follow"
+    // };
 
-    fetch("https://www.dnd5eapi.co/api/2014/equipment-categories", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            setEquipmentCategories(JSON.parse(result))
-        }
-        )
-        .catch((error) => console.error(error)
-        )
+    // fetch("https://www.dnd5eapi.co/api/2014/equipment-categories", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setEquipmentCategories(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
 
-    fetch("https://www.dnd5eapi.co/api/2014/equipment", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            setEquipmentLibrary(JSON.parse(result))
-        }
-        )
-        .catch((error) => console.error(error)
-        )
-    fetch("https://www.dnd5eapi.co/api/2014/magic-items", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            setMagicItemsLibrary(JSON.parse(result))
-        }
-        )
-        .catch((error) => console.error(error)
-        )
-    fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            setDamageTypes(JSON.parse(result))
-        }
-        )
-        .catch((error) => console.error(error)
-        )
-    fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            setDamageTypes(JSON.parse(result))
-        }
-        )
-        .catch((error) => console.error(error)
-        )
-    fetch("https://www.dnd5eapi.co/api/2014/weapon-properties", requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-            setWeaponProperties(JSON.parse(result))
-        }
-        )
-        .catch((error) => console.error(error)
-        )
+    // fetch("https://www.dnd5eapi.co/api/2014/equipment", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setEquipmentLibrary(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/magic-items", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setMagicItemsLibrary(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setDamageTypes(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setDamageTypes(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/weapon-properties", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setWeaponProperties(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
 
 
     function InventoryAccordion() {
@@ -275,7 +275,7 @@ export function Inventory(props) {
                             <div className="form-element">
                                 <label className="form-label" htmlFor="srd">Search the SRD</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" id="srd" type="search" autoComplete="off"></input>
+                                    <input className="form-input" id="srd" type="search" autoComplete="off" disabled={true}></input>
                                 </div>
                             </div>
                             <div className="form-element">

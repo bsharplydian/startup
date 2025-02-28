@@ -68,6 +68,10 @@
     content: none !important;
 }
 
+:disabled {
+    opacity: 50%
+}
+
 .item-info {
     display: flex;
     flex-direction: row;
