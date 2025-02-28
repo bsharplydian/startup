@@ -76,6 +76,10 @@ For this deliverable, I added reactivity to all major app components.
     - clicking a character sends information to the inventory component so that it displays the correct data from localStorage
     - the add item form dynamically updates the state so that it has all of the requisite information when the user presses 'add item'
     - adding an item puts it in local storage
+    - things that still need reactivity: 
+        - remove game/player/item button
+        - new item notification button (will appear based on websocket)
+        - dynamic search using 3rd party API
 - implementing useState and useEffect - I found plenty of places where useState was necessary, but the interaction in my application doesn't necessitate useEffect at the moment.
     - things I use useState for:
         - keeping track of username and authState
