@@ -8,9 +8,11 @@ import { Games } from './games/games';
 import { AuthState } from './login/authState';
 
 export default function App() {
-    const [username, setUsername] = React.useState(localStorage.getItem('username') || '')
+    const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
     const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
-    const [authState, setAuthState] = React.useState(currentAuthState)
+    const [authState, setAuthState] = React.useState(currentAuthState);
+    const [invGameID, setInvGameID] = React.useState();
+    const [invCharID, setInvCharID] = React.useState();
     return (
         <BrowserRouter>
             <div className="body bg-dark text-light">
@@ -62,8 +64,23 @@ export default function App() {
                     }
                         exact
                     />
-                    <Route path='/games' element={<Games username={username} />} />
-                    <Route path='/inventory' element={<Inventory />} />
+                    <Route path='/games' element={<Games
+                        username={username}
+                        onInvIDChange={(gameID, charID) => {
+                            setInvGameID(gameID)
+                            setInvCharID(charID)
+                            console.log(gameID)
+                            console.log(charID)
+                        }}
+                    />
+                    }
+                    />
+                    <Route path='/inventory' element={<Inventory
+                        gameID={invGameID}
+                        charID={invCharID}
+                    />
+                    }
+                    />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
 

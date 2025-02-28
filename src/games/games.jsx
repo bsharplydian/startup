@@ -70,12 +70,10 @@ export function Games(props) {
         return openItem.toString()
     }
     function GameAccordion() {
-        //defaultActiveKey={"-1"} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}
         return (
             <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
                 {gameIDs.map((gameID) => {
                     var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: { "loading...": "loading..." } }
-                    var charList = currentGame.players.map((charInfo) => (charInfo.charName))
                     return (
 
                         <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
@@ -85,11 +83,11 @@ export function Games(props) {
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="characters">
-                                    {charList.map((character) => {
+                                    {currentGame.players.map((charInfo) => {
                                         return (
-                                            <div className="character" key={character}>
-                                                <Link to="/inventory"><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
-                                                <Link to="/inventory">{character}</Link>
+                                            <div className="character" key={charInfo.charID}>
+                                                <Link to="/inventory" onClick={() => props.onInvIDChange(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></Link>
+                                                <Link to="/inventory" onClick={() => props.onInvIDChange(gameID, charInfo.charID)}>{charInfo.charName}</Link>
                                             </div>
                                         )
                                     })}

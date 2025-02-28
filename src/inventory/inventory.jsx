@@ -4,7 +4,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 
-export function Inventory() {
+export function Inventory(props) {
     return (
         <main>
             <Link className="char-select-link" to="/games">{"\u2190"} back to character select</Link>
