@@ -8,11 +8,13 @@ import { useNavigate } from 'react-router-dom'
 export function Games(props) {
     const username = props.username;
     const [addGameVisible, setAddGameVisible] = React.useState(false);
+    const [joinGameVisible, setJoinGameVisible] = React.useState(false);
     const [gameIDs, setGameIDs] = React.useState(JSON.parse(localStorage.getItem("gameIDs")) || []);
     const [games, setGames] = React.useState(getStoredGames() || {})
     const [newGameName, setNewGameName] = React.useState("");
+    const [joinGameID, setJoinGameID] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
-    const [charInputs, setCharInputs] = React.useState({});
+    const [charNameInputs, setCharInputs] = React.useState({});
     const [openItem, setOpenItem] = React.useState(-1);
     const navigate = useNavigate()
 
@@ -48,12 +50,32 @@ export function Games(props) {
         setGames({ ...games, [id]: game });
         setGameIDs(newGameIDs);
     }
+    async function joinGame(joinGameID, playerType) {
+        var game = JSON.parse(localStorage.getItem("games/" + joinGameID));
+        if (game === null) {
+            console.error("no game here")
+            return
+        }
+        if (playerType === "player") {
+
+        } else if (playerType === "dm") {
+            if (game.dm !== null) {
+                console.error("This game already has a dungeon master.")
+                return
+            } else {
+                game.dm = username;
+            }
+        }
+
+        localStorage.setItem("games/" + joinGameID, JSON.stringify(game));
+        setJoinGameVisible(false);
+    }
     function addCharInput(value, index) {
-        let newCharInputs = charInputs;
+        let newCharInputs = charNameInputs;
         newCharInputs[index] = value;
         setCharInputs(newCharInputs)
     }
-    function addPlayerToGame(newCharName, gameID) {
+    function addUserToGame(newCharName, gameID) {
         let newGame = games[gameID]
         let newGames = games;
         do {
@@ -97,13 +119,14 @@ export function Games(props) {
                                         )
                                     })}
                                     <div className="character">
-                                        <button onClick={() => addPlayerToGame(charInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
+                                        <button onClick={() => addUserToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
                                         <input
+                                            key={gameID}
                                             type="text"
                                             autoComplete="off"
                                             className="char-name-input"
                                             placeholder="Character Name"
-                                            value={charInputs[gameID]}
+                                            value={charNameInputs[gameID]}
                                             onChange={(e) => addCharInput(e.target.value, gameID)}></input>
                                     </div>
                                 </div>
@@ -122,7 +145,19 @@ export function Games(props) {
 
             <GameAccordion />
 
-            <button className="btn btn-primary add-game-button" onClick={() => setAddGameVisible(true)}>Add Game</button>
+            <button className="btn btn-primary add-game-button"
+                onClick={() => {
+                    setAddGameVisible(true)
+                    setJoinGameVisible(false)
+                    setPlayerType("")
+                }}>Add Game</button>
+            <button className="btn btn-primary add-game-button"
+                onClick={() => {
+                    setAddGameVisible(false)
+                    setJoinGameVisible(true)
+                    setPlayerType("")
+                }}>Join Game</button>
+
             {addGameVisible === true &&
                 <div className="add-game-form" autoComplete="off">
                     <h3 className="add-game-title">Add Game</h3>
@@ -138,6 +173,23 @@ export function Games(props) {
                         <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
                     </div>
                     <button className="btn btn-primary submit-game-button" disabled={!newGameName || !playerType} onClick={() => addGame(newGameName, playerType)}>Add</button>
+                </div>
+            }
+            {joinGameVisible === true &&
+                <div className="add-game-form" autoComplete="off">
+                    <h3 className="add-game-title">Join Game</h3>
+                    <div className="mb-3 game-text">
+                        <input type="number" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Game ID" value={joinGameID} onChange={(e) => setJoinGameID(e.target.value)}></input>
+                    </div>
+                    <div className="form-check form-check-inline game-radio">
+                        <input className="form-check-input" type="radio" name="playerType" value="dm" onClick={() => setPlayerType("dm")}></input>
+                        <label className="form-check-label" htmlFor="inlineRadio1">DM</label>
+                    </div>
+                    <div className="form-check form-check-inline game-radio">
+                        <input className="form-check-input" type="radio" name="playerType" value="player" onClick={() => setPlayerType("player")}></input>
+                        <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
+                    </div>
+                    <button className="btn btn-primary submit-game-button" disabled={!joinGameID || !playerType} onClick={() => joinGame(joinGameID, playerType)}>Add</button>
                 </div>
             }
         </main>

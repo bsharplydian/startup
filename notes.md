@@ -79,3 +79,16 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 | `{condition && (<html>)}` | html only displays when condition is true |
 | `const [var, varSetter] = React.useState(initialVar)` | defines a var and varSetter function. var initializes with the value of initialVar. |
 | `React.useEffect(() => {}, [])` | sets up a function to render based on updates from items in the dependency list (if dependency list is not included, it renders every frame; if it is included but empty, it renders on the first frame only) |
+
+### frontend functionality I still need to add
+- join games button
+- delete items from inventory
+- delete game
+- dynamic searchbar
+- view new item added by dm button
+
+## Service
+- I've thought of a good rule for users to interact with other users' content
+    1. a user can only see games they are a part of
+    2. a user can request to join a game via an add code of some sort (add a 'join game' button)
+    3. a user can view, but not edit, other characters' inventories in a shared game (unless they are the DM)
