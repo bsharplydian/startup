@@ -22,18 +22,6 @@
 }
 
 /* USE THIS FOR THE ERASING COLOR #C84E4E */
-.remove-items-button {
-    background-color: transparent !important;
-    color: #c84e4e;
-    border: none !important;
-    margin: 0 0;
-    width: 0px;
-    padding: 0px;
-}
-
-.dropdown-toggle::after {
-    display: none;
-}
 
 .change-attunement-button {
     border: none !important;

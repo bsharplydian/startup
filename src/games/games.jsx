@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './games.css';
 import Accordion from 'react-bootstrap/Accordion';
+import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
 
@@ -114,7 +115,16 @@ export function Games(props) {
                                         return (
                                             <div className="character" key={charInfo.charID}>
                                                 <button onClick={() => switchToInventory(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
-                                                <p onClick={() => switchToInventory(gameID, charInfo.charID)}>{charInfo.charName}</p>
+                                                <div className="character-name">
+                                                    <div className="whitespace"></div>
+                                                    <p className="character-name-text" onClick={() => switchToInventory(gameID, charInfo.charID)}>{charInfo.charName}</p>
+                                                    <Dropdown className="remove-char-button">
+                                                        <Dropdown.Toggle className="remove-element-button remove-char-button">⋯</Dropdown.Toggle>
+                                                        <Dropdown.Menu data-bs-theme="dark">
+                                                            <Dropdown.Item onClick={() => deleteChar(gameID, charInfo.charID)}>Delete Character</Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                </div>
                                             </div>
                                         )
                                     })}
@@ -130,6 +140,12 @@ export function Games(props) {
                                             onChange={(e) => addCharInput(e.target.value, gameID)}></input>
                                     </div>
                                 </div>
+                                <Dropdown>
+                                    <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
+                                    <Dropdown.Menu data-bs-theme="dark">
+                                        <Dropdown.Item onClick={() => deleteGame(gameID)}>Delete Game</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                             </Accordion.Body>
                         </Accordion.Item>
                     )

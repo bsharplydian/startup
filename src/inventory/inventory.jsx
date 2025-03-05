@@ -1,9 +1,10 @@
 import React from 'react';
 import './inventory.css';
 import Accordion from 'react-bootstrap/Accordion';
+import Dropdown from "react-bootstrap/Dropdown";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
+
 
 export function Inventory(props) {
     const gameID = JSON.parse(localStorage.getItem("currInv"))[0]
@@ -231,7 +232,7 @@ export function Inventory(props) {
                                     {item["description"] || "This item has no description."}
                                 </div>
                                 <Dropdown>
-                                    <Dropdown.Toggle className="remove-items-button">⋯</Dropdown.Toggle>
+                                    <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
                                     <Dropdown.Menu data-bs-theme="dark">
                                         <Dropdown.Item onClick={() => deleteItem(index)}>Delete Item</Dropdown.Item>
                                     </Dropdown.Menu>

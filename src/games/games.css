@@ -34,8 +34,26 @@
     flex-direction: column;
     align-items: center;
     padding: 1em;
+    padding-bottom: 0;
     margin: 0.5em;
     background: rgb(40, 40, 40)
+}
+
+.character-name-text {
+    flex: 1 0
+}
+
+.remove-char-button {
+    flex: 1;
+    justify-self: end !important;
+}
+
+.character-name {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center !important;
 }
 
 @media (max-width: 700px) {
