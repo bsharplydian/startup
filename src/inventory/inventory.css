@@ -23,10 +23,16 @@
 
 /* USE THIS FOR THE ERASING COLOR #C84E4E */
 .remove-items-button {
-    background-color: #C84E4E !important;
+    background-color: transparent !important;
+    color: #c84e4e;
     border: none !important;
-    margin: 0.5em 0;
-    width: fit-content;
+    margin: 0 0;
+    width: 0px;
+    padding: 0px;
+}
+
+.dropdown-toggle::after {
+    display: none;
 }
 
 .change-attunement-button {

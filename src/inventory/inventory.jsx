@@ -3,6 +3,7 @@ import './inventory.css';
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export function Inventory(props) {
     const gameID = JSON.parse(localStorage.getItem("currInv"))[0]
@@ -70,6 +71,25 @@ export function Inventory(props) {
         newEquipment.push(newItem)
         newInventory["equipment"] = newEquipment
 
+        localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
+        setAddName('')
+        setAddCategory('')
+        setAddNumDice('')
+        setAddDamageDie('')
+        setAddDamageType('')
+        setAddProperties([])
+        setAddWeight('')
+        setAddCost('')
+        setAddCurrency('')
+        setAddDescription('')
+        setEquipment([...newEquipment])
+        setInventory(newInventory)
+    }
+    function deleteItem(index) {
+        let newEquipment = equipment;
+        let newInventory = inventory;
+        newEquipment.splice(index, 1);
+        newInventory["equipment"] = newEquipment;
         localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
         setEquipment([...newEquipment])
         setInventory(newInventory)
@@ -159,7 +179,6 @@ export function Inventory(props) {
                     </div>
                 </Accordion.Item>
                 {equipment.map((item, index) => {
-                    console.log(equipment)
                     return (
                         <Accordion.Item eventKey={index.toString()} key={index.toString()}>
                             <Accordion.Header>
@@ -211,6 +230,12 @@ export function Inventory(props) {
                                 <div className="description">
                                     {item["description"] || "This item has no description."}
                                 </div>
+                                <Dropdown>
+                                    <Dropdown.Toggle className="remove-items-button">⋯</Dropdown.Toggle>
+                                    <Dropdown.Menu data-bs-theme="dark">
+                                        <Dropdown.Item onClick={() => deleteItem(index)}>Delete Item</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                             </Accordion.Body>
                         </Accordion.Item>
                     )
@@ -231,9 +256,6 @@ export function Inventory(props) {
                     <div className="equipment inventory-module">
                         <h3>Equipment</h3>
                         <InventoryAccordion />
-                        <div className="button-group">
-                            <button type="submit" className="remove-items-button btn btn-primary">Remove Items</button>
-                        </div>
                     </div>
                     <div className="magic-items inventory-module">
                         <h3>Magic Items <span>(1/3 Attuned)</span></h3>
