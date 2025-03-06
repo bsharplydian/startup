@@ -90,6 +90,22 @@ export function Games(props) {
         setGames(newGames)
         setCharInputs({})
     }
+    function deleteChar(gameID, charID) {
+        let newGame = games[gameID]
+        let newGames = games;
+        for (var i = 0; i < newGame["players"].length; i++) {
+            if (newGame["players"][i].charID == charID) {
+                newGame["players"].splice(i, 1)
+            }
+        }
+        newGames[gameID] = newGame
+        localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
+        localStorage.removeItem("invs/" + gameID)
+        setGames({ ...newGames })
+    }
+    function deleteGame(gameID) {
+
+    }
     function findActiveKey() {
         return openItem.toString()
     }
@@ -139,13 +155,14 @@ export function Games(props) {
                                             value={charNameInputs[gameID]}
                                             onChange={(e) => addCharInput(e.target.value, gameID)}></input>
                                     </div>
+                                    <Dropdown>
+                                        <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
+                                        <Dropdown.Menu data-bs-theme="dark">
+                                            <Dropdown.Item onClick={() => deleteGame(gameID)}>Delete Game</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </div>
-                                <Dropdown>
-                                    <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
-                                    <Dropdown.Menu data-bs-theme="dark">
-                                        <Dropdown.Item onClick={() => deleteGame(gameID)}>Delete Game</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+
                             </Accordion.Body>
                         </Accordion.Item>
                     )
