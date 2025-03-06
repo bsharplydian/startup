@@ -104,7 +104,23 @@ export function Games(props) {
         setGames({ ...newGames })
     }
     function deleteGame(gameID) {
-
+        //clean up inventories
+        Object.keys(localStorage)
+            .filter(x =>
+                x.startsWith('invs/' + gameID))
+            .forEach(x => {
+                localStorage.removeItem(x)
+            })
+        localStorage.removeItem("games/" + gameID)
+        let newGames = games;
+        let newGameIDs = gameIDs;
+        console.log(newGames)
+        delete newGames.gameID
+        newGameIDs.splice(newGameIDs.indexOf(gameID), 1)
+        console.log(newGameIDs)
+        localStorage.setItem("gameIDs", JSON.stringify(newGameIDs))
+        setGames({ ...newGames })
+        setGameIDs([...newGameIDs])
     }
     function findActiveKey() {
         return openItem.toString()
