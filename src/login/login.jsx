@@ -11,14 +11,32 @@ export function Login({ username, authState, onAuthChange }) {
     const [displayError, setDisplayError] = React.useState(null)
 
     const navigate = useNavigate();
+
     async function login() {
-        localStorage.setItem('username', newUsername)
-        onAuthChange(newUsername, AuthState.Authenticated)
+        loginOrCreate(`/api/auth/login`)
     }
     async function createUser() {
-        localStorage.setItem('username', newUsername)
-        onAuthChange(newUsername, AuthState.Authenticated)
+        loginOrCreate(`/api/auth/create`)
     }
+
+    async function loginOrCreate(endpoint) {
+        const response = await fetch(endpoint, {
+            method: 'post',
+            body: JSON.stringify({ username: newUsername, password: password }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
+        if (response?.status === 200) {
+            localStorage.setItem('username', newUsername)
+            onAuthChange(newUsername, AuthState.Authenticated);
+        } else {
+            const body = await response.json();
+            setDisplayError(`An error occurred: ${body.msg}`)
+            console.log(displayError)
+        }
+    }
+
     async function logout() {
         localStorage.removeItem('username')
         Object.keys(localStorage)
@@ -47,7 +65,7 @@ export function Login({ username, authState, onAuthChange }) {
                     </div>
                     <div className="login-item login-buttons">
                         <button className="login-button" onClick={() => login()} disabled={!newUsername || !password}><span className="login-button-text">Login</span></button>
-                        <button className="login-button secondary-btn" onClick={() => login()} disabled={!newUsername || !password}><span className="login-button-text">Create Account</span></button>
+                        <button className="login-button secondary-btn" onClick={() => createUser()} disabled={!newUsername || !password}><span className="login-button-text">Create Account</span></button>
                     </div>
                 </div>}
                 {authState === AuthState.Authenticated &&
