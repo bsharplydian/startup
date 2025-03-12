@@ -18,7 +18,15 @@ app.use(`/api`, apiRouter);
 app.get('*', (_req, res) => {
     res.send({ msg: 'Congratulations! You have reached the generic Bag of Holding GET endpoint' });
 });
-
-app.listen(port, () => {
+apiRouter.post("/auth/login");
+apiRouter.post("/auth/create");
+apiRouter.delete("/auth/logout");
+apiRouter.get("/games");
+apiRouter.post("/game");
+apiRouter.get("/players");
+apiRouter.post("/player");
+apiRouter.get("/equipment_items");
+apiRouter.post("/equipment_item");
+apiRouter.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
