@@ -92,3 +92,8 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
     1. a user can only see games they are a part of
     2. a user can request to join a game via an add code of some sort (add a 'join game' button)
     3. a user can view, but not edit, other characters' inventories in a shared game (unless they are the DM)
+
+### http endpoint lifecycle
+1. in jsx, const response = await fetch("endpoint", {method, body, headers})
+2. in index.js, apiRouter.{httpMethod}("endpoint", async function takes req and res as params)
+3. in jsx, response is received
