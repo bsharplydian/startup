@@ -97,3 +97,4 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 1. in jsx, const response = await fetch("endpoint", {method, body, headers})
 2. in index.js, apiRouter.{httpMethod}("endpoint", async function takes req and res as params)
 3. in jsx, response is received
+4. if endpoint contains a /:id, it can be queried with req.params.id
