@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const app = express();
 
-let users = {} // user: {username, password, authToken}
+let users = [] // user: {username, password, authToken}
 let games = {} // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
 // {1358: {gameName: "game1", dm: "jim", "players:" []}, }
 let inventories = {} // inventory: {equipment[]}
@@ -55,6 +55,7 @@ apiRouter.get("/games", async (req, res) => {
 apiRouter.post("/games", async (req, res) => {
     console.log("HELLO")
     games = addGame(req.body);
+    console.log(games)
     res.send(games);
 });
 apiRouter.delete("/games/:id", async (req, res) => {

@@ -20,8 +20,8 @@ export function Games(props) {
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        fetch('/api/games').then((response) => response.json()).then((games) => { console.log(games) }, [])
-    })
+        fetch('/api/games').then((response) => response.json()).then((games) => { setGames(games) }, [])
+    }, [])
     function getStoredGames() {
         var games = {}
         Object.keys(localStorage)
@@ -50,10 +50,12 @@ export function Games(props) {
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
-        })
+        }).then((response) => response.json())
         console.log(newGames)
         setGames(newGames);
-        setGameIDs(newGames.keys);
+        console.log(Object.keys(newGames))
+        setGameIDs(Object.keys(newGames));
+
     }
     async function joinGame(joinGameID, playerType) {
         var game = JSON.parse(localStorage.getItem("games/" + joinGameID));
@@ -135,61 +137,64 @@ export function Games(props) {
     }
     function GameAccordion() {
         return (
-            // <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
-            //     {gameIDs.map((gameID) => {
-            //         var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: { "loading...": "loading..." } }
-            //         return (
+            <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
+                {gameIDs.map((gameID) => {
+                    var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: ["loading...", "loading..."] }
+                    return (
 
-            //             <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
-            //                 <Accordion.Header>
-            //                     {currentGame.gameName}
-            //                     {/* get and add player role too */}
-            //                 </Accordion.Header>
-            //                 <Accordion.Body>
-            //                     <div className="characters">
-            //                         {currentGame.players.map((charInfo) => {
-            //                             return (
-            //                                 <div className="character" key={charInfo.charID}>
-            //                                     <button onClick={() => switchToInventory(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
-            //                                     <div className="character-name">
-            //                                         <div className="whitespace"></div>
-            //                                         <p className="character-name-text" onClick={() => switchToInventory(gameID, charInfo.charID)}>{charInfo.charName}</p>
-            //                                         <Dropdown className="remove-char-button">
-            //                                             <Dropdown.Toggle className="remove-element-button remove-char-button">⋯</Dropdown.Toggle>
-            //                                             <Dropdown.Menu data-bs-theme="dark">
-            //                                                 <Dropdown.Item onClick={() => deleteChar(gameID, charInfo.charID)}>Delete Character</Dropdown.Item>
-            //                                             </Dropdown.Menu>
-            //                                         </Dropdown>
-            //                                     </div>
-            //                                 </div>
-            //                             )
-            //                         })}
-            //                         <div className="character">
-            //                             <button onClick={() => addUserToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
-            //                             <input
-            //                                 key={gameID}
-            //                                 type="text"
-            //                                 autoComplete="off"
-            //                                 className="char-name-input"
-            //                                 placeholder="Character Name"
-            //                                 value={charNameInputs[gameID]}
-            //                                 onChange={(e) => addCharInput(e.target.value, gameID)}></input>
-            //                         </div>
-            //                         <Dropdown>
-            //                             <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
-            //                             <Dropdown.Menu data-bs-theme="dark">
-            //                                 <Dropdown.Item onClick={() => deleteGame(gameID)}>Delete Game</Dropdown.Item>
-            //                             </Dropdown.Menu>
-            //                         </Dropdown>
-            //                     </div>
+                        <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
+                            <Accordion.Header>
+                                {currentGame.gameName}
+                                {/* get and add player role too */}
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <div className="characters">
+                                    {/* {currentGame.players.map((charInfo) => {
+                                        return (
+                                            <div className="character" key={charInfo.charID}>
+                                                <button onClick={() => switchToInventory(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
+                                                <div className="character-name">
+                                                    <div className="whitespace"></div>
+                                                    <p className="character-name-text" onClick={() => switchToInventory(gameID, charInfo.charID)}>{charInfo.charName}</p>
+                                                    <Dropdown className="remove-char-button">
+                                                        <Dropdown.Toggle className="remove-element-button remove-char-button">⋯</Dropdown.Toggle>
+                                                        <Dropdown.Menu data-bs-theme="dark">
+                                                            <Dropdown.Item onClick={() => deleteChar(gameID, charInfo.charID)}>Delete Character</Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                </div>
+                                            </div>
+                                        )
+                                    })} */}
+                                    {
+                                        currentGame.players
+                                    }
+                                    <div className="character">
+                                        <button onClick={() => addUserToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
+                                        <input
+                                            key={gameID}
+                                            id={gameID}
+                                            type="text"
+                                            autoComplete="off"
+                                            className="char-name-input"
+                                            placeholder="Character Name"
+                                            value={charNameInputs[gameID]}
+                                            onChange={(e) => addCharInput(e.target.value, gameID)}></input>
+                                    </div>
+                                    <Dropdown>
+                                        <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
+                                        <Dropdown.Menu data-bs-theme="dark">
+                                            <Dropdown.Item onClick={() => deleteGame(gameID)}>Delete Game</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
 
-            //                 </Accordion.Body>
-            //             </Accordion.Item>
-            //         )
-            //     })
-            //     }
-            // </Accordion >
-            <div>accordion here</div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    )
+                })
+                }
+            </Accordion >
         )
     }
 
@@ -219,11 +224,11 @@ export function Games(props) {
                         <input type="text" autoComplete="off" className="form-control game-input" id="gameName" placeholder="Name" value={newGameName} onChange={(e) => setNewGameName(e.target.value)}></input>
                     </div>
                     <div className="form-check form-check-inline game-radio">
-                        <input className="form-check-input" type="radio" name="playerType" value="dm" onClick={() => setPlayerType("dm")}></input>
+                        <input className="form-check-input" type="radio" name="playerType" id="inlineRadio1" value="dm" onClick={() => setPlayerType("dm")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio1">DM</label>
                     </div>
                     <div className="form-check form-check-inline game-radio">
-                        <input className="form-check-input" type="radio" name="playerType" value="player" onClick={() => setPlayerType("player")}></input>
+                        <input className="form-check-input" type="radio" name="playerType" id="inlineRadio2" value="player" onClick={() => setPlayerType("player")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
                     </div>
                     <button className="btn btn-primary submit-game-button" disabled={!newGameName || !playerType} onClick={() => addGame(newGameName, playerType)}>Add</button>
@@ -236,11 +241,11 @@ export function Games(props) {
                         <input type="number" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Game ID" value={joinGameID} onChange={(e) => setJoinGameID(e.target.value)}></input>
                     </div>
                     <div className="form-check form-check-inline game-radio">
-                        <input className="form-check-input" type="radio" name="playerType" value="dm" onClick={() => setPlayerType("dm")}></input>
+                        <input className="form-check-input" type="radio" name="playerType" id="inlineRadio1" value="dm" onClick={() => setPlayerType("dm")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio1">DM</label>
                     </div>
                     <div className="form-check form-check-inline game-radio">
-                        <input className="form-check-input" type="radio" name="playerType" value="player" onClick={() => setPlayerType("player")}></input>
+                        <input className="form-check-input" type="radio" name="playerType" id="inlineRadio2" value="player" onClick={() => setPlayerType("player")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
                     </div>
                     <button className="btn btn-primary submit-game-button" disabled={!joinGameID || !playerType} onClick={() => joinGame(joinGameID, playerType)}>Add</button>
