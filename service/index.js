@@ -4,9 +4,10 @@ const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const app = express();
 
-let users = [] // user: {username, password, authToken}
-let games = [] // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
-let inventories = [] // inventory: {equipment[]}
+let users = {} // user: {username, password, authToken}
+let games = {} // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
+// {1358: {gameName: "game1", dm: "jim", "players:" []}, }
+let inventories = {} // inventory: {equipment[]}
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -48,9 +49,11 @@ apiRouter.delete("/auth/logout", async (req, res) => {
     res.status(204).end();
 });
 apiRouter.get("/games", async (req, res) => {
+    console.log("GETTING GAMES")
     res.send(games);
 });
 apiRouter.post("/games", async (req, res) => {
+    console.log("HELLO")
     games = addGame(req.body);
     res.send(games);
 });
@@ -81,27 +84,37 @@ apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:id", async (
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 
-function addGame() {
-
+function addGame(requestBody) {
+    newGameID = generateGameID()
+    games[newGameID] = { gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
+    return games
 }
-function removeGame() {
-
-}
-
-function addPlayer() {
-
-}
-function removePlayer() {
+function removeGame(requestBody) {
 
 }
 
-function addItem() {
+function addPlayer(requestBody) {
 
 }
-function removeItem() {
+function removePlayer(requestBody) {
 
 }
 
+function addItem(requestBody) {
+
+}
+function removeItem(requestBody) {
+
+}
+
+function generateGameID() {
+    do {
+        var id = Math.floor(Math.random() * 10000);
+        console.log(id)
+    }
+    while (games[id]);
+    return id
+}
 async function getUser(field, value) {
     if (!value) {
         return null
