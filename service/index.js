@@ -7,6 +7,7 @@ const app = express();
 let users = [] // user: {username, password, authToken}
 let games = {} // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
 // {1358: {gameName: "game1", dm: "jim", "players:" []}, }
+// 187: {characterName: "Kaba", username: "Ben"}
 let inventories = {} // inventory: {equipment[]}
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -51,7 +52,7 @@ apiRouter.delete("/auth/logout", async (req, res) => {
 apiRouter.get("/games/:user", async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
-    let userGames = Object.values(games).filter((game) => game["dm"] === username) // need a condition to tell if the user is a PLAYER
+    let userGames = Object.values(games).filter((game) => game["dm"] === username || playerInGame(game.players, username)) // need a condition to tell if the user is a PLAYER
     console.log(username)
     console.log(userGames)
     console.log("GETTING GAMES")
@@ -59,7 +60,6 @@ apiRouter.get("/games/:user", async (req, res) => {
 });
 apiRouter.post("/games/:user", async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
-    console.log("HELLO")
     games = addGame(req.body);
     console.log(games)
     res.send(games);
@@ -91,6 +91,19 @@ apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:id", async (
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 
+function playerInGame(players, playerName) {
+    console.log(players)
+    if (players.length == 0) {
+        return false
+    }
+    console.log(players.values)
+    for (const player of players.values) {
+        if (player.username === playerName) {
+            return True
+        }
+    }
+    return False
+}
 function addGame(requestBody) {
     newGameID = generateGameID()
     games[newGameID] = { gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }

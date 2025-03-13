@@ -14,6 +14,7 @@ export function Games(props) {
     const [games, setGames] = React.useState({})
     const [newGameName, setNewGameName] = React.useState("");
     const [joinGameID, setJoinGameID] = React.useState("");
+    const [joinGamePlayer, setJoinGamePlayer] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
     const [charNameInputs, setCharInputs] = React.useState({});
     const [openItem, setOpenItem] = React.useState(-1);
@@ -198,7 +199,7 @@ export function Games(props) {
                     setAddGameVisible(true)
                     setJoinGameVisible(false)
                     setPlayerType("")
-                }}>Add Game</button>
+                }}>Create Game</button>
             <button className="btn btn-primary add-game-button"
                 onClick={() => {
                     setAddGameVisible(false)
@@ -208,36 +209,49 @@ export function Games(props) {
 
             {addGameVisible === true &&
                 <div className="add-game-form" autoComplete="off">
-                    <h3 className="add-game-title">Add Game</h3>
+                    <h3 className="add-game-title">Create Game</h3>
+                    <p>Create a new game as the Dungeon Master</p>
                     <div className="mb-3 game-text">
                         <input type="text" autoComplete="off" className="form-control game-input" id="gameName" placeholder="Name" value={newGameName} onChange={(e) => setNewGameName(e.target.value)}></input>
                     </div>
-                    <div className="form-check form-check-inline game-radio">
+                    {/* <div className="form-check form-check-inline game-radio">
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio1" value="dm" onClick={() => setPlayerType("dm")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio1">DM</label>
                     </div>
                     <div className="form-check form-check-inline game-radio">
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio2" value="player" onClick={() => setPlayerType("player")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
-                    </div>
-                    <button className="btn btn-primary submit-game-button" disabled={!newGameName || !playerType} onClick={() => addGame(newGameName, playerType)}>Add</button>
+                    </div> */}
+                    <button className="btn btn-primary submit-game-button" disabled={!newGameName}
+                        onClick={() => {
+                            setPlayerType("dm");
+                            addGame(newGameName, playerType);
+                        }}>Create</button>
                 </div>
             }
             {joinGameVisible === true &&
                 <div className="add-game-form" autoComplete="off">
                     <h3 className="add-game-title">Join Game</h3>
+                    <p>Join a game as a player</p>
                     <div className="mb-3 game-text">
                         <input type="number" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Game ID" value={joinGameID} onChange={(e) => setJoinGameID(e.target.value)}></input>
                     </div>
-                    <div className="form-check form-check-inline game-radio">
+                    <div className="mb-3 game-text">
+                        <input type="text" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Character Name" value={joinGamePlayer} onChange={(e) => setJoinGamePlayer(e.target.value)}></input>
+                    </div>
+                    {/* <div className="form-check form-check-inline game-radio">
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio1" value="dm" onClick={() => setPlayerType("dm")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio1">DM</label>
                     </div>
                     <div className="form-check form-check-inline game-radio">
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio2" value="player" onClick={() => setPlayerType("player")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
-                    </div>
-                    <button className="btn btn-primary submit-game-button" disabled={!joinGameID || !playerType} onClick={() => joinGame(joinGameID, playerType)}>Add</button>
+                    </div> */}
+                    <button className="btn btn-primary submit-game-button" disabled={!joinGameID || !joinGamePlayer}
+                        onClick={() => {
+                            setPlayerType("player");
+                            joinGame(joinGameID, playerType)
+                        }}>Join</button>
                 </div>
             }
         </main>
