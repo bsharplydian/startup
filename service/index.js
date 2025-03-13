@@ -48,11 +48,17 @@ apiRouter.delete("/auth/logout", async (req, res) => {
     res.clearCookie("authToken");
     res.status(204).end();
 });
-apiRouter.get("/games", async (req, res) => {
+apiRouter.get("/games/:user", async (req, res) => {
+    // next step: use the req header/body to get the user's username and only display games they're a part of
+    let username = req.params.user
+    let userGames = Object.values(games).filter((game) => game["dm"] === username) // need a condition to tell if the user is a PLAYER
+    console.log(username)
+    console.log(userGames)
     console.log("GETTING GAMES")
-    res.send(games);
+    res.send(userGames);
 });
-apiRouter.post("/games", async (req, res) => {
+apiRouter.post("/games/:user", async (req, res) => {
+    // next step: use the req header/body to get the user's username and only display games they're a part of
     console.log("HELLO")
     games = addGame(req.body);
     console.log(games)

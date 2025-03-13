@@ -10,8 +10,8 @@ export function Games(props) {
     const username = props.username;
     const [addGameVisible, setAddGameVisible] = React.useState(false);
     const [joinGameVisible, setJoinGameVisible] = React.useState(false);
-    const [gameIDs, setGameIDs] = React.useState(JSON.parse(localStorage.getItem("gameIDs")) || []);
-    const [games, setGames] = React.useState(getStoredGames() || {})
+    const [gameIDs, setGameIDs] = React.useState([]);
+    const [games, setGames] = React.useState({})
     const [newGameName, setNewGameName] = React.useState("");
     const [joinGameID, setJoinGameID] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
@@ -20,19 +20,8 @@ export function Games(props) {
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        fetch('/api/games').then((response) => response.json()).then((games) => { setGames(games) }, [])
+        fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); setGameIDs(Object.keys(games)) }, [])
     }, [])
-    function getStoredGames() {
-        var games = {}
-        Object.keys(localStorage)
-            .filter(x =>
-                x.startsWith('games/'))
-            .forEach(x => {
-                let game = (JSON.parse(localStorage.getItem(x)))
-                games[game.gameID] = game
-            })
-        return games
-    }
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
 
@@ -44,7 +33,7 @@ export function Games(props) {
         var game = { gameName: newGameName, dm: newDm, players: newPlayers };
         setAddGameVisible(false);
         console.log("getting new games")
-        let newGames = await fetch("/api/games", {
+        let newGames = await fetch(`/api/games/${username}`, {
             method: 'post',
             body: JSON.stringify(game),
             headers: {
