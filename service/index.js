@@ -74,23 +74,23 @@ apiRouter.post("/games/:user", async (req, res) => {
     // console.log(games)
     res.send(games);
 });
-apiRouter.delete("/games/:id", async (req, res) => {
-    console.log(`deleting ${req.params.id}`)
-    games = removeGame(req.params.id);
+apiRouter.delete("/games/:gameID", async (req, res) => {
+    console.log(`deleting ${req.params.gameID}`)
+    games = removeGame(req.params.gameID);
     res.send(games);
 });
 
 // PLAYERS
-apiRouter.get("/games/:id/players", async (req, res) => {
-    res.send(games[req.params.id]["players"]);
+apiRouter.get("/games/:gameID/players", async (req, res) => {
+    res.send(games[req.params.gameID]["players"]);
 });
-apiRouter.post("/games/:id/players", async (req, res) => {
-    games[req.params.id]["players"] = addPlayer(req.body);
-    res.send(games[req.params.id]["players"]);
+apiRouter.post("/games/:gameID/players", async (req, res) => {
+    games[req.params.gameID]["players"] = addPlayer(req.params.gameID, req.body);
+    res.send(games);
 });
-apiRouter.delete("/games/:id/players/:id", async (req, res) => {
-    games[req.params.id]["players"] = removePlayer(req.body);
-    res.send(games[req.params.id]["players"]);
+apiRouter.delete("/games/:gameID/players/:playerID", async (req, res) => {
+    games[req.params.gameID]["players"] = removePlayer(req.body);
+    res.send(games[req.params.gameID]["players"]);
 });
 
 // INVENTORIES
@@ -107,11 +107,9 @@ apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:id", async (
 });
 
 function playerInGame(players, playerName) {
-    console.log(players)
     if (players.length == 0) {
         return false
     }
-    console.log(players.values)
     for (const player of players.values) {
         if (player.username === playerName) {
             return True
@@ -120,7 +118,7 @@ function playerInGame(players, playerName) {
     return False
 }
 function addGame(requestBody) {
-    newGameID = generateGameID()
+    newGameID = generateID(games)
     games[newGameID] = { gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
     return games
 }
@@ -129,8 +127,12 @@ function removeGame(gameID) {
     return games
 }
 
-function addPlayer(requestBody) {
-
+function addPlayer(gameID, requestBody) {
+    newPlayerID = generateID(games[gameID]["players"])
+    games[gameID]["players"][newPlayerID] = { characterName: requestBody.characterName, playerName: requestBody.playerName }
+    console.log(games)
+    console.log(games[gameID]["players"])
+    return games[gameID]["players"];
 }
 function removePlayer(requestBody) {
 
@@ -143,12 +145,11 @@ function removeItem(requestBody) {
 
 }
 
-function generateGameID() {
+function generateID(container) {
     do {
         var id = Math.floor(Math.random() * 10000);
-        console.log(id)
     }
-    while (games[id]);
+    while (container[id]);
     return id
 }
 async function getUser(field, value) {

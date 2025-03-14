@@ -12,7 +12,7 @@ export function Games(props) {
     const [joinGameVisible, setJoinGameVisible] = React.useState(false);
     const [games, setGames] = React.useState({})
     const [newGameName, setNewGameName] = React.useState("");
-    const [joinGameID, setJoinGameID] = React.useState("");
+    const [gameID, setJoinGameID] = React.useState("");
     const [joinGamePlayer, setJoinGamePlayer] = React.useState("");
     const [playerType, setPlayerType] = React.useState("");
     const [charNameInputs, setCharInputs] = React.useState({});
@@ -28,7 +28,7 @@ export function Games(props) {
         // generates a random game id and adds a game with the given info to localstorage
 
         let newDm = null;
-        let newPlayers = [];
+        let newPlayers = {};
         if (playerType === "dm") {
             newDm = username;
         }
@@ -42,18 +42,25 @@ export function Games(props) {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json())
-        console.log(newGames)
         setGames(newGames);
-        console.log(Object.keys(newGames))
 
     }
-    async function joinGame(joinGameID, playerType) {
-        var game = JSON.parse(localStorage.getItem("games/" + joinGameID));
+    async function joinGame(gameID, newCharName, playerType) {
+        var game = games[gameID]
         if (game === null) {
             console.error("no game here")
             return
         }
+        let newGames = games;
         if (playerType === "player") {
+            newGames = await fetch(`/api/games/${gameID}/players`, {
+                method: 'post',
+                body: JSON.stringify({ characterName: newCharName, playerName: username }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            }).then((response) => response.json());
+            setGames(newGames)
 
         } else if (playerType === "dm") {
             if (game.dm !== null) {
@@ -64,15 +71,15 @@ export function Games(props) {
             }
         }
 
-        localStorage.setItem("games/" + joinGameID, JSON.stringify(game));
         setJoinGameVisible(false);
+        setGames(newGames)
     }
     function addCharInput(value, index) {
         let newCharInputs = charNameInputs;
         newCharInputs[index] = value;
         setCharInputs(newCharInputs)
     }
-    function addUserToGame(newCharName, gameID) {
+    function addPlayerToGame(newCharName, gameID) {
         let newGame = games[gameID]
         let newGames = games;
         do {
@@ -131,7 +138,6 @@ export function Games(props) {
             <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
                 {Object.keys(games).map((gameID, index) => {
                     var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: ["loading...", "loading..."] }
-                    console.log(games)
                     return (
 
                         <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
@@ -146,17 +152,16 @@ export function Games(props) {
                                 <div className="characters">
                                     {Object.keys(currentGame.players).map((key, index) => {
                                         let charInfo = currentGame.players[key]
-                                        console.log(currentGame);
                                         return (
-                                            <div className="character" key={charInfo.charID}>
-                                                <button onClick={() => switchToInventory(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
+                                            <div className="character" key={key}>
+                                                <button onClick={() => switchToInventory(gameID, key)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
                                                 <div className="character-name">
                                                     <div className="whitespace"></div>
-                                                    <p className="character-name-text" onClick={() => switchToInventory(gameID, charInfo.charID)}>{charInfo.charName}</p>
+                                                    <p className="character-name-text" onClick={() => switchToInventory(gameID, key)}>{charInfo.characterName}</p>
                                                     <Dropdown className="remove-char-button">
                                                         <Dropdown.Toggle className="remove-element-button remove-char-button">⋯</Dropdown.Toggle>
                                                         <Dropdown.Menu data-bs-theme="dark">
-                                                            <Dropdown.Item onClick={() => deleteChar(gameID, charInfo.charID)}>Delete Character</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => deleteChar(gameID, key)}>Delete Character</Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
                                                 </div>
@@ -164,7 +169,7 @@ export function Games(props) {
                                         )
                                     })}
                                     <div className="character">
-                                        <button onClick={() => addUserToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
+                                        <button onClick={() => addPlayerToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
                                         <input
                                             key={gameID}
                                             id={gameID}
@@ -238,7 +243,7 @@ export function Games(props) {
                     <h3 className="add-game-title">Join Game</h3>
                     <p>Join a game as a player</p>
                     <div className="mb-3 game-text">
-                        <input type="number" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Game ID" value={joinGameID} onChange={(e) => setJoinGameID(e.target.value)}></input>
+                        <input type="number" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Game ID" value={gameID} onChange={(e) => setJoinGameID(e.target.value)}></input>
                     </div>
                     <div className="mb-3 game-text">
                         <input type="text" autoComplete="off" className="form-control game-input" id="charName" placeholder="Character Name" value={joinGamePlayer} onChange={(e) => setJoinGamePlayer(e.target.value)}></input>
@@ -251,10 +256,10 @@ export function Games(props) {
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio2" value="player" onClick={() => setPlayerType("player")}></input>
                         <label className="form-check-label" htmlFor="inlineRadio2">Player</label>
                     </div> */}
-                    <button className="btn btn-primary submit-game-button" disabled={!joinGameID || !joinGamePlayer}
+                    <button className="btn btn-primary submit-game-button" disabled={!gameID || !joinGamePlayer}
                         onClick={() => {
                             setPlayerType("player");
-                            joinGame(joinGameID, "player")
+                            joinGame(gameID, joinGamePlayer, "player")
                         }}>Join</button>
                 </div>
             }
