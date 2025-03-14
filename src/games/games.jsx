@@ -10,7 +10,6 @@ export function Games(props) {
     const username = props.username;
     const [addGameVisible, setAddGameVisible] = React.useState(false);
     const [joinGameVisible, setJoinGameVisible] = React.useState(false);
-    const [gameIDs, setGameIDs] = React.useState([]);
     const [games, setGames] = React.useState({})
     const [newGameName, setNewGameName] = React.useState("");
     const [joinGameID, setJoinGameID] = React.useState("");
@@ -21,7 +20,7 @@ export function Games(props) {
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); setGameIDs(Object.keys(games)) }, [])
+        fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); }, [])
     }, [])
 
 
@@ -46,7 +45,6 @@ export function Games(props) {
         console.log(newGames)
         setGames(newGames);
         console.log(Object.keys(newGames))
-        setGameIDs(Object.keys(newGames));
 
     }
     async function joinGame(joinGameID, playerType) {
@@ -80,7 +78,7 @@ export function Games(props) {
         do {
             var id = Math.floor(Math.random() * 1000);
         }
-        while (gameIDs.indexOf(id) !== -1);
+        while (newGame["players"].indexOf(id) !== -1);
         newGame["players"].push({ charID: id, playerName: username, charName: newCharName })
         newGames[gameID] = newGame
         localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
@@ -119,14 +117,7 @@ export function Games(props) {
         }).then((response) => response.json());
 
 
-        let newGameIDs = gameIDs;
-        console.log(newGames)
-        delete newGames.gameID
-        newGameIDs.splice(newGameIDs.indexOf(gameID), 1)
-        console.log(newGameIDs)
-        localStorage.setItem("gameIDs", JSON.stringify(newGameIDs))
         setGames({ ...newGames })
-        setGameIDs([...newGameIDs])
     }
     function findActiveKey() {
         return openItem.toString()
