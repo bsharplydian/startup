@@ -89,8 +89,8 @@ apiRouter.post("/games/:gameID/players", async (req, res) => {
     res.send(games);
 });
 apiRouter.delete("/games/:gameID/players/:playerID", async (req, res) => {
-    games[req.params.gameID]["players"] = removePlayer(req.body);
-    res.send(games[req.params.gameID]["players"]);
+    games[req.params.gameID]["players"] = removePlayer(req.params.gameID, req.params.playerID);
+    res.send(games);
 });
 
 // INVENTORIES
@@ -134,8 +134,9 @@ function addPlayer(gameID, requestBody) {
     console.log(games[gameID]["players"])
     return games[gameID]["players"];
 }
-function removePlayer(requestBody) {
-
+function removePlayer(gameID, playerID) {
+    delete games[gameID]["players"][playerID]
+    return games[gameID]["players"]
 }
 
 function addItem(requestBody) {

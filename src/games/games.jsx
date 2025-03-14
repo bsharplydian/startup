@@ -93,17 +93,22 @@ export function Games(props) {
         setGames(newGames)
         setCharInputs({})
     }
-    function deleteChar(gameID, charID) {
-        let newGame = games[gameID]
-        let newGames = games;
-        for (var i = 0; i < newGame["players"].length; i++) {
-            if (newGame["players"][i].charID == charID) {
-                newGame["players"].splice(i, 1)
+    async function deleteChar(gameID, charID) {
+        // let newGame = games[gameID]
+        let newGames = await fetch(`/api/games/${gameID}/players/${charID}`, {
+            method: 'delete',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
             }
-        }
-        newGames[gameID] = newGame
-        localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
-        localStorage.removeItem("invs/" + gameID)
+        }).then((response) => response.json());;
+        // for (var i = 0; i < newGame["players"].length; i++) {
+        //     if (newGame["players"][i].charID == charID) {
+        //         newGame["players"].splice(i, 1)
+        //     }
+        // }
+        // newGames[gameID] = newGame
+        // localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
+        // localStorage.removeItem("invs/" + gameID)
         setGames({ ...newGames })
     }
     async function deleteGame(gameID) {
@@ -114,7 +119,6 @@ export function Games(props) {
             .forEach(x => {
                 localStorage.removeItem(x)
             })
-        localStorage.removeItem("games/" + gameID)
 
         let newGames = await fetch(`/api/games/${gameID}`, {
             method: 'delete',
