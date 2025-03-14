@@ -79,36 +79,14 @@ export function Games(props) {
         newCharInputs[index] = value;
         setCharInputs(newCharInputs)
     }
-    function addPlayerToGame(newCharName, gameID) {
-        let newGame = games[gameID]
-        let newGames = games;
-        do {
-            var id = Math.floor(Math.random() * 1000);
-        }
-        while (newGame["players"].indexOf(id) !== -1);
-        newGame["players"].push({ charID: id, playerName: username, charName: newCharName })
-        newGames[gameID] = newGame
-        localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
-        localStorage.setItem("invs/" + gameID + "/" + id, JSON.stringify({ "equipment": [], "magic_items": [] }))
-        setGames(newGames)
-        setCharInputs({})
-    }
     async function deleteChar(gameID, charID) {
-        // let newGame = games[gameID]
         let newGames = await fetch(`/api/games/${gameID}/players/${charID}`, {
             method: 'delete',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json());;
-        // for (var i = 0; i < newGame["players"].length; i++) {
-        //     if (newGame["players"][i].charID == charID) {
-        //         newGame["players"].splice(i, 1)
-        //     }
-        // }
-        // newGames[gameID] = newGame
-        // localStorage.setItem("games/" + gameID, JSON.stringify(newGame))
-        // localStorage.removeItem("invs/" + gameID)
+
         setGames({ ...newGames })
     }
     async function deleteGame(gameID) {
