@@ -52,7 +52,13 @@ apiRouter.delete("/auth/logout", async (req, res) => {
 apiRouter.get("/games/:user", async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
-    let userGames = Object.values(games).filter((game) => game["dm"] === username || playerInGame(game.players, username)) // need a condition to tell if the user is a PLAYER
+    let userGames = {};
+    console.log("keys: ", Object.keys(games))
+    for (var key of Object.keys(games)) {
+        if (games[key]["dm"] === username || playerInGame(games[key].players, username)) {
+            userGames[key] = games[key]
+        }
+    }
     console.log(username)
     console.log(userGames)
     console.log("GETTING GAMES")
@@ -110,7 +116,7 @@ function addGame(requestBody) {
     return games
 }
 function removeGame(requestBody) {
-
+    delete games[requestBody.gameID]
 }
 
 function addPlayer(requestBody) {

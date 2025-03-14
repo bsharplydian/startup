@@ -22,7 +22,10 @@ export function Games(props) {
 
     React.useEffect(() => {
         fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); setGameIDs(Object.keys(games)) }, [])
+        console.log("just got games")
     }, [])
+
+
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
 
@@ -128,13 +131,15 @@ export function Games(props) {
     function GameAccordion() {
         return (
             <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
-                {gameIDs.map((gameID) => {
+                {Object.keys(games).map((gameID, index) => {
                     var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: ["loading...", "loading..."] }
+                    console.log(games)
                     return (
 
                         <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
                             <Accordion.Header>
                                 {currentGame.gameName}
+                                <div>ID: {gameID} index: {index}</div>
                                 {/* get and add player role too */}
                             </Accordion.Header>
                             <Accordion.Body>
