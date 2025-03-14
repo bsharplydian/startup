@@ -169,7 +169,10 @@ export function Games(props) {
                                         )
                                     })}
                                     <div className="character">
-                                        <button onClick={() => addPlayerToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
+                                        <button onClick={() => {
+                                            joinGame(gameID, charNameInputs[gameID], "player")
+                                            setCharInputs([])
+                                        }}><img src="./add.png" width="100" className="char-image"></img></button>
                                         <input
                                             key={gameID}
                                             id={gameID}
