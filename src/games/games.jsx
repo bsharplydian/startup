@@ -101,7 +101,7 @@ export function Games(props) {
         localStorage.removeItem("invs/" + gameID)
         setGames({ ...newGames })
     }
-    function deleteGame(gameID) {
+    async function deleteGame(gameID) {
         //clean up inventories
         Object.keys(localStorage)
             .filter(x =>
@@ -110,7 +110,15 @@ export function Games(props) {
                 localStorage.removeItem(x)
             })
         localStorage.removeItem("games/" + gameID)
-        let newGames = games;
+
+        let newGames = await fetch(`/api/games/${gameID}`, {
+            method: 'delete',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        }).then((response) => response.json());
+
+
         let newGameIDs = gameIDs;
         console.log(newGames)
         delete newGames.gameID
@@ -242,7 +250,7 @@ export function Games(props) {
                         <input type="number" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Game ID" value={joinGameID} onChange={(e) => setJoinGameID(e.target.value)}></input>
                     </div>
                     <div className="mb-3 game-text">
-                        <input type="text" autoComplete="off" className="form-control game-input" id="gameID" placeholder="Character Name" value={joinGamePlayer} onChange={(e) => setJoinGamePlayer(e.target.value)}></input>
+                        <input type="text" autoComplete="off" className="form-control game-input" id="charName" placeholder="Character Name" value={joinGamePlayer} onChange={(e) => setJoinGamePlayer(e.target.value)}></input>
                     </div>
                     {/* <div className="form-check form-check-inline game-radio">
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio1" value="dm" onClick={() => setPlayerType("dm")}></input>

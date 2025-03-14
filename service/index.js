@@ -20,6 +20,8 @@ app.use(`/api`, apiRouter);
 app.get('*', (_req, res) => {
     res.send({ msg: 'Congratulations! You have reached the generic Bag of Holding GET endpoint' });
 });
+
+// LOGIN
 apiRouter.post("/auth/login", async (req, res) => {
     const user = await getUser('username', req.body.username);
     if (user) {
@@ -49,6 +51,8 @@ apiRouter.delete("/auth/logout", async (req, res) => {
     res.clearCookie("authToken");
     res.status(204).end();
 });
+
+// GAMES
 apiRouter.get("/games/:user", async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
@@ -59,21 +63,24 @@ apiRouter.get("/games/:user", async (req, res) => {
             userGames[key] = games[key]
         }
     }
-    console.log(username)
-    console.log(userGames)
-    console.log("GETTING GAMES")
+    // console.log(username)
+    // console.log(userGames)
+    // console.log("GETTING GAMES")
     res.send(userGames);
 });
 apiRouter.post("/games/:user", async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     games = addGame(req.body);
-    console.log(games)
+    // console.log(games)
     res.send(games);
 });
 apiRouter.delete("/games/:id", async (req, res) => {
-    games = removeGame(req.body);
+    console.log(`deleting ${req.params.id}`)
+    games = removeGame(req.params.id);
     res.send(games);
 });
+
+// PLAYERS
 apiRouter.get("/games/:id/players", async (req, res) => {
     res.send(games[req.params.id]["players"]);
 });
@@ -85,6 +92,8 @@ apiRouter.delete("/games/:id/players/:id", async (req, res) => {
     games[req.params.id]["players"] = removePlayer(req.body);
     res.send(games[req.params.id]["players"]);
 });
+
+// INVENTORIES
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
@@ -115,8 +124,9 @@ function addGame(requestBody) {
     games[newGameID] = { gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
     return games
 }
-function removeGame(requestBody) {
-    delete games[requestBody.gameID]
+function removeGame(gameID) {
+    delete games[gameID]
+    return games
 }
 
 function addPlayer(requestBody) {
