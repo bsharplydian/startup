@@ -57,7 +57,7 @@ export function Games(props) {
 
         } else if (playerType === "dm") {
             if (game.dm !== null) {
-                console.error("This game already has a dungeon master.")
+                console.error("This game already has a dungeon master. Also this error shouldn't be possible")
                 return
             } else {
                 game.dm = username;
@@ -139,7 +139,9 @@ export function Games(props) {
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="characters">
-                                    {/* {currentGame.players.map((charInfo) => {
+                                    {Object.keys(currentGame.players).map((key, index) => {
+                                        let charInfo = currentGame.players[key]
+                                        console.log(currentGame);
                                         return (
                                             <div className="character" key={charInfo.charID}>
                                                 <button onClick={() => switchToInventory(gameID, charInfo.charID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
@@ -155,10 +157,7 @@ export function Games(props) {
                                                 </div>
                                             </div>
                                         )
-                                    })} */}
-                                    {
-                                        currentGame.players
-                                    }
+                                    })}
                                     <div className="character">
                                         <button onClick={() => addUserToGame(charNameInputs[gameID], gameID)}><img src="./add.png" width="100" className="char-image"></img></button>
                                         <input
@@ -212,7 +211,7 @@ export function Games(props) {
                     <h3 className="add-game-title">Create Game</h3>
                     <p>Create a new game as the Dungeon Master</p>
                     <div className="mb-3 game-text">
-                        <input type="text" autoComplete="off" className="form-control game-input" id="gameName" placeholder="Name" value={newGameName} onChange={(e) => setNewGameName(e.target.value)}></input>
+                        <input type="text" autoComplete="off" className="form-control game-input" id="gameName" placeholder="Game Name" value={newGameName} onChange={(e) => setNewGameName(e.target.value)}></input>
                     </div>
                     {/* <div className="form-check form-check-inline game-radio">
                         <input className="form-check-input" type="radio" name="playerType" id="inlineRadio1" value="dm" onClick={() => setPlayerType("dm")}></input>
@@ -225,7 +224,7 @@ export function Games(props) {
                     <button className="btn btn-primary submit-game-button" disabled={!newGameName}
                         onClick={() => {
                             setPlayerType("dm");
-                            addGame(newGameName, playerType);
+                            addGame(newGameName, "dm");
                         }}>Create</button>
                 </div>
             }
@@ -250,7 +249,7 @@ export function Games(props) {
                     <button className="btn btn-primary submit-game-button" disabled={!joinGameID || !joinGamePlayer}
                         onClick={() => {
                             setPlayerType("player");
-                            joinGame(joinGameID, playerType)
+                            joinGame(joinGameID, "player")
                         }}>Join</button>
                 </div>
             }
