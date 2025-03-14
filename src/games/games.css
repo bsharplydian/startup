@@ -6,6 +6,16 @@
 
 }
 
+.game-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.gameID {
+    opacity: 60%;
+
+}
+
 .accordion {
     --bs-accordion-bg: #222 !important;
     --bs-accordion-border-color: rgb(78, 78, 200) !important;

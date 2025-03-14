@@ -22,7 +22,6 @@ export function Games(props) {
 
     React.useEffect(() => {
         fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); setGameIDs(Object.keys(games)) }, [])
-        console.log("just got games")
     }, [])
 
 
@@ -138,9 +137,11 @@ export function Games(props) {
 
                         <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
                             <Accordion.Header>
-                                {currentGame.gameName}
-                                <div>ID: {gameID} index: {index}</div>
-                                {/* get and add player role too */}
+                                <div className="game-info">
+                                    {currentGame.gameName}
+                                    <div className="gameID">ID: {gameID}</div>
+                                    {/* get and add player role too */}
+                                </div>
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="characters">
