@@ -38,13 +38,12 @@ export function Login({ username, authState, onAuthChange }) {
     }
 
     async function logout() {
-        localStorage.removeItem('username')
-        Object.keys(localStorage)
-            .filter(x =>
-                (x.startsWith('games/') || x.startsWith('invs/')))
-            .forEach(x =>
-                localStorage.removeItem(x))
-        localStorage.removeItem('gameIDs')
+        const response = await fetch('/api/auth/logout', {
+            method: 'delete',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        });
         onAuthChange(username, AuthState.Unauthenticated)
     }
     return (

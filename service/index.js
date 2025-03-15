@@ -13,6 +13,7 @@ let inventories = {} // inventory: {equipment[]}
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
+app.use(cookieParser())
 
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
@@ -39,6 +40,7 @@ apiRouter.post("/auth/create", async (req, res) => {
         res.status(409).send({ msg: "User already exists" });
     } else {
         const user = await createUser(req.body.username, req.body.password);
+        user.token = uuid.v4();
         res.cookie("authToken", user.token, { secure: true, httpOnly: true, sameSite: 'strict' });
         res.send({ username: user.username });
     }
@@ -95,6 +97,8 @@ apiRouter.delete("/games/:gameID/players/:playerID", async (req, res) => {
 
 // INVENTORIES
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
+    console.log("inventories: ", inventories)
+    console.log("game inventories: ", inventories[req.params.gameID])
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 apiRouter.post("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
@@ -110,6 +114,7 @@ function playerInGame(players, playerName) {
     if (players.length == 0) {
         return false
     }
+    console.log(players.values)
     for (const player of players.values) {
         if (player.username === playerName) {
             return True
@@ -120,6 +125,7 @@ function playerInGame(players, playerName) {
 function addGame(requestBody) {
     newGameID = generateID(games)
     games[newGameID] = { gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
+    inventories[newGameID] = {}
     return games
 }
 function removeGame(gameID) {
@@ -130,8 +136,8 @@ function removeGame(gameID) {
 function addPlayer(gameID, requestBody) {
     newPlayerID = generateID(games[gameID]["players"])
     games[gameID]["players"][newPlayerID] = { characterName: requestBody.characterName, playerName: requestBody.playerName }
-    console.log(games)
-    console.log(games[gameID]["players"])
+    inventories[gameID][newPlayerID] = { equipment: {}, magicItems: {} }
+    console.log(inventories[gameID][newPlayerID])
     return games[gameID]["players"];
 }
 function removePlayer(gameID, playerID) {
