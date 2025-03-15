@@ -7,11 +7,9 @@ import { Link } from "react-router-dom";
 
 
 export function Inventory(props) {
-    const gameID = JSON.parse(localStorage.getItem("currInv"))[0]
-    const charID = JSON.parse(localStorage.getItem("currInv"))[1]
-    const [inventory, setInventory] = React.useState(JSON.parse(localStorage.getItem("invs/" + gameID + "/" + charID)))
-    const [equipment, setEquipment] = React.useState(inventory["equipment"])
-    const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
+    const [inventory, setInventory] = React.useState({})
+    // const [equipment, setEquipment] = React.useState(inventory["equipment"])
+    // const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
 
     // form data
     const [addName, setAddName] = React.useState('')
@@ -36,6 +34,15 @@ export function Inventory(props) {
             setAddProperties([...addProperties, e])
         }
     }
+    React.useEffect(() => {
+        fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`).then((response) => response.json()).then((inventory) => setInventory(inventory), [])
+
+    }, [])
+    // async function getCharInventory(gameID, charID) {
+    //     let inv = await fetch(`/api/games/${gameID}/players/${charID}/equipment-items`).then((response) => response.json())
+    //     return inv
+    // }
+
     // 5e-bits data
     // const [equipmentCategories, setEquipmentCategories] = React.useState({})
     // const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
@@ -43,10 +50,11 @@ export function Inventory(props) {
     // const [damageTypes, setDamageTypes] = React.useState({})
     // const [weaponProperties, setWeaponProperties] = React.useState({})
 
-    const charGame = JSON.parse(localStorage.getItem("games/" + gameID))
-    const charInfo = getCharInfo(charID, charGame["players"])
+    // const charGame = await fetch(`/api/games/${props.gameID}`);
+    // const charInfo = getCharInfo(charID, charGame["players"])
 
-    const charName = charInfo["charName"]
+    const charName = "not sure what your name is"
+    //charInfo["charName"]
     function getCharInfo(id, players) {
         for (const i in players) {
             if (players[i]["charID"] === id) {
@@ -67,7 +75,7 @@ export function Inventory(props) {
             currency: addCurrency,
             description: addDescription
         }
-        let newEquipment = equipment
+        let newEquipment = inventory["equipment"]
         let newInventory = inventory
         newEquipment.push(newItem)
         newInventory["equipment"] = newEquipment
@@ -87,7 +95,7 @@ export function Inventory(props) {
         setInventory(newInventory)
     }
     function deleteItem(index) {
-        let newEquipment = equipment;
+        let newEquipment = inventory["equipment"];
         let newInventory = inventory;
         newEquipment.splice(index, 1);
         newInventory["equipment"] = newEquipment;
@@ -179,7 +187,8 @@ export function Inventory(props) {
                         </div>
                     </div>
                 </Accordion.Item>
-                {equipment.map((item, index) => {
+                {[0, 1].map((item, index) => {
+                    console.log(inventory)
                     return (
                         <Accordion.Item eventKey={index.toString()} key={index.toString()}>
                             <Accordion.Header>

@@ -11,9 +11,11 @@ export default function App() {
     const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
     const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-    const [invGameID, setInvGameID] = React.useState();
-    const [invCharID, setInvCharID] = React.useState();
+    const [currInvGameID, setCurrInvGameID] = React.useState(JSON.parse(localStorage.getItem('currInv'))[0]);
+    const [currInvCharID, setCurrInvCharID] = React.useState(JSON.parse(localStorage.getItem('currInv'))[1]);
 
+    var invGameID = currInvGameID;
+    var invCharID = currInvCharID;
 
     return (
         <BrowserRouter>
@@ -65,8 +67,11 @@ export default function App() {
                         username={username}
                         onInvIDChange={(gameID, charID) => {
                             localStorage.setItem("currInv", JSON.stringify([gameID, charID]))
-                            setInvGameID(gameID)
-                            setInvCharID(charID)
+                            console.log(gameID, charID)
+                            invGameID = gameID
+                            invCharID = charID
+                            setCurrInvGameID(gameID)
+                            setCurrInvCharID(charID)
                         }}
                     />
                     }

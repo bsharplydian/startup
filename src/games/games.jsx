@@ -34,7 +34,6 @@ export function Games(props) {
         }
         var game = { gameName: newGameName, dm: newDm, players: newPlayers };
         setAddGameVisible(false);
-        console.log("getting new games")
         let newGames = await fetch(`/api/games/${username}`, {
             method: 'post',
             body: JSON.stringify(game),
