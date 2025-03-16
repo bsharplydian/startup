@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 export function Inventory(props) {
     const [inventory, setInventory] = React.useState({})
+    const [charName, setCharName] = React.useState("")
     const [loading, setLoading] = React.useState(true)
     // const [equipment, setEquipment] = React.useState(inventory["equipment"])
     // const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
@@ -41,6 +42,14 @@ export function Inventory(props) {
             .then((inventory) => { setInventory(inventory); setLoading(false) })
 
     }, [loading])
+    React.useEffect(() => {
+        fetch(`/api/games/${props.gameID}/players`)
+            .then((response) => response.json())
+            .then((players) => {
+                console.log("player: ", players[props.charID])
+                setCharName(players[props.charID].characterName)
+            })
+    }, [])
     // async function getCharInventory(gameID, charID) {
     //     let inv = await fetch(`/api/games/${gameID}/players/${charID}/equipment-items`).then((response) => response.json())
     //     return inv
@@ -53,18 +62,7 @@ export function Inventory(props) {
     // const [damageTypes, setDamageTypes] = React.useState({})
     // const [weaponProperties, setWeaponProperties] = React.useState({})
 
-    // const charGame = await fetch(`/api/games/${props.gameID}`);
-    // const charInfo = getCharInfo(charID, charGame["players"])
 
-    const charName = "not sure what your name is"
-    //charInfo["charName"]
-    function getCharInfo(id, players) {
-        for (const i in players) {
-            if (players[i]["charID"] === id) {
-                return players[i]
-            }
-        }
-    }
     async function addItem() {
         setLoading(true)
         let newItem = {
@@ -79,9 +77,8 @@ export function Inventory(props) {
             currency: addCurrency,
             description: addDescription
         }
-        // let newEquipment = inventory["equipment"]
+
         let newInventory = { ...inventory }
-        // newEquipment.push(newItem)
         newInventory["equipment"] = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`, {
             method: "post",
             body: JSON.stringify(newItem),
@@ -89,8 +86,8 @@ export function Inventory(props) {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         })
-        // setInventory(newInventory)
-        // localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
+
+
         setAddName('')
         setAddCategory('')
         setAddNumDice('')
@@ -101,16 +98,14 @@ export function Inventory(props) {
         setAddCost('')
         setAddCurrency('')
         setAddDescription('')
-        // setEquipment([...newEquipment])
         setInventory(newInventory)
     }
     function deleteItem(index) {
-        let newEquipment = inventory["equipment"];
-        let newInventory = inventory;
+        let newInventory = { ...inventory };
+        let newEquipment = newInventory["equipment"];
         newEquipment.splice(index, 1);
         newInventory["equipment"] = newEquipment;
         localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
-        setEquipment([...newEquipment])
         setInventory({ ...newInventory })
     }
     // const myHeaders = new Headers();
