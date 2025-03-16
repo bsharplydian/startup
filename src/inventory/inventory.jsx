@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 export function Inventory(props) {
     const [inventory, setInventory] = React.useState({})
+    const [loading, setLoading] = React.useState(true)
     // const [equipment, setEquipment] = React.useState(inventory["equipment"])
     // const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
 
@@ -35,9 +36,11 @@ export function Inventory(props) {
         }
     }
     React.useEffect(() => {
-        fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`).then((response) => response.json()).then((inventory) => setInventory(inventory), [])
+        fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`)
+            .then((response) => response.json())
+            .then((inventory) => { setInventory(inventory); setLoading(false) })
 
-    }, [])
+    }, [loading])
     // async function getCharInventory(gameID, charID) {
     //     let inv = await fetch(`/api/games/${gameID}/players/${charID}/equipment-items`).then((response) => response.json())
     //     return inv
@@ -62,7 +65,8 @@ export function Inventory(props) {
             }
         }
     }
-    function addItem() {
+    async function addItem() {
+        setLoading(true)
         let newItem = {
             name: addName,
             category: addCategory,
@@ -75,12 +79,18 @@ export function Inventory(props) {
             currency: addCurrency,
             description: addDescription
         }
-        let newEquipment = inventory["equipment"]
-        let newInventory = inventory
-        newEquipment.push(newItem)
-        newInventory["equipment"] = newEquipment
-
-        localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
+        // let newEquipment = inventory["equipment"]
+        let newInventory = { ...inventory }
+        // newEquipment.push(newItem)
+        newInventory["equipment"] = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`, {
+            method: "post",
+            body: JSON.stringify(newItem),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        })
+        // setInventory(newInventory)
+        // localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
         setAddName('')
         setAddCategory('')
         setAddNumDice('')
@@ -91,7 +101,7 @@ export function Inventory(props) {
         setAddCost('')
         setAddCurrency('')
         setAddDescription('')
-        setEquipment([...newEquipment])
+        // setEquipment([...newEquipment])
         setInventory(newInventory)
     }
     function deleteItem(index) {
@@ -101,7 +111,7 @@ export function Inventory(props) {
         newInventory["equipment"] = newEquipment;
         localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
         setEquipment([...newEquipment])
-        setInventory(newInventory)
+        setInventory({ ...newInventory })
     }
     // const myHeaders = new Headers();
     // myHeaders.append("Accept", "application/json");
@@ -163,95 +173,101 @@ export function Inventory(props) {
 
 
     function InventoryAccordion() {
-        return (
-            <Accordion className="inventory-accordion">
-                <Accordion.Item key="header">
-                    <div className="item-info-header item-info">
-                        <div className="attr">
-                            Name
+        if (loading) {
+            console.log("loading!")
+            return <div>Loading items...</div>
+        }
+        else {
+            return (
+                <Accordion className="inventory-accordion">
+                    <Accordion.Item key="header">
+                        <div className="item-info-header item-info">
+                            <div className="attr">
+                                Name
+                            </div>
+                            <div className="attr type-outside">
+                                Type
+                            </div>
+                            <div className="attr damage-outside">
+                                Damage
+                            </div>
+                            <div className="attr properties-outside">
+                                Properties
+                            </div>
+                            <div className="attr weight-outside">
+                                Weight
+                            </div>
+                            <div className="attr cost-outside">
+                                Cost
+                            </div>
                         </div>
-                        <div className="attr type-outside">
-                            Type
-                        </div>
-                        <div className="attr damage-outside">
-                            Damage
-                        </div>
-                        <div className="attr properties-outside">
-                            Properties
-                        </div>
-                        <div className="attr weight-outside">
-                            Weight
-                        </div>
-                        <div className="attr cost-outside">
-                            Cost
-                        </div>
-                    </div>
-                </Accordion.Item>
-                {[0, 1].map((item, index) => {
-                    console.log(inventory)
-                    return (
-                        <Accordion.Item eventKey={index.toString()} key={index.toString()}>
-                            <Accordion.Header>
-                                <div className="item-info">
-                                    <div className="attr">
-                                        {item["name"]}
+                    </Accordion.Item>
+                    {(inventory["equipment"] !== undefined && !console.log(inventory["equipment"])) && inventory?.equipment?.map((item, index) => {
+                        console.log(inventory["equipment"])
+                        return (
+                            <Accordion.Item eventKey={index.toString()} key={index.toString()}>
+                                <Accordion.Header>
+                                    <div className="item-info">
+                                        <div className="attr">
+                                            {item["name"]}
+                                        </div>
+                                        <div className="attr type-outside">
+                                            {item["category"]}
+                                        </div>
+                                        <div className="attr damage-outside">
+                                            {item["numDice"]}{item["damageDie"]} {item["damageType"]}
+                                        </div>
+                                        <div className="attr properties-outside">
+                                            {item["properties"]}
+                                        </div>
+                                        <div className="attr weight-outside">
+                                            {item["weight"]}
+                                        </div>
+                                        <div className="attr cost-outside">
+                                            {item["cost"]} {item["currency"]}
+                                        </div>
                                     </div>
-                                    <div className="attr type-outside">
-                                        {item["category"]}
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="attr-inside type-inside">
+                                        <div className="type-label">Type</div>
+                                        <div className="type-value">{item["category"]}</div>
                                     </div>
-                                    <div className="attr damage-outside">
-                                        {item["numDice"]}{item["damageDie"]} {item["damageType"]}
+                                    <div className="attr-inside damage-inside">
+                                        <div className="damage-label">Damage</div>
+                                        <div className="damage-value">{item["numDice"]}{item["damageDie"]} {item["damageType"]}</div>
                                     </div>
-                                    <div className="attr properties-outside">
-                                        {item["properties"]}
+                                    <div className="attr-inside properties-inside">
+                                        <div className="properties-label">Properties</div>
+                                        <div className="properties-value">{item["properties"]}</div>
                                     </div>
-                                    <div className="attr weight-outside">
-                                        {item["weight"]}
+                                    <div className="attr-inside weight-inside">
+                                        <div className="weight-label">Weight</div>
+                                        <div className="weight-value">{item["weight"]}</div>
                                     </div>
-                                    <div className="attr cost-outside">
-                                        {item["cost"]} {item["currency"]}
+                                    <div className="attr-inside cost-inside">
+                                        <div className="cost-label">Cost</div>
+                                        <div className="cost-value">{item["cost"]} {item["currency"]}</div>
                                     </div>
-                                </div>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <div className="attr-inside type-inside">
-                                    <div className="type-label">Type</div>
-                                    <div className="type-value">{item["category"]}</div>
-                                </div>
-                                <div className="attr-inside damage-inside">
-                                    <div className="damage-label">Damage</div>
-                                    <div className="damage-value">{item["numDice"]}{item["damageDie"]} {item["damageType"]}</div>
-                                </div>
-                                <div className="attr-inside properties-inside">
-                                    <div className="properties-label">Properties</div>
-                                    <div className="properties-value">{item["properties"]}</div>
-                                </div>
-                                <div className="attr-inside weight-inside">
-                                    <div className="weight-label">Weight</div>
-                                    <div className="weight-value">{item["weight"]}</div>
-                                </div>
-                                <div className="attr-inside cost-inside">
-                                    <div className="cost-label">Cost</div>
-                                    <div className="cost-value">{item["cost"]} {item["currency"]}</div>
-                                </div>
-                                <div className="description-label">
-                                    Description
-                                </div>
-                                <div className="description">
-                                    {item["description"] || "This item has no description."}
-                                </div>
-                                <Dropdown>
-                                    <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
-                                    <Dropdown.Menu data-bs-theme="dark">
-                                        <Dropdown.Item onClick={() => deleteItem(index)}>Delete Item</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    )
-                })}
-            </Accordion>
-        )
+                                    <div className="description-label">
+                                        Description
+                                    </div>
+                                    <div className="description">
+                                        {item["description"] || "This item has no description."}
+                                    </div>
+                                    <Dropdown>
+                                        <Dropdown.Toggle className="remove-element-button">⋯</Dropdown.Toggle>
+                                        <Dropdown.Menu data-bs-theme="dark">
+                                            <Dropdown.Item onClick={() => deleteItem(index)}>Delete Item</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        )
+                    })}
+                </Accordion>
+            )
+        }
     }
     return (
         <main>

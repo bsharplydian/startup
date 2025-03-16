@@ -98,11 +98,11 @@ apiRouter.delete("/games/:gameID/players/:playerID", async (req, res) => {
 // INVENTORIES
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
     console.log("inventories: ", inventories)
-    console.log("game inventories: ", inventories[req.params.gameID])
+    console.log("games: ", inventories[req.params.gameID])
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 apiRouter.post("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
-    inventories[req.params.gameID][req.params.playerID] = addItem(req.body)
+    inventories[req.params.gameID][req.params.playerID] = addItem(req.params.gameID, req.params.playerID, req.body)
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:id", async (req, res) => {
@@ -114,7 +114,6 @@ function playerInGame(players, playerName) {
     if (players.length == 0) {
         return false
     }
-    console.log(players.values)
     for (const player of players.values) {
         if (player.username === playerName) {
             return True
@@ -136,8 +135,7 @@ function removeGame(gameID) {
 function addPlayer(gameID, requestBody) {
     newPlayerID = generateID(games[gameID]["players"])
     games[gameID]["players"][newPlayerID] = { characterName: requestBody.characterName, playerName: requestBody.playerName }
-    inventories[gameID][newPlayerID] = { equipment: {}, magicItems: {} }
-    console.log(inventories[gameID][newPlayerID])
+    inventories[gameID][newPlayerID] = { equipment: [], magicItems: [] }
     return games[gameID]["players"];
 }
 function removePlayer(gameID, playerID) {
@@ -145,8 +143,21 @@ function removePlayer(gameID, playerID) {
     return games[gameID]["players"]
 }
 
-function addItem(requestBody) {
-
+function addItem(gameID, playerID, requestBody) {
+    inventories[gameID][playerID]["equipment"].push({
+        name: requestBody.name,
+        category: requestBody.category,
+        numDice: requestBody.numDice,
+        damageDie: requestBody.damageDie,
+        damageType: requestBody.damageType,
+        properties: requestBody.properties,
+        weight: requestBody.weight,
+        cost: requestBody.cost,
+        currency: requestBody.currency,
+        description: requestBody.description
+    })
+    console.log("added an item: ", inventories[gameID][playerID])
+    return inventories[gameID][playerID]
 }
 function removeItem(requestBody) {
 
