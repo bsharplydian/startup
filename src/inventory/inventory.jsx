@@ -100,12 +100,15 @@ export function Inventory(props) {
         setAddDescription('')
         setInventory(newInventory)
     }
-    function deleteItem(index) {
-        let newInventory = { ...inventory };
-        let newEquipment = newInventory["equipment"];
-        newEquipment.splice(index, 1);
-        newInventory["equipment"] = newEquipment;
-        localStorage.setItem("invs/" + gameID + "/" + charID, JSON.stringify(newInventory))
+    async function deleteItem(index) {
+        setLoading(true)
+        let newInventory = { ...inventory }
+        newInventory["equipment"] = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items/${index}`, {
+            method: "delete",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        })
         setInventory({ ...newInventory })
     }
     // const myHeaders = new Headers();
@@ -197,7 +200,7 @@ export function Inventory(props) {
                             </div>
                         </div>
                     </Accordion.Item>
-                    {(inventory["equipment"] !== undefined && !console.log(inventory["equipment"])) && inventory?.equipment?.map((item, index) => {
+                    {(inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
                         console.log(inventory["equipment"])
                         return (
                             <Accordion.Item eventKey={index.toString()} key={index.toString()}>

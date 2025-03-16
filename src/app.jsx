@@ -11,12 +11,18 @@ export default function App() {
     const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
     const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-    const [currInvGameID, setCurrInvGameID] = React.useState(JSON.parse(localStorage.getItem('currInv'))[0]);
-    const [currInvCharID, setCurrInvCharID] = React.useState(JSON.parse(localStorage.getItem('currInv'))[1]);
+    const [currInvGameID, setCurrInvGameID] = React.useState(JSON.parse(getInv())[0] || 0);
+    const [currInvCharID, setCurrInvCharID] = React.useState(JSON.parse(getInv())[1] || 0);
 
     var invGameID = currInvGameID;
     var invCharID = currInvCharID;
-
+    function getInv() {
+        if (localStorage.getItem('currInv')) {
+            return localStorage.getItem('currInv')
+        } else {
+            return "[0, 0]"
+        }
+    }
     return (
         <BrowserRouter>
             <div className="body bg-dark text-light">

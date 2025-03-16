@@ -105,8 +105,8 @@ apiRouter.post("/games/:gameID/players/:playerID/equipment-items", async (req, r
     inventories[req.params.gameID][req.params.playerID] = addItem(req.params.gameID, req.params.playerID, req.body)
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
-apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:id", async (req, res) => {
-    inventories[req.params.gameID][req.params.playerID] = removeItem(req.body)
+apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:index", async (req, res) => {
+    inventories[req.params.gameID][req.params.playerID] = removeItem(req.params.gameID, req.params.playerID, req.params.index)
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 
@@ -156,11 +156,12 @@ function addItem(gameID, playerID, requestBody) {
         currency: requestBody.currency,
         description: requestBody.description
     })
-    console.log("added an item: ", inventories[gameID][playerID])
+    // console.log("added an item: ", inventories[gameID][playerID])
     return inventories[gameID][playerID]
 }
-function removeItem(requestBody) {
-
+function removeItem(gameID, playerID, index) {
+    inventories[gameID][playerID]["equipment"].splice(index)
+    return inventories[gameID][playerID]
 }
 
 function generateID(container) {

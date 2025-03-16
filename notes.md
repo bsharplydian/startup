@@ -80,13 +80,6 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 | `const [var, varSetter] = React.useState(initialVar)` | defines a var and varSetter function. var initializes with the value of initialVar. |
 | `React.useEffect(() => {}, [])` | sets up a function to render based on updates from items in the dependency list (if dependency list is not included, it renders every frame; if it is included but empty, it renders on the first frame only) |
 
-### frontend functionality I still need to add
-- join games button
-- delete items from inventory
-- delete game
-- dynamic searchbar
-- view new item added by dm button
-
 ## Service
 - I've thought of a good rule for users to interact with other users' content
     1. a user can only see games they are a part of
@@ -98,3 +91,11 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 2. in index.js, apiRouter.{httpMethod}("endpoint", async function takes req and res as params)
 3. in jsx, response is received
 4. if endpoint contains a /:id, it can be queried with req.params.id
+
+## final things needed for service deliverable
+- [x] delete item
+- [ ] remove inventories on player/game deletion
+- [ ] dynamic search
+- [ ] 3rd party integration
+- [ ] fix so it removes data from localstorage on logout/stores it in a cookie instead
+- [ ] error handling so it doesn't crash if you go to the wrong page at the wrong time
