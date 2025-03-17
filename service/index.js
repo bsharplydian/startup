@@ -129,6 +129,7 @@ function addGame(requestBody) {
 }
 function removeGame(gameID) {
     delete games[gameID]
+    delete inventories[gameID]
     return games
 }
 
@@ -140,6 +141,7 @@ function addPlayer(gameID, requestBody) {
 }
 function removePlayer(gameID, playerID) {
     delete games[gameID]["players"][playerID]
+    delete inventories[gameID][playerID]
     return games[gameID]["players"]
 }
 
