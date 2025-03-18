@@ -72,7 +72,10 @@ export function Inventory(props) {
     // const [damageTypes, setDamageTypes] = React.useState({})
     // const [weaponProperties, setWeaponProperties] = React.useState({})
 
-
+    function sanitize(str) {
+        const reg = /[\[\]\(\)\{\}\*\+\?\.\^\$\|\\]/;
+        return str.replace(reg, (match) => (""))
+    }
     async function addItem() {
         setLoading(true)
         let newItem = {
@@ -393,7 +396,9 @@ export function Inventory(props) {
                                     <Dropdown>
                                         <Dropdown.Toggle>Search</Dropdown.Toggle>
                                         <Dropdown.Menu data-bs-theme="dark">
-                                            <input type="text" placeholder="enter item name" value={itemSearchText} onChange={(e) => { setItemSearchText(e.target.value) }}></input>
+                                            <input type="text" placeholder="enter item name" value={itemSearchText} onChange={(e) => {
+                                                setItemSearchText(sanitize(e.target.value))
+                                            }}></input>
                                             {itemList.map((item, index) => {
                                                 if (item.name.toLowerCase().search(itemSearchText.toLowerCase()) !== -1) {
                                                     return (
