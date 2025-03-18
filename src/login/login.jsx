@@ -45,6 +45,7 @@ export function Login({ username, authState, onAuthChange }) {
             }
         });
         localStorage.removeItem('username')
+        localStorage.removeItem("currInv")
         onAuthChange(username, AuthState.Unauthenticated)
     }
     return (

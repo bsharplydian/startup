@@ -114,12 +114,13 @@ function playerInGame(players, playerName) {
     if (players.length == 0) {
         return false
     }
-    for (const player of players.values) {
+    console.log("values: ", Object.values(players))
+    for (const player of Object.values(players)) {
         if (player.username === playerName) {
             return True
         }
     }
-    return False
+    return false
 }
 function addGame(requestBody) {
     newGameID = generateID(games)
@@ -162,7 +163,7 @@ function addItem(gameID, playerID, requestBody) {
     return inventories[gameID][playerID]
 }
 function removeItem(gameID, playerID, index) {
-    inventories[gameID][playerID]["equipment"].splice(index)
+    inventories[gameID][playerID]["equipment"].splice(index, 1)
     return inventories[gameID][playerID]
 }
 

@@ -10,7 +10,7 @@ export function Inventory(props) {
     const [inventory, setInventory] = React.useState({})
     const [charName, setCharName] = React.useState("")
     const [loading, setLoading] = React.useState(true)
-    const [itemList, setItemList] = React.useState([])
+
     // const [equipment, setEquipment] = React.useState(inventory["equipment"])
     // const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
 
@@ -28,11 +28,8 @@ export function Inventory(props) {
     const [addDescription, setAddDescription] = React.useState('')
 
     // 5e-bits data
+    const [equipmentLibrary, setEquipmentLibrary] = React.useState([])
     const [equipmentCategories, setEquipmentCategories] = React.useState([])
-    const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
-    const [magicItemsLibrary, setMagicItemsLibrary] = React.useState({})
-    const [damageTypes, setDamageTypes] = React.useState({})
-    const [weaponProperties, setWeaponProperties] = React.useState({})
 
 
     const properties = [
@@ -65,7 +62,7 @@ export function Inventory(props) {
         fetch(url)
             .then((response) => response.json())
             .then((result) => {
-                setItemList(result.results);
+                setEquipmentLibrary(result.results);
             });
     }, []);
 
@@ -79,24 +76,8 @@ export function Inventory(props) {
             .catch((error) => console.error(error)
             )
     }, [])
-    // fetch("https://www.dnd5eapi.co/api/2014/equipment-categories")
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setEquipmentCategories(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
 
-    // fetch("https://www.dnd5eapi.co/api/2014/equipment", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setEquipmentLibrary(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/magic-items", requestOptions)
+    // fetch("https://www.dnd5eapi.co/api/2014/magic-items")
     //     .then((response) => response.text())
     //     .then((result) => {
     //         setMagicItemsLibrary(JSON.parse(result))
@@ -259,7 +240,13 @@ export function Inventory(props) {
                                             {item["numDice"]}{item["damageDie"]} {item["damageType"]}
                                         </div>
                                         <div className="attr properties-outside">
-                                            {item["properties"]}
+                                            {item["properties"].map((itemName, index) => {
+                                                if (index !== item["properties"]?.length - 1) {
+                                                    return itemName + ", "
+                                                } else {
+                                                    return itemName
+                                                }
+                                            })}
                                         </div>
                                         <div className="attr weight-outside">
                                             {item["weight"]}
@@ -404,7 +391,7 @@ export function Inventory(props) {
                                             <input type="text" placeholder="enter item name" value={itemSearchText} onChange={(e) => {
                                                 setItemSearchText(sanitize(e.target.value))
                                             }}></input>
-                                            {itemList.map((item, index) => {
+                                            {equipmentLibrary.map((item, index) => {
                                                 if (item.name.toLowerCase().search(itemSearchText.toLowerCase()) !== -1) {
                                                     return (
                                                         <Dropdown.Item key={item.name} onClick={() => { addItemSRD(item) }}>
@@ -428,17 +415,9 @@ export function Inventory(props) {
                                 <div className="form-input-module">
                                     <select className="form-input" id="type" name="type" value={addCategory} onChange={(e) => { setAddCategory(e.target.value) }}>
                                         <option value=""></option>
-                                        {equipmentCategories?.map((category) => {
-                                            console.log(equipmentCategories)
-                                            return <option value={category.name}>{category.name}</option>
-                                        })}
-                                        {/* <option value="Adventuring Gear">Adventuring Gear</option>
-                                        <option value="Ammunition">Ammunition</option>
-                                        <option value="Arcane Foci">Arcane Foci</option>
-                                        <option value="Armor">Armor</option>
-                                        <option value="Artisan's Tools">Artisan's Tools</option>
-                                        <option value="Druidic Foci">Druidic Foci</option>
-                                        <option value="List Placeholder">list placeholder</option> */}
+                                        {equipmentCategories?.map((category) =>
+                                            <option value={category.name} key={category.index}>{category.name}</option>
+                                        )}
                                     </select>
                                 </div>
                             </div>
