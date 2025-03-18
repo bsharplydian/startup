@@ -118,9 +118,9 @@ export function Inventory(props) {
             .then((result) => {
                 setAddName(result.name)
                 setAddCategory(result.equipment_category?.name)
-                setAddNumDice(result.damage?.damage_dice)
-                // setAddDamageDie(result.damage?.damage_dice)
-                setAddDamageType(result.damage?.damage_type.name)
+                setAddNumDice(result.damage?.damage_dice.split('d')[0])
+                setAddDamageDie('d' + result.damage?.damage_dice.split('d')[1])
+                setAddDamageType(result.damage?.damage_type.index)
                 setAddProperties(result.properties?.map((property) => property.name))
                 setAddWeight(result.weight)
                 setAddCost(result.cost?.quantity)
