@@ -44,6 +44,7 @@ export function Login({ username, authState, onAuthChange }) {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         });
+        localStorage.removeItem('username')
         onAuthChange(username, AuthState.Unauthenticated)
     }
     return (

@@ -10,10 +10,12 @@ export function Inventory(props) {
     const [inventory, setInventory] = React.useState({})
     const [charName, setCharName] = React.useState("")
     const [loading, setLoading] = React.useState(true)
+    const [itemList, setItemList] = React.useState([])
     // const [equipment, setEquipment] = React.useState(inventory["equipment"])
     // const [magicItems, setMagicItems] = React.useState(inventory["magic_items"])
 
     // form data
+    const [itemSearchText, setItemSearchText] = React.useState('')
     const [addName, setAddName] = React.useState('')
     const [addCategory, setAddCategory] = React.useState('')
     const [addNumDice, setAddNumDice] = React.useState('')
@@ -50,6 +52,14 @@ export function Inventory(props) {
                 setCharName(players[props.charID].characterName)
             })
     }, [])
+    React.useEffect(() => {
+        const url = "https://www.dnd5eapi.co/api/2014/equipment";
+        fetch(url)
+            .then((x) => x.json())
+            .then((response) => {
+                setItemList(response.results);
+            });
+    }, []);
     // async function getCharInventory(gameID, charID) {
     //     let inv = await fetch(`/api/games/${gameID}/players/${charID}/equipment-items`).then((response) => response.json())
     //     return inv
@@ -99,6 +109,31 @@ export function Inventory(props) {
         setAddCurrency('')
         setAddDescription('')
         setInventory(newInventory)
+    }
+    async function addItemSRD(item) {
+        let itemData = await fetch(`https://www.dnd5eapi.co/api/2014/equipment/${item.index}`, {
+            redirect: "follow"
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                setAddName(result.name)
+                setAddCategory(result.equipment_category?.name)
+                setAddNumDice(result.damage?.damage_dice)
+                // setAddDamageDie(result.damage?.damage_dice)
+                setAddDamageType(result.damage?.damage_type.name)
+                setAddProperties(result.properties?.map((property) => property.name))
+                setAddWeight(result.weight)
+                setAddCost(result.cost?.quantity)
+                setAddCurrency(result.cost?.unit)
+                if (result.desc.length > 0) {
+                    setAddDescription(result.desc)
+                } else {
+                    setAddDescription("")
+                }
+            }
+
+            )
+            .catch((error) => console.error(error));
     }
     async function deleteItem(index) {
         setLoading(true)
@@ -355,7 +390,21 @@ export function Inventory(props) {
                             <div className="form-element">
                                 <label className="form-label" htmlFor="srd">Search the SRD</label>
                                 <div className="form-input-module">
-                                    <input className="form-input" id="srd" type="search" autoComplete="off" disabled={true} placeholder="3rd party API will be here next phase"></input>
+                                    <Dropdown>
+                                        <Dropdown.Toggle>Search</Dropdown.Toggle>
+                                        <Dropdown.Menu data-bs-theme="dark">
+                                            <input type="text" placeholder="enter item name" value={itemSearchText} onChange={(e) => { setItemSearchText(e.target.value) }}></input>
+                                            {itemList.map((item, index) => {
+                                                if (item.name.toLowerCase().search(itemSearchText.toLowerCase()) !== -1) {
+                                                    return (
+                                                        <Dropdown.Item key={item.name} onClick={() => { addItemSRD(item) }}>
+                                                            {item.name}
+                                                        </Dropdown.Item>
+                                                    );
+                                                }
+                                            })}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </div>
                             </div>
                             <div className="form-element">
