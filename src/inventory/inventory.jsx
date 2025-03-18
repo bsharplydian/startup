@@ -27,6 +27,14 @@ export function Inventory(props) {
     const [addCurrency, setAddCurrency] = React.useState('')
     const [addDescription, setAddDescription] = React.useState('')
 
+    // 5e-bits data
+    const [equipmentCategories, setEquipmentCategories] = React.useState([])
+    const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
+    const [magicItemsLibrary, setMagicItemsLibrary] = React.useState({})
+    const [damageTypes, setDamageTypes] = React.useState({})
+    const [weaponProperties, setWeaponProperties] = React.useState({})
+
+
     const properties = [
         "Ammunition", "Finesse", "Heavy", "Light", "Loading",
         "Monk", "Reach", "Special", "Thrown", "Two-Handed", "Versatile"
@@ -55,22 +63,71 @@ export function Inventory(props) {
     React.useEffect(() => {
         const url = "https://www.dnd5eapi.co/api/2014/equipment";
         fetch(url)
-            .then((x) => x.json())
-            .then((response) => {
-                setItemList(response.results);
+            .then((response) => response.json())
+            .then((result) => {
+                setItemList(result.results);
             });
     }, []);
-    // async function getCharInventory(gameID, charID) {
-    //     let inv = await fetch(`/api/games/${gameID}/players/${charID}/equipment-items`).then((response) => response.json())
-    //     return inv
-    // }
 
-    // 5e-bits data
-    // const [equipmentCategories, setEquipmentCategories] = React.useState({})
-    // const [equipmentLibrary, setEquipmentLibrary] = React.useState({})
-    // const [magicItemsLibrary, setMagicItemsLibrary] = React.useState({})
-    // const [damageTypes, setDamageTypes] = React.useState({})
-    // const [weaponProperties, setWeaponProperties] = React.useState({})
+    React.useEffect(() => {
+        fetch("https://www.dnd5eapi.co/api/2014/equipment-categories")
+            .then((response) => response.json())
+            .then((result) => {
+                setEquipmentCategories(result.results)
+            }
+            )
+            .catch((error) => console.error(error)
+            )
+    }, [])
+    // fetch("https://www.dnd5eapi.co/api/2014/equipment-categories")
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setEquipmentCategories(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+
+    // fetch("https://www.dnd5eapi.co/api/2014/equipment", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setEquipmentLibrary(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/magic-items", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setMagicItemsLibrary(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setDamageTypes(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setDamageTypes(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
+    // fetch("https://www.dnd5eapi.co/api/2014/weapon-properties", requestOptions)
+    //     .then((response) => response.text())
+    //     .then((result) => {
+    //         setWeaponProperties(JSON.parse(result))
+    //     }
+    //     )
+    //     .catch((error) => console.error(error)
+    //     )
 
     function sanitize(str) {
         const reg = /[\[\]\(\)\{\}\*\+\?\.\^\$\|\\]/;
@@ -122,7 +179,11 @@ export function Inventory(props) {
                 setAddName(result.name)
                 setAddCategory(result.equipment_category?.name)
                 setAddNumDice(result.damage?.damage_dice.split('d')[0])
-                setAddDamageDie('d' + result.damage?.damage_dice.split('d')[1])
+                if (result.damage) {
+                    setAddDamageDie('d' + result.damage?.damage_dice.split('d')[1])
+                } else {
+                    setAddDamageDie('')
+                }
                 setAddDamageType(result.damage?.damage_type.index)
                 setAddProperties(result.properties?.map((property) => property.name))
                 setAddWeight(result.weight)
@@ -149,63 +210,7 @@ export function Inventory(props) {
         })
         setInventory({ ...newInventory })
     }
-    // const myHeaders = new Headers();
-    // myHeaders.append("Accept", "application/json");
-    // const requestOptions = {
-    //     method: "GET",
-    //     headers: myHeaders,
-    //     redirect: "follow"
-    // };
 
-    // fetch("https://www.dnd5eapi.co/api/2014/equipment-categories", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setEquipmentCategories(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-
-    // fetch("https://www.dnd5eapi.co/api/2014/equipment", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setEquipmentLibrary(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/magic-items", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setMagicItemsLibrary(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setDamageTypes(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setDamageTypes(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/weapon-properties", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setWeaponProperties(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
 
 
     function InventoryAccordion() {
@@ -423,13 +428,17 @@ export function Inventory(props) {
                                 <div className="form-input-module">
                                     <select className="form-input" id="type" name="type" value={addCategory} onChange={(e) => { setAddCategory(e.target.value) }}>
                                         <option value=""></option>
-                                        <option value="Adventuring Gear">Adventuring Gear</option>
+                                        {equipmentCategories?.map((category) => {
+                                            console.log(equipmentCategories)
+                                            return <option value={category.name}>{category.name}</option>
+                                        })}
+                                        {/* <option value="Adventuring Gear">Adventuring Gear</option>
                                         <option value="Ammunition">Ammunition</option>
                                         <option value="Arcane Foci">Arcane Foci</option>
                                         <option value="Armor">Armor</option>
                                         <option value="Artisan's Tools">Artisan's Tools</option>
                                         <option value="Druidic Foci">Druidic Foci</option>
-                                        <option value="List Placeholder">list placeholder</option>
+                                        <option value="List Placeholder">list placeholder</option> */}
                                     </select>
                                 </div>
                             </div>
