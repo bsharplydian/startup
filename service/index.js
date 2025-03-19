@@ -110,7 +110,7 @@ apiRouter.post("/games/:user", verifyAuth, async (req, res) => {
     res.send(games);
 });
 apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res) => {
-    console.log(`deleting ${req.params.gameID}`)
+    // console.log(`deleting ${req.params.gameID}`)
     games = removeGame(req.params.gameID);
     res.send(games);
 });
@@ -130,8 +130,8 @@ apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExist
 
 // INVENTORIES
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
-    console.log("inventories: ", inventories)
-    console.log("games: ", inventories[req.params.gameID])
+    // console.log("inventories: ", inventories)
+    // console.log("games: ", inventories[req.params.gameID])
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
 apiRouter.post("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
@@ -147,7 +147,7 @@ function playerInGame(players, playerName) {
     if (players.length == 0) {
         return false
     }
-    console.log("values: ", Object.values(players))
+    // console.log("values: ", Object.values(players))
     for (const player of Object.values(players)) {
         if (player.username === playerName) {
             return True

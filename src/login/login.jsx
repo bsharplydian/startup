@@ -7,7 +7,7 @@ import { ErrorToast } from "../errorToast.jsx"
 
 import Button from 'react-bootstrap/Button'
 export function Login({ username, authState, onAuthChange }) {
-    const [errorText, setErrorText] = React.useState("")
+    const [errorText, setErrorText] = React.useState(null)
 
     const [newUsername, setNewUsername] = React.useState(username)
     const [password, setPassword] = React.useState('')

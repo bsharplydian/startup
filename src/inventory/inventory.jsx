@@ -4,9 +4,12 @@ import Accordion from 'react-bootstrap/Accordion';
 import Dropdown from "react-bootstrap/Dropdown";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
+import { ErrorToast } from "../errorToast.jsx"
 
 
 export function Inventory(props) {
+    const [errorText, setErrorText] = React.useState(null)
+
     const [inventory, setInventory] = React.useState({})
     const [charName, setCharName] = React.useState("")
     const [loading, setLoading] = React.useState(true)
@@ -45,15 +48,25 @@ export function Inventory(props) {
     }
     React.useEffect(() => {
         fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`)
-            .then((response) => response.json())
+            .then((response) => {
+                if (!(response.ok)) {
+                    throw new Error("You have not selected a character.")
+                }
+                return response.json()
+            })
             .then((inventory) => { setInventory(inventory); setLoading(false) })
+            .catch((error) => {
+                setErrorText(error.message)
+            }
+
+            )
 
     }, [loading])
     React.useEffect(() => {
         fetch(`/api/games/${props.gameID}/players`)
             .then((response) => response.json())
             .then((players) => {
-                console.log("player: ", players[props.charID])
+                // console.log("player: ", players[props.charID])
                 setCharName(players[props.charID].characterName)
             })
     }, [])
@@ -76,39 +89,6 @@ export function Inventory(props) {
             .catch((error) => console.error(error)
             )
     }, [])
-
-    // fetch("https://www.dnd5eapi.co/api/2014/magic-items")
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setMagicItemsLibrary(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setDamageTypes(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/damage-types", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setDamageTypes(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
-    // fetch("https://www.dnd5eapi.co/api/2014/weapon-properties", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => {
-    //         setWeaponProperties(JSON.parse(result))
-    //     }
-    //     )
-    //     .catch((error) => console.error(error)
-    //     )
 
     function sanitize(str) {
         const reg = /[\[\]\(\)\{\}\*\+\?\.\^\$\|\\]/;
@@ -196,7 +176,7 @@ export function Inventory(props) {
 
     function InventoryAccordion() {
         if (loading) {
-            console.log("loading!")
+            // console.log("loading!")
             return <div>Loading items...</div>
         }
         else {
@@ -225,7 +205,7 @@ export function Inventory(props) {
                         </div>
                     </Accordion.Item>
                     {(inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
-                        console.log(inventory["equipment"])
+                        // console.log(inventory["equipment"])
                         return (
                             <Accordion.Item eventKey={index.toString()} key={index.toString()}>
                                 <Accordion.Header>
@@ -299,6 +279,7 @@ export function Inventory(props) {
     }
     return (
         <main>
+            <ErrorToast message={errorText} onHide={() => setErrorText(null)}></ErrorToast>
             <Link className="char-select-link" to="/games">{"\u2190"} back to character select</Link>
 
             <div className="inventory-modules">
