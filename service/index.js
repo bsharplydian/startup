@@ -147,10 +147,10 @@ function playerInGame(players, playerName) {
     if (players.length == 0) {
         return false
     }
-    // console.log("values: ", Object.values(players))
+    console.log("values: ", Object.values(players))
     for (const player of Object.values(players)) {
-        if (player.username === playerName) {
-            return True
+        if (player.playerName === playerName) {
+            return true
         }
     }
     return false
