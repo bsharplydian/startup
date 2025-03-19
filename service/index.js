@@ -69,7 +69,7 @@ const verifyAuth = async (req, res, next) => {
 const verifyGameExists = async (req, res, next) => {
     if (!games) {
         res.status(404).send({ msg: 'Game doesn\'t exist' });
-    } else if (!games[req.param.gameID]) {
+    } else if (!games[req.params.gameID]) {
         res.status(404).send({ msg: 'Game doesn\'t exist' });
     } else {
         next()
