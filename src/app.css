@@ -8,6 +8,15 @@
     overflow-x: hidden !important;
 }
 
+.error {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    background: #a00
+}
+
 header {
     flex: 0 80px;
     margin: 0px;

@@ -98,5 +98,9 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - [x] dynamic search
     - react dropdown button with search at the top of the list
 - [x] 3rd party integration
-- [ ] fix so it removes data from localstorage on logout/stores it in a cookie instead
-- [ ] error handling so it doesn't crash if you go to the wrong page at the wrong time
+- [x] fix so it removes data from localstorage on logout/stores it in a cookie instead
+- [x] error handling so it doesn't crash if you go to the wrong page at the wrong time
+
+# goals for after the course
+- move the add item menu into an offcanvas to avoid cluttering space
+- add magic item support

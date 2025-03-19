@@ -3,12 +3,14 @@ import './login.css';
 import { Link } from "react-router-dom"
 import { AuthState } from './authState.js'
 import { useNavigate } from 'react-router-dom'
+import { ErrorToast } from "../errorToast.jsx"
 
 import Button from 'react-bootstrap/Button'
 export function Login({ username, authState, onAuthChange }) {
+    const [errorText, setErrorText] = React.useState("")
+
     const [newUsername, setNewUsername] = React.useState(username)
     const [password, setPassword] = React.useState('')
-    const [displayError, setDisplayError] = React.useState(null)
 
     const navigate = useNavigate();
 
@@ -32,8 +34,7 @@ export function Login({ username, authState, onAuthChange }) {
             onAuthChange(newUsername, AuthState.Authenticated);
         } else {
             const body = await response.json();
-            setDisplayError(`An error occurred: ${body.msg}`)
-            console.log(displayError)
+            setErrorText(`${body.msg}`)
         }
     }
 
@@ -80,6 +81,7 @@ export function Login({ username, authState, onAuthChange }) {
                         </div>
                     </div>
                 }
+                <ErrorToast message={errorText} onHide={() => setErrorText(null)}></ErrorToast>
             </div>
         </main>
     );
