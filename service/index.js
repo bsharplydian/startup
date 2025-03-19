@@ -18,6 +18,10 @@ app.use(cookieParser())
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+app.use(function (err, req, res, next) {
+    res.status(500).send({ type: err.name, message: err.message });
+});
+
 app.get('*', (_req, res) => {
     res.send({ msg: 'Congratulations! You have reached the generic Bag of Holding GET endpoint' });
 });
@@ -46,7 +50,7 @@ apiRouter.post("/auth/create", async (req, res) => {
     }
 });
 apiRouter.delete("/auth/logout", async (req, res) => {
-    const user = await getUser('authToken', req.cookies["authToken"]);
+    const user = await getUser('token', req.cookies["authToken"]);
     if (user) {
         delete user.token;
     }
@@ -54,8 +58,37 @@ apiRouter.delete("/auth/logout", async (req, res) => {
     res.status(204).end();
 });
 
+const verifyAuth = async (req, res, next) => {
+    const user = await getUser('token', req.cookies["authToken"]);
+    if (user) {
+        next();
+    } else {
+        res.status(401).send({ msg: 'Unauthorized' });
+    }
+};
+const verifyGameExists = async (req, res, next) => {
+    if (!games) {
+        res.status(404).send({ msg: 'Game doesn\'t exist' });
+    } else if (!games[req.param.gameID]) {
+        res.status(404).send({ msg: 'Game doesn\'t exist' });
+    } else {
+        next()
+    }
+}
+const verifyInvExists = async (req, res, next) => {
+    if (!inventories) {
+        res.status(404).send({ msg: 'Inventory doesn\'t exist' });
+    } else if (!inventories[req.params.gameID]) {
+        res.status(404).send({ msg: 'Inventory doesn\'t exist' });
+    } else if (!inventories[req.params.gameID][req.params.playerID]) {
+        res.status(404).send({ msg: 'Inventory doesn\'t exist' });
+    } else {
+        next();
+    }
+}
+
 // GAMES
-apiRouter.get("/games/:user", async (req, res) => {
+apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
     let userGames = {};
@@ -70,42 +103,42 @@ apiRouter.get("/games/:user", async (req, res) => {
     // console.log("GETTING GAMES")
     res.send(userGames);
 });
-apiRouter.post("/games/:user", async (req, res) => {
+apiRouter.post("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     games = addGame(req.body);
     // console.log(games)
     res.send(games);
 });
-apiRouter.delete("/games/:gameID", async (req, res) => {
+apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res) => {
     console.log(`deleting ${req.params.gameID}`)
     games = removeGame(req.params.gameID);
     res.send(games);
 });
 
 // PLAYERS
-apiRouter.get("/games/:gameID/players", async (req, res) => {
+apiRouter.get("/games/:gameID/players", verifyAuth, verifyGameExists, async (req, res) => {
     res.send(games[req.params.gameID]["players"]);
 });
-apiRouter.post("/games/:gameID/players", async (req, res) => {
+apiRouter.post("/games/:gameID/players", verifyAuth, verifyGameExists, async (req, res) => {
     games[req.params.gameID]["players"] = addPlayer(req.params.gameID, req.body);
     res.send(games);
 });
-apiRouter.delete("/games/:gameID/players/:playerID", async (req, res) => {
+apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExists, async (req, res) => {
     games[req.params.gameID]["players"] = removePlayer(req.params.gameID, req.params.playerID);
     res.send(games);
 });
 
 // INVENTORIES
-apiRouter.get("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
+apiRouter.get("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
     console.log("inventories: ", inventories)
     console.log("games: ", inventories[req.params.gameID])
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
-apiRouter.post("/games/:gameID/players/:playerID/equipment-items", async (req, res) => {
+apiRouter.post("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
     inventories[req.params.gameID][req.params.playerID] = addItem(req.params.gameID, req.params.playerID, req.body)
     res.send(inventories[req.params.gameID][req.params.playerID])
 });
-apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:index", async (req, res) => {
+apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:index", verifyAuth, verifyInvExists, async (req, res) => {
     inventories[req.params.gameID][req.params.playerID] = removeItem(req.params.gameID, req.params.playerID, req.params.index)
     res.send(inventories[req.params.gameID][req.params.playerID])
 });

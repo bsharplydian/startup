@@ -116,8 +116,8 @@ export function Games(props) {
     }
     function GameAccordion() {
         return (
-            <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
-                {Object.keys(games).map((gameID, index) => {
+            games && <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
+                {games && Object.keys(games).map((gameID, index) => {
                     var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: ["loading...", "loading..."] }
                     return (
 
@@ -131,7 +131,7 @@ export function Games(props) {
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="characters">
-                                    {Object.keys(currentGame.players).map((key, index) => {
+                                    {currentGame.players && Object.keys(currentGame.players).map((key, index) => {
                                         let charInfo = currentGame.players[key]
                                         return (
                                             <div className="character" key={key}>

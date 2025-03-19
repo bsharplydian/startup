@@ -20,7 +20,7 @@ export default function App() {
         if (localStorage.getItem('currInv')) {
             return localStorage.getItem('currInv')
         } else {
-            return "[0, 0]"
+            return "[-1, -1]"
         }
     }
     return (
@@ -58,37 +58,54 @@ export default function App() {
                 </header>
 
                 <Routes>
-                    <Route path='/' element={<Login
-                        username={username}
-                        authState={authState}
-                        onAuthChange={(username, authState) => {
-                            setAuthState(authState);
-                            setUsername(username);
-                        }}
-                    />
+                    {authState === AuthState.Unauthenticated ?
+                        (<Route path="*" element={<Login
+                            username={username}
+                            authState={authState}
+                            onAuthChange={(username, authState) => {
+                                setAuthState(authState);
+                                setUsername(username);
+                            }}
+                        />
+                        }
+                        />) : (
+                            <>
+                                <Route path='/' element={<Login
+                                    username={username}
+                                    authState={authState}
+                                    onAuthChange={(username, authState) => {
+                                        setAuthState(authState);
+                                        setUsername(username);
+                                    }}
+                                />
+                                }
+                                    exact
+                                />
+                                <Route path='/games' element={<Games
+                                    username={username}
+                                    onInvIDChange={(gameID, charID) => {
+                                        localStorage.setItem("currInv", JSON.stringify([gameID, charID]))
+                                        console.log(gameID, charID)
+                                        invGameID = gameID
+                                        invCharID = charID
+                                        setCurrInvGameID(gameID)
+                                        setCurrInvCharID(charID)
+                                    }}
+                                />
+                                }
+                                />
+                                <Route path='/inventory' element={<Inventory
+                                    gameID={invGameID}
+                                    charID={invCharID}
+                                />
+                                }
+                                />
+                                <Route path='*' element={<NotFound />} />
+                            </>
+                        )
                     }
-                        exact
-                    />
-                    <Route path='/games' element={<Games
-                        username={username}
-                        onInvIDChange={(gameID, charID) => {
-                            localStorage.setItem("currInv", JSON.stringify([gameID, charID]))
-                            console.log(gameID, charID)
-                            invGameID = gameID
-                            invCharID = charID
-                            setCurrInvGameID(gameID)
-                            setCurrInvCharID(charID)
-                        }}
-                    />
-                    }
-                    />
-                    <Route path='/inventory' element={<Inventory
-                        gameID={invGameID}
-                        charID={invCharID}
-                    />
-                    }
-                    />
-                    <Route path='*' element={<NotFound />} />
+
+
                 </Routes>
 
                 <footer>
