@@ -14,7 +14,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
 app.use(cookieParser())
-
+app.use(express.static('public'));
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
@@ -92,7 +92,7 @@ apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
     let userGames = {};
-    console.log("keys: ", Object.keys(games))
+    // console.log("keys: ", Object.keys(games))
     for (var key of Object.keys(games)) {
         if (games[key]["dm"] === username || playerInGame(games[key].players, username)) {
             userGames[key] = games[key]
@@ -147,7 +147,7 @@ function playerInGame(players, playerName) {
     if (players.length == 0) {
         return false
     }
-    console.log("values: ", Object.values(players))
+    // console.log("values: ", Object.values(players))
     for (const player of Object.values(players)) {
         if (player.playerName === playerName) {
             return true

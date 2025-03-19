@@ -87,3 +87,18 @@ For this deliverable, I added reactivity to all major app components.
         - showing/hiding components
         - getting data from local storage
     - I think that implementing a dynamic search with my 3rd party API in the next phase will need useEffect.
+
+
+## Service Deliverable
+For this deliverable, I added a backend service to my application.
+A great deal of functionality was required to support everything the application needed.
+Rubric:
+- using Node.js and Express
+- using express static middleware
+- third party endpoints: uses [this API](https://5e-bits.github.io/docs/) to get lists of equipment items and various attributes for those items. Found in [inventory.jsx](./src/inventory/inventory.jsx).
+- backend service endpoints: contains endpoints to get/set the following:
+    - user information (username, password, etc.)
+    - games and players within those games
+    - a list of items for each player
+- frontend calls service endpoints: uses fetch function
+- users can register, login, and logout. I'm not sure what restricted means in the rubric, but my guess is that it indicates middleware to verify the user's authentication before sending a response, which I have implemented.

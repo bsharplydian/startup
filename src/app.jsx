@@ -85,7 +85,7 @@ export default function App() {
                                     username={username}
                                     onInvIDChange={(gameID, charID) => {
                                         localStorage.setItem("currInv", JSON.stringify([gameID, charID]))
-                                        console.log(gameID, charID)
+                                        // console.log(gameID, charID)
                                         invGameID = gameID
                                         invCharID = charID
                                         setCurrInvGameID(gameID)
