@@ -125,6 +125,7 @@ export function Games(props) {
                             <Accordion.Header>
                                 <div className="game-info">
                                     {currentGame.gameName}
+                                    <div className="gameID">Dungeon Master: {currentGame.dm}</div>
                                     <div className="gameID">ID: {gameID}</div>
                                     {/* get and add player role too */}
                                 </div>
@@ -145,6 +146,9 @@ export function Games(props) {
                                                             <Dropdown.Item onClick={() => deleteChar(gameID, key)}>Delete Character</Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
+                                                </div>
+                                                <div className="playerName">
+                                                    <p className="character-name-text">{charInfo.playerName}</p>
                                                 </div>
                                             </div>
                                         )

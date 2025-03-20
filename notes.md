@@ -105,3 +105,4 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - move the add item menu into an offcanvas to avoid cluttering space
 - add magic item support
 - limit actions like deleting characters and adding items to CREATOR and DM
+- display information of other users (dm and player usernames)
