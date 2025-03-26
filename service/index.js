@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const app = express();
 const DB = require("./database.js")
-let users = [] // user: {username, password, authToken}
+//let users = [] // user: {username, password, authToken}
 let games = {} // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
 // {1358: {gameName: "game1", dm: "jim", "players:" []}, }
 // 187: {characterName: "Kaba", username: "Ben"}
@@ -93,7 +93,7 @@ const verifyInvExists = async (req, res, next) => {
 apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
-    let userGames = {};
+    let userGames = DB.getUserGames(username);
     // console.log("keys: ", Object.keys(games))
     for (var key of Object.keys(games)) {
         if (games[key]["dm"] === username || playerInGame(games[key].players, username)) {
@@ -107,9 +107,9 @@ apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
 });
 apiRouter.post("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
-    games = addGame(req.body);
+    newGame = addGame(req.body);
     // console.log(games)
-    res.send(games);
+    res.send(newGame);
 });
 apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res) => {
     // console.log(`deleting ${req.params.gameID}`)
@@ -159,9 +159,10 @@ function playerInGame(players, playerName) {
 }
 function addGame(requestBody) {
     newGameID = generateID(games)
-    games[newGameID] = { gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
+    newGame = { gameID: newGameID, gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
+    DB.addGame(newGame)
     inventories[newGameID] = {}
-    return games
+    return newGame
 }
 function removeGame(gameID) {
     delete games[gameID]

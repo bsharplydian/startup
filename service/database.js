@@ -35,11 +35,19 @@ async function updateUser(user) {
 function getGame(gameID) {
     return gameCollection.findOne({ gameID: gameID })
 }
+function getUserGames(username) {
+    return gameCollection.find({ "players.username": `${username}` })
+}
+async function addGame(game) {
+    await gameCollection.insertOne(game)
+}
 
 module.exports = {
     getUser,
     getUserByToken,
     addUser,
     updateUser,
-    getGame
+    getGame,
+    addGame,
+    getUserGames
 }

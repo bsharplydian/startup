@@ -32,15 +32,18 @@ export function Games(props) {
         if (playerType === "dm") {
             newDm = username;
         }
-        var game = { gameName: newGameName, dm: newDm, players: newPlayers };
+        var gameData = { gameName: newGameName, dm: newDm, players: newPlayers };
         setAddGameVisible(false);
-        let newGames = await fetch(`/api/games/${username}`, {
+        let newGame = await fetch(`/api/games/${username}`, {
             method: 'post',
-            body: JSON.stringify(game),
+            body: JSON.stringify(gameData),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json())
+        let newGames = { ...games };
+        newGames[newGame.gameID] = newGame;
+        console.log(newGames)
         setGames(newGames);
 
     }
