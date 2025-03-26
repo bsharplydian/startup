@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const app = express();
-
+const DB = require("./database.js")
 let users = [] // user: {username, password, authToken}
 let games = {} // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
 // {1358: {gameName: "game1", dm: "jim", "players:" []}, }
@@ -31,8 +31,9 @@ apiRouter.post("/auth/login", async (req, res) => {
     const user = await getUser('username', req.body.username);
     if (user) {
         if (await bcrypt.compare(req.body.password, user.password)) {
-            user.token = uuid.v4();
-            res.cookie("authToken", user.token, { secure: true, httpOnly: true, sameSite: 'strict' });
+            user.authToken = uuid.v4();
+            await DB.updateUser(user)
+            res.cookie("authToken", user.authToken, { secure: true, httpOnly: true, sameSite: 'strict' });
             res.send({ username: user.username })
             return
         }
@@ -44,15 +45,16 @@ apiRouter.post("/auth/create", async (req, res) => {
         res.status(409).send({ msg: "User already exists" });
     } else {
         const user = await createUser(req.body.username, req.body.password);
-        user.token = uuid.v4();
-        res.cookie("authToken", user.token, { secure: true, httpOnly: true, sameSite: 'strict' });
+        console.log(user.authToken)
+        res.cookie("authToken", user.authToken, { secure: true, httpOnly: true, sameSite: 'strict' });
         res.send({ username: user.username });
     }
 });
 apiRouter.delete("/auth/logout", async (req, res) => {
     const user = await getUser('token', req.cookies["authToken"]);
     if (user) {
-        delete user.token;
+        delete user.authToken;
+        DB.updateUser(user)
     }
     res.clearCookie("authToken");
     res.status(204).end();
@@ -211,7 +213,10 @@ async function getUser(field, value) {
     if (!value) {
         return null
     }
-    return users.find((user) => user[field] === value)
+    if (field === "token") {
+        return DB.getUserByToken(value)
+    }
+    return DB.getUser(value)
 }
 async function createUser(username, password) {
     const passHash = await bcrypt.hash(password, 10);
@@ -220,7 +225,7 @@ async function createUser(username, password) {
         password: passHash,
         authToken: uuid.v4()
     };
-    users.push(user)
+    await DB.addUser(user)
     return user
 }
 app.listen(port, () => {

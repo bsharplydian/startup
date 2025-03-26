@@ -92,7 +92,7 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 3. in jsx, response is received
 4. if endpoint contains a /:id, it can be queried with req.params.id
 
-## final things needed for service deliverable
+### final things needed for service deliverable
 - [x] delete item
 - [x] remove inventories on player/game deletion
 - [x] dynamic search
@@ -100,6 +100,13 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - [x] 3rd party integration
 - [x] fix so it removes data from localstorage on logout/stores it in a cookie instead
 - [x] error handling so it doesn't crash if you go to the wrong page at the wrong time
+
+## Database
+- get: collection.find or collection.findOne
+- add: collection.insertOne
+- modify: collection.updateOne({key: keyValue}, {newItemKey: newItemValue}); can also use { $set: object-with-all-values }
+
+
 
 # goals for after the course
 - move the add item menu into an offcanvas to avoid cluttering space
