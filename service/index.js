@@ -69,9 +69,7 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 const verifyGameExists = async (req, res, next) => {
-    if (!games) {
-        res.status(404).send({ msg: 'Game doesn\'t exist' });
-    } else if (!games[req.params.gameID]) {
+    if (!DB.getGame(req.params.gameID)) {
         res.status(404).send({ msg: 'Game doesn\'t exist' });
     } else {
         next()
@@ -93,13 +91,15 @@ const verifyInvExists = async (req, res, next) => {
 apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
-    let userGames = DB.getUserGames(username);
+    let userGames = await DB.getUserGames(username);
     // console.log("keys: ", Object.keys(games))
-    for (var key of Object.keys(games)) {
-        if (games[key]["dm"] === username || playerInGame(games[key].players, username)) {
-            userGames[key] = games[key]
-        }
-    }
+
+    // for (var key of Object.keys(games)) {
+    //     if (games[key]["dm"] === username || playerInGame(games[key].players, username)) {
+    //         userGames[key] = games[key]
+    //     }
+    // }
+
     // console.log(username)
     // console.log(userGames)
     // console.log("GETTING GAMES")
@@ -119,11 +119,12 @@ apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res
 
 // PLAYERS
 apiRouter.get("/games/:gameID/players", verifyAuth, verifyGameExists, async (req, res) => {
-    res.send(games[req.params.gameID]["players"]);
+    let players = DB.getPlayers(req.params.gameID);
+    res.send(players);
 });
 apiRouter.post("/games/:gameID/players", verifyAuth, verifyGameExists, async (req, res) => {
-    games[req.params.gameID]["players"] = addPlayer(req.params.gameID, req.body);
-    res.send(games);
+    let newPlayers = await addPlayer(req.params.gameID, req.body);
+    res.send(newPlayers);
 });
 apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExists, async (req, res) => {
     games[req.params.gameID]["players"] = removePlayer(req.params.gameID, req.params.playerID);
@@ -170,11 +171,16 @@ function removeGame(gameID) {
     return games
 }
 
-function addPlayer(gameID, requestBody) {
-    newPlayerID = generateID(games[gameID]["players"])
-    games[gameID]["players"][newPlayerID] = { characterName: requestBody.characterName, playerName: requestBody.playerName }
-    inventories[gameID][newPlayerID] = { equipment: [], magicItems: [] }
-    return games[gameID]["players"];
+async function addPlayer(gameID, requestBody) {
+    let oldPlayerList = await DB.getPlayers(gameID)
+    if (!oldPlayerList) {
+        oldPlayerList = []
+    }
+    let newPlayerID = generateID(oldPlayerList)
+    let newPlayer = { playerID: newPlayerID, characterName: requestBody.characterName, playerName: requestBody.playerName }
+    let newPlayerList = await DB.addPlayer(gameID, newPlayer);
+    // inventories[gameID][newPlayerID] = { equipment: [], magicItems: [] }
+    return newPlayerList
 }
 function removePlayer(gameID, playerID) {
     delete games[gameID]["players"][playerID]

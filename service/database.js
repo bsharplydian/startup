@@ -33,15 +33,41 @@ async function updateUser(user) {
 }
 
 function getGame(gameID) {
-    return gameCollection.findOne({ gameID: gameID })
+    return gameCollection.findOne({ gameID: parseInt(gameID) })
 }
 function getUserGames(username) {
-    return gameCollection.find({ "players.username": `${username}` })
+    // return gameCollection.find({
+    //     $or: [
+    //         { "games.players.username": username },
+    //         { dm: username }
+    //     ]
+    // })
+    // const cursor = gameCollection.find({ dm: username })
+    const cursor = gameCollection.find({
+        $or: [
+            {
+                "players": {
+                    $elemMatch: { "playerName": username }
+                }
+            },
+            { dm: username }
+        ]
+    })
+    console.log(cursor)
+    return cursor.toArray()
 }
 async function addGame(game) {
     await gameCollection.insertOne(game)
 }
 
+function getPlayers(gameID) {
+    return gameCollection.findOne({ gameID: gameID }).players
+}
+async function addPlayer(gameID, newPlayer) {
+    await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $push: { players: newPlayer } })
+    let newPlayerList = await gameCollection.findOne({ gameID: parseInt(gameID) })
+    return newPlayerList.players
+}
 module.exports = {
     getUser,
     getUserByToken,
@@ -49,5 +75,7 @@ module.exports = {
     updateUser,
     getGame,
     addGame,
-    getUserGames
+    getUserGames,
+    getPlayers,
+    addPlayer
 }

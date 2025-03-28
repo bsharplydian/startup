@@ -10,7 +10,7 @@ export function Games(props) {
     const username = props.username;
     const [addGameVisible, setAddGameVisible] = React.useState(false);
     const [joinGameVisible, setJoinGameVisible] = React.useState(false);
-    const [games, setGames] = React.useState({})
+    const [games, setGames] = React.useState([])
     const [newGameName, setNewGameName] = React.useState("");
     const [gameID, setJoinGameID] = React.useState("");
     const [joinGamePlayer, setJoinGamePlayer] = React.useState("");
@@ -28,7 +28,7 @@ export function Games(props) {
         // generates a random game id and adds a game with the given info to localstorage
 
         let newDm = null;
-        let newPlayers = {};
+        let newPlayers = [];
         if (playerType === "dm") {
             newDm = username;
         }
@@ -41,28 +41,33 @@ export function Games(props) {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json())
-        let newGames = { ...games };
-        newGames[newGame.gameID] = newGame;
+        let newGames = [...games];
+        newGames.push(newGame);
         console.log(newGames)
         setGames(newGames);
 
     }
     async function joinGame(gameID, newCharName, playerType) {
-        var game = games[gameID]
+        var game = games.find((obj) => obj.gameID === gameID)
         if (game === null) {
             console.error("no game here")
             return
         }
-        let newGames = games;
+        let newGames = [...games]
+        let newPlayers = game.players;
         if (playerType === "player") {
-            newGames = await fetch(`/api/games/${gameID}/players`, {
+
+            let response = await fetch(`/api/games/${gameID}/players`, {
                 method: 'post',
                 body: JSON.stringify({ characterName: newCharName, playerName: username }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
                 }
-            }).then((response) => response.json());
-            setGames(newGames)
+            })
+            newPlayers = await response.json();
+
+            newGames.find((obj) => obj.gameID === gameID).players = [...newPlayers]
+
 
         } else if (playerType === "dm") {
             if (game.dm !== null) {
@@ -120,8 +125,9 @@ export function Games(props) {
     function GameAccordion() {
         return (
             games && <Accordion activeKey={findActiveKey()} onSelect={(e) => { if (e !== null) { setOpenItem(e) } else { setOpenItem(-1) } }}>
-                {games && Object.keys(games).map((gameID, index) => {
-                    var currentGame = games[gameID] ? games[gameID] : { gameID: "-1", gameName: "loading...", dm: "none", players: ["loading...", "loading..."] }
+                {games && Object.keys(games).map((index) => {
+                    let gameID = games[index].gameID
+                    var currentGame = games[index] ? games[index] : { gameID: "-1", gameName: "loading...", dm: "none", players: ["loading...", "loading..."] }
                     return (
 
                         <Accordion.Item eventKey={gameID.toString()} key={gameID.toString()}>
