@@ -88,13 +88,14 @@ export function Games(props) {
         setCharInputs(newCharInputs)
     }
     async function deleteChar(gameID, charID) {
-        let newGames = await fetch(`/api/games/${gameID}/players/${charID}`, {
+        let newGames = [...games]
+        let newPlayers = await fetch(`/api/games/${gameID}/players/${charID}`, {
             method: 'delete',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
-        }).then((response) => response.json());;
-
+        }).then((response) => response.json());
+        newGames.find((obj) => obj.gameID === gameID).players = newPlayers
         setGames([...newGames])
     }
     async function deleteGame(gameID) {
@@ -142,18 +143,18 @@ export function Games(props) {
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="characters">
-                                    {currentGame.players && Object.keys(currentGame.players).map((key, index) => {
-                                        let charInfo = currentGame.players[key]
+                                    {currentGame.players && Object.keys(currentGame.players).map((index) => {
+                                        let charInfo = currentGame.players[index]
                                         return (
-                                            <div className="character" key={key}>
-                                                <button onClick={() => switchToInventory(gameID, key)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
+                                            <div className="character" key={charInfo.playerID}>
+                                                <button onClick={() => switchToInventory(gameID, charInfo.playerID)}><img src="./char-placeholder.png" width="100" className="char-image"></img></button>
                                                 <div className="character-name">
                                                     <div className="whitespace"></div>
-                                                    <p className="character-name-text" onClick={() => switchToInventory(gameID, key)}>{charInfo.characterName}</p>
+                                                    <p className="character-name-text" onClick={() => switchToInventory(gameID, charInfo.playerID)}>{charInfo.characterName}</p>
                                                     <Dropdown className="remove-char-button">
                                                         <Dropdown.Toggle className="remove-element-button remove-char-button">⋯</Dropdown.Toggle>
                                                         <Dropdown.Menu data-bs-theme="dark">
-                                                            <Dropdown.Item onClick={() => deleteChar(gameID, key)}>Delete Character</Dropdown.Item>
+                                                            <Dropdown.Item onClick={() => deleteChar(gameID, charInfo.playerID)}>Delete Character</Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
                                                 </div>

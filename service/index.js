@@ -127,8 +127,9 @@ apiRouter.post("/games/:gameID/players", verifyAuth, verifyGameExists, async (re
     res.send(newPlayers);
 });
 apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExists, async (req, res) => {
-    games[req.params.gameID]["players"] = removePlayer(req.params.gameID, req.params.playerID);
-    res.send(games);
+    // games[req.params.gameID]["players"] = removePlayer(req.params.gameID, req.params.playerID);
+    let players = await removePlayer(req.params.gameID, req.params.playerID)
+    res.send(players);
 });
 
 // INVENTORIES
@@ -182,10 +183,10 @@ async function addPlayer(gameID, requestBody) {
     // inventories[gameID][newPlayerID] = { equipment: [], magicItems: [] }
     return newPlayerList
 }
-function removePlayer(gameID, playerID) {
-    delete games[gameID]["players"][playerID]
-    delete inventories[gameID][playerID]
-    return games[gameID]["players"]
+async function removePlayer(gameID, playerID) {
+    let newPlayerList = await DB.removePlayer(gameID, playerID)
+    // delete inventories[gameID][playerID]
+    return newPlayerList
 }
 
 function addItem(gameID, playerID, requestBody) {

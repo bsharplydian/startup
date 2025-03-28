@@ -35,14 +35,8 @@ async function updateUser(user) {
 function getGame(gameID) {
     return gameCollection.findOne({ gameID: parseInt(gameID) })
 }
+
 function getUserGames(username) {
-    // return gameCollection.find({
-    //     $or: [
-    //         { "games.players.username": username },
-    //         { dm: username }
-    //     ]
-    // })
-    // const cursor = gameCollection.find({ dm: username })
     const cursor = gameCollection.find({
         $or: [
             {
@@ -59,7 +53,6 @@ function getUserGames(username) {
 async function addGame(game) {
     await gameCollection.insertOne(game)
 }
-
 async function removeGame(username, gameID) {
     await gameCollection.deleteOne({ gameID: parseInt(gameID) })
     return await getUserGames(username)
@@ -70,8 +63,13 @@ function getPlayers(gameID) {
 }
 async function addPlayer(gameID, newPlayer) {
     await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $push: { players: newPlayer } })
-    let newPlayerList = await gameCollection.findOne({ gameID: parseInt(gameID) })
-    return newPlayerList.players
+    let newGame = await gameCollection.findOne({ gameID: parseInt(gameID) })
+    return newGame.players
+}
+async function removePlayer(gameID, playerID) {
+    await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $pull: { players: { playerID: parseInt(playerID) } } })
+    let newGame = await gameCollection.findOne({ gameID: parseInt(gameID) })
+    return newGame.players
 }
 module.exports = {
     getUser,
@@ -83,5 +81,6 @@ module.exports = {
     removeGame,
     getUserGames,
     getPlayers,
-    addPlayer
+    addPlayer,
+    removePlayer
 }
