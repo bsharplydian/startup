@@ -60,8 +60,13 @@ async function addGame(game) {
     await gameCollection.insertOne(game)
 }
 
+async function removeGame(username, gameID) {
+    await gameCollection.deleteOne({ gameID: parseInt(gameID) })
+    return await getUserGames(username)
+}
+
 function getPlayers(gameID) {
-    return gameCollection.findOne({ gameID: gameID }).players
+    return gameCollection.findOne({ gameID: parseInt(gameID) }).players
 }
 async function addPlayer(gameID, newPlayer) {
     await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $push: { players: newPlayer } })
@@ -75,6 +80,7 @@ module.exports = {
     updateUser,
     getGame,
     addGame,
+    removeGame,
     getUserGames,
     getPlayers,
     addPlayer

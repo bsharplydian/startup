@@ -113,7 +113,7 @@ apiRouter.post("/games/:user", verifyAuth, async (req, res) => {
 });
 apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res) => {
     // console.log(`deleting ${req.params.gameID}`)
-    games = removeGame(req.params.gameID);
+    let games = await removeGame(req.body.username, req.params.gameID);
     res.send(games);
 });
 
@@ -165,8 +165,8 @@ function addGame(requestBody) {
     inventories[newGameID] = {}
     return newGame
 }
-function removeGame(gameID) {
-    delete games[gameID]
+async function removeGame(username, gameID) {
+    let games = await DB.removeGame(username, gameID)
     delete inventories[gameID]
     return games
 }

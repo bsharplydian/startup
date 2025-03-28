@@ -41,6 +41,7 @@ export function Games(props) {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json())
+        console.log(games)
         let newGames = [...games];
         newGames.push(newGame);
         console.log(newGames)
@@ -94,7 +95,7 @@ export function Games(props) {
             }
         }).then((response) => response.json());;
 
-        setGames({ ...newGames })
+        setGames([...newGames])
     }
     async function deleteGame(gameID) {
         //clean up inventories
@@ -107,13 +108,13 @@ export function Games(props) {
 
         let newGames = await fetch(`/api/games/${gameID}`, {
             method: 'delete',
+            body: JSON.stringify({ 'username': username }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json());
 
-
-        setGames({ ...newGames })
+        setGames([...newGames])
     }
     function findActiveKey() {
         return openItem.toString()
