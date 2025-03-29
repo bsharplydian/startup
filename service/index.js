@@ -140,8 +140,8 @@ apiRouter.post("/games/:gameID/players/:playerID/equipment-items", verifyAuth, v
     res.send(inventory)
 });
 apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:index", verifyAuth, verifyInvExists, async (req, res) => {
-    inventories[req.params.gameID][req.params.playerID] = removeItem(req.params.gameID, req.params.playerID, req.params.index)
-    res.send(inventories[req.params.gameID][req.params.playerID])
+    let inventory = await removeItem(req.params.gameID, req.params.playerID, req.params.index)
+    res.send(inventory)
 });
 
 function playerInGame(players, playerName) {
@@ -182,7 +182,7 @@ async function addPlayer(gameID, requestBody) {
 }
 async function removePlayer(gameID, playerID) {
     let newPlayerList = await DB.removePlayer(gameID, playerID)
-    // delete inventories[gameID][playerID]
+    await DB.removeInventory(gameID, playerID)
     return newPlayerList
 }
 
@@ -202,9 +202,9 @@ async function addItem(gameID, playerID, requestBody) {
     // console.log("added an item: ", inventories[gameID][playerID])
     return inventory
 }
-function removeItem(gameID, playerID, index) {
-    inventories[gameID][playerID]["equipment"].splice(index, 1)
-    return inventories[gameID][playerID]
+async function removeItem(gameID, playerID, index) {
+    let inventory = await DB.removeItem(gameID, playerID, index)
+    return inventory
 }
 
 function generateID(container) {

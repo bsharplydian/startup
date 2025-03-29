@@ -86,8 +86,15 @@ async function addItem(gameID, playerID, item) {
     await invCollection.updateOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) }, { $push: { equipment: item } })
     return await getItems(gameID, playerID)
 }
-async function removeItem(gameID, playerID, id) {
-
+async function removeItem(gameID, playerID, index) {
+    let query = {}
+    query[`equipment.${index}`] = 1
+    await invCollection.updateOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) }, { $unset: query })
+    await invCollection.updateOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) }, { $pull: { equipment: null } })
+    return await getItems(gameID, playerID)
+}
+async function removeInventory(gameID, playerID) {
+    await invCollection.deleteOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) })
 }
 module.exports = {
     getUser,
@@ -103,5 +110,6 @@ module.exports = {
     removePlayer,
     getItems,
     addItem,
-    removeItem
+    removeItem,
+    removeInventory
 }

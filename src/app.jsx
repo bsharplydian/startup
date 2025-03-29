@@ -12,10 +12,10 @@ export default function App() {
     const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
     const [currInvGameID, setCurrInvGameID] = React.useState(JSON.parse(getInv())[0] || 0);
-    const [currInvCharID, setCurrInvCharID] = React.useState(JSON.parse(getInv())[1] || 0);
+    const [currInvCharID, setCurrInvPlayerID] = React.useState(JSON.parse(getInv())[1] || 0);
 
     var invGameID = currInvGameID;
-    var invCharID = currInvCharID;
+    var invPlayerID = currInvCharID;
     function getInv() {
         if (localStorage.getItem('currInv')) {
             return localStorage.getItem('currInv')
@@ -83,20 +83,20 @@ export default function App() {
                                 />
                                 <Route path='/games' element={<Games
                                     username={username}
-                                    onInvIDChange={(gameID, charID) => {
-                                        localStorage.setItem("currInv", JSON.stringify([gameID, charID]))
-                                        // console.log(gameID, charID)
+                                    onInvIDChange={(gameID, playerID) => {
+                                        localStorage.setItem("currInv", JSON.stringify([gameID, playerID]))
+                                        // console.log(gameID, playerID)
                                         invGameID = gameID
-                                        invCharID = charID
+                                        invPlayerID = playerID
                                         setCurrInvGameID(gameID)
-                                        setCurrInvCharID(charID)
+                                        setCurrInvPlayerID(playerID)
                                     }}
                                 />
                                 }
                                 />
                                 <Route path='/inventory' element={<Inventory
                                     gameID={invGameID}
-                                    charID={invCharID}
+                                    playerID={invPlayerID}
                                 />
                                 }
                                 />

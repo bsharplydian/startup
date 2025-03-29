@@ -47,14 +47,14 @@ export function Inventory(props) {
         }
     }
     React.useEffect(() => {
-        fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`)
+        fetch(`/api/games/${props.gameID}/players/${props.playerID}/equipment-items`)
             .then((response) => {
                 if (!(response.ok)) {
                     throw new Error("You have not selected a character.")
                 }
                 return response.json()
             })
-            .then((inventory) => { console.log("fetched inventory: ", inventory); setInventory(inventory); setLoading(false); })
+            .then((inventory) => { setInventory(inventory); setLoading(false); })
             .catch((error) => {
                 setErrorText(error.message)
             }
@@ -65,8 +65,8 @@ export function Inventory(props) {
         fetch(`/api/games/${props.gameID}/players`)
             .then((response) => response.json())
             .then((players) => {
-                // console.log("player: ", players[props.charID])
-                setCharName(players.find((obj) => obj.charID = props.charID).characterName)
+                // console.log("players: ", players)
+                setCharName(players.find((obj) => obj.playerID === props.playerID).characterName)
             })
     }, [])
     React.useEffect(() => {
@@ -108,7 +108,7 @@ export function Inventory(props) {
             description: addDescription
         }
 
-        let newInventory = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`, {
+        let newInventory = await fetch(`/api/games/${props.gameID}/players/${props.playerID}/equipment-items`, {
             method: "post",
             body: JSON.stringify(newItem),
             headers: {
@@ -161,7 +161,7 @@ export function Inventory(props) {
     async function deleteItem(index) {
         setLoading(true)
         let newInventory = { ...inventory }
-        newInventory["equipment"] = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items/${index}`, {
+        newInventory = await fetch(`/api/games/${props.gameID}/players/${props.playerID}/equipment-items/${index}`, {
             method: "delete",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -202,8 +202,10 @@ export function Inventory(props) {
                             </div>
                         </div>
                     </Accordion.Item>
-                    {!console.log(inventory) && (inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
-                        console.log(inventory)
+                    {(inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
+                        if (item === null) {
+                            return
+                        }
                         return (
                             <Accordion.Item eventKey={index.toString()} key={index.toString()}>
                                 <Accordion.Header>
