@@ -4,11 +4,7 @@ const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const app = express();
 const DB = require("./database.js")
-//let users = [] // user: {username, password, authToken}
-let games = {} // game: {gameID, gameName, dm, players[]} // player: {id, characterName, username}
-// {1358: {gameName: "game1", dm: "jim", "players:" []}, }
-// 187: {characterName: "Kaba", username: "Ben"}
-let inventories = {} // inventory: {equipment[]}
+
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -54,7 +50,7 @@ apiRouter.delete("/auth/logout", async (req, res) => {
     const user = await getUser('token', req.cookies["authToken"]);
     if (user) {
         delete user.authToken;
-        DB.updateUser(user)
+        await DB.updateUser(user)
     }
     res.clearCookie("authToken");
     res.status(204).end();
@@ -69,14 +65,14 @@ const verifyAuth = async (req, res, next) => {
     }
 };
 const verifyGameExists = async (req, res, next) => {
-    if (!DB.getGame(req.params.gameID)) {
+    if (!(await DB.getGame(req.params.gameID))) {
         res.status(404).send({ msg: 'Game doesn\'t exist' });
     } else {
         next()
     }
 }
 const verifyInvExists = async (req, res, next) => {
-    if (!DB.getItems(req.params.gameID, req.params.playerID)) {
+    if (!(await DB.getItems(req.params.gameID, req.params.playerID))) {
         res.status(404).send({ msg: "Inventory doesn\'t exist" });
     } else {
         next();
@@ -89,30 +85,15 @@ apiRouter.get("/games/id/:gameID", verifyAuth, async (req, res) => {
     res.send(game)
 })
 apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
-    // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user
     let userGames = await DB.getUserGames(username);
-    // console.log("keys: ", Object.keys(games))
-
-    // for (var key of Object.keys(games)) {
-    //     if (games[key]["dm"] === username || playerInGame(games[key].players, username)) {
-    //         userGames[key] = games[key]
-    //     }
-    // }
-
-    // console.log(username)
-    // console.log(userGames)
-    // console.log("GETTING GAMES")
     res.send(userGames);
 });
 apiRouter.post("/games/:user", verifyAuth, async (req, res) => {
-    // next step: use the req header/body to get the user's username and only display games they're a part of
-    newGame = addGame(req.body);
-    // console.log(games)
+    newGame = await addGame(req.body);
     res.send(newGame);
 });
 apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res) => {
-    // console.log(`deleting ${req.params.gameID}`)
     let games = await removeGame(req.body.username, req.params.gameID);
     res.send(games);
 });
@@ -134,8 +115,6 @@ apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExist
 
 // INVENTORIES
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
-    // console.log("inventories: ", inventories)
-    // console.log("games: ", inventories[req.params.gameID])
     let inventory = await DB.getItems(req.params.gameID, req.params.playerID)
     res.send(inventory)
 });
@@ -148,28 +127,16 @@ apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:index", veri
     res.send(inventory)
 });
 
-function playerInGame(players, playerName) {
-    if (players.length == 0) {
-        return false
-    }
-    // console.log("values: ", Object.values(players))
-    for (const player of Object.values(players)) {
-        if (player.playerName === playerName) {
-            return true
-        }
-    }
-    return false
-}
-function addGame(requestBody) {
-    newGameID = generateID(games)
+
+async function addGame(requestBody) {
+    newGameID = await DB.generateGameID()
     newGame = { gameID: newGameID, gameName: requestBody.gameName, dm: requestBody.dm, players: requestBody.players }
     DB.addGame(newGame)
-    inventories[newGameID] = {}
     return newGame
 }
 async function removeGame(username, gameID) {
     let games = await DB.removeGame(username, gameID)
-    delete inventories[gameID]
+    DB.removeInventories(gameID)
     return games
 }
 
@@ -181,7 +148,6 @@ async function addPlayer(gameID, requestBody) {
     let newPlayerID = generateID(oldPlayerList)
     let newPlayer = { playerID: newPlayerID, characterName: requestBody.characterName, playerName: requestBody.playerName }
     let newPlayerList = await DB.addPlayer(gameID, newPlayer);
-    // inventories[gameID][newPlayerID] = { equipment: [], magicItems: [] }
     return newPlayerList
 }
 async function removePlayer(gameID, playerID) {
@@ -203,7 +169,6 @@ async function addItem(gameID, playerID, requestBody) {
         currency: requestBody.currency,
         description: requestBody.description
     })
-    // console.log("added an item: ", inventories[gameID][playerID])
     return inventory
 }
 async function removeItem(gameID, playerID, index) {

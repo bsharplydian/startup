@@ -33,8 +33,8 @@ async function updateUser(user) {
     await userCollection.updateOne({ username: user.username }, { $set: user })
 }
 
-function getGame(gameID) {
-    return gameCollection.findOne({ gameID: parseInt(gameID) })
+async function getGame(gameID) {
+    return await gameCollection.findOne({ gameID: parseInt(gameID) })
 }
 
 function getUserGames(username) {
@@ -57,6 +57,13 @@ async function addGame(game) {
 async function removeGame(username, gameID) {
     await gameCollection.deleteOne({ gameID: parseInt(gameID) })
     return await getUserGames(username)
+}
+async function generateGameID() {
+    do {
+        var id = Math.floor(Math.random() * 10000);
+    }
+    while (await gameCollection.findOne({ gameID: id }));
+    return id
 }
 
 async function getPlayers(gameID) {
@@ -96,6 +103,9 @@ async function removeItem(gameID, playerID, index) {
 async function removeInventory(gameID, playerID) {
     await invCollection.deleteOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) })
 }
+async function removeInventories(gameID) {
+    await invCollection.deleteMany({ gameID: parseInt(gameID) })
+}
 module.exports = {
     getUser,
     getUserByToken,
@@ -103,6 +113,7 @@ module.exports = {
     updateUser,
     getGame,
     addGame,
+    generateGameID,
     removeGame,
     getUserGames,
     getPlayers,
@@ -111,5 +122,6 @@ module.exports = {
     getItems,
     addItem,
     removeItem,
-    removeInventory
+    removeInventory,
+    removeInventories
 }

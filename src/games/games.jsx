@@ -41,17 +41,14 @@ export function Games(props) {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         }).then((response) => response.json())
-        console.log(games)
         let newGames = [...games];
         newGames.push(newGame);
-        console.log(newGames)
         setGames(newGames);
 
     }
     async function joinGame(gameID, newCharName, playerType) {
         let response = await fetch(`/api/games/id/${gameID}`)
         let game = await response.json()
-        console.log(game)
         if (game === null) {
             console.error("no game here")
             return
