@@ -84,6 +84,10 @@ const verifyInvExists = async (req, res, next) => {
 }
 
 // GAMES
+apiRouter.get("/games/id/:gameID", verifyAuth, async (req, res) => {
+    let game = await DB.getGame(req.params.gameID)
+    res.send(game)
+})
 apiRouter.get("/games/:user", verifyAuth, async (req, res) => {
     // next step: use the req header/body to get the user's username and only display games they're a part of
     let username = req.params.user

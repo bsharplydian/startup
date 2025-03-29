@@ -49,13 +49,20 @@ export function Games(props) {
 
     }
     async function joinGame(gameID, newCharName, playerType) {
-        var game = games.find((obj) => obj.gameID === gameID)
+        let response = await fetch(`/api/games/id/${gameID}`)
+        let game = await response.json()
+        console.log(game)
         if (game === null) {
             console.error("no game here")
             return
         }
         let newGames = [...games]
         let newPlayers = game.players;
+
+        if (!newGames.find((obj) => obj.gameID === parseInt(gameID))) {
+            newGames.push(game)
+        }
+
         if (playerType === "player") {
 
             let response = await fetch(`/api/games/${gameID}/players`, {
@@ -66,9 +73,7 @@ export function Games(props) {
                 }
             })
             newPlayers = await response.json();
-
-            newGames.find((obj) => obj.gameID === gameID).players = [...newPlayers]
-
+            newGames.find((obj) => obj.gameID === parseInt(gameID)).players = [...newPlayers]
 
         } else if (playerType === "dm") {
             if (game.dm !== null) {
