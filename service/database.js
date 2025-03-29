@@ -6,6 +6,7 @@ const client = new MongoClient(url);
 const db = client.db('bag-of-holding');
 const userCollection = db.collection('user');
 const gameCollection = db.collection('games');
+const invCollection = db.collection('inventories');
 
 (async function testConnection() {
     try {
@@ -58,8 +59,9 @@ async function removeGame(username, gameID) {
     return await getUserGames(username)
 }
 
-function getPlayers(gameID) {
-    return gameCollection.findOne({ gameID: parseInt(gameID) }).players
+async function getPlayers(gameID) {
+    let game = await gameCollection.findOne({ gameID: parseInt(gameID) })
+    return game.players
 }
 async function addPlayer(gameID, newPlayer) {
     await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $push: { players: newPlayer } })
@@ -70,6 +72,17 @@ async function removePlayer(gameID, playerID) {
     await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $pull: { players: { playerID: parseInt(playerID) } } })
     let newGame = await gameCollection.findOne({ gameID: parseInt(gameID) })
     return newGame.players
+}
+
+async function getItems(gameID, playerID) {
+    let itemList = await invCollection.findOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) })
+    return itemList
+}
+async function addItem(gameID, playerID, item) {
+
+}
+async function removeItem(gameID, playerID, id) {
+
 }
 module.exports = {
     getUser,
@@ -82,5 +95,8 @@ module.exports = {
     getUserGames,
     getPlayers,
     addPlayer,
-    removePlayer
+    removePlayer,
+    getItems,
+    addItem,
+    removeItem
 }

@@ -76,12 +76,8 @@ const verifyGameExists = async (req, res, next) => {
     }
 }
 const verifyInvExists = async (req, res, next) => {
-    if (!inventories) {
-        res.status(404).send({ msg: 'Inventory doesn\'t exist' });
-    } else if (!inventories[req.params.gameID]) {
-        res.status(404).send({ msg: 'Inventory doesn\'t exist' });
-    } else if (!inventories[req.params.gameID][req.params.playerID]) {
-        res.status(404).send({ msg: 'Inventory doesn\'t exist' });
+    if (!DB.getItems(req.params.gameID, req.params.playerID)) {
+        res.status(404).send({ msg: "Inventory doesn\'t exist" });
     } else {
         next();
     }
@@ -119,7 +115,7 @@ apiRouter.delete("/games/:gameID", verifyAuth, verifyGameExists, async (req, res
 
 // PLAYERS
 apiRouter.get("/games/:gameID/players", verifyAuth, verifyGameExists, async (req, res) => {
-    let players = DB.getPlayers(req.params.gameID);
+    let players = await DB.getPlayers(req.params.gameID);
     res.send(players);
 });
 apiRouter.post("/games/:gameID/players", verifyAuth, verifyGameExists, async (req, res) => {
@@ -136,7 +132,10 @@ apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExist
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
     // console.log("inventories: ", inventories)
     // console.log("games: ", inventories[req.params.gameID])
-    res.send(inventories[req.params.gameID][req.params.playerID])
+    let itemList = await DB.getItems(req.params.gameID, req.params.playerID) // up next: remember that you were also storing magic items and represent both data structures in the database
+    if (itemList === null)
+        itemList = []
+    res.send(itemList)
 });
 apiRouter.post("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
     inventories[req.params.gameID][req.params.playerID] = addItem(req.params.gameID, req.params.playerID, req.body)

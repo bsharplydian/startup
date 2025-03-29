@@ -10,7 +10,7 @@ import { ErrorToast } from "../errorToast.jsx"
 export function Inventory(props) {
     const [errorText, setErrorText] = React.useState(null)
 
-    const [inventory, setInventory] = React.useState({})
+    const [inventory, setInventory] = React.useState([])
     const [charName, setCharName] = React.useState("")
     const [loading, setLoading] = React.useState(true)
 
@@ -54,20 +54,19 @@ export function Inventory(props) {
                 }
                 return response.json()
             })
-            .then((inventory) => { setInventory(inventory); setLoading(false) })
+            .then((inventory) => { setInventory(inventory); setLoading(false); })
             .catch((error) => {
                 setErrorText(error.message)
             }
 
             )
-
     }, [loading])
     React.useEffect(() => {
         fetch(`/api/games/${props.gameID}/players`)
             .then((response) => response.json())
             .then((players) => {
                 // console.log("player: ", players[props.charID])
-                setCharName(players[props.charID].characterName)
+                setCharName(players.find((obj) => obj.charID = props.charID).characterName)
             })
     }, [])
     React.useEffect(() => {
@@ -205,7 +204,7 @@ export function Inventory(props) {
                         </div>
                     </Accordion.Item>
                     {(inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
-                        // console.log(inventory["equipment"])
+                        console.log(inventory)
                         return (
                             <Accordion.Item eventKey={index.toString()} key={index.toString()}>
                                 <Accordion.Header>
