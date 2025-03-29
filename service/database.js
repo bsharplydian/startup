@@ -65,6 +65,7 @@ async function getPlayers(gameID) {
 }
 async function addPlayer(gameID, newPlayer) {
     await gameCollection.updateOne({ gameID: parseInt(gameID) }, { $push: { players: newPlayer } })
+    await invCollection.insertOne({ gameID: parseInt(gameID), playerID: parseInt(newPlayer.playerID), equipment: [], magic_items: [] })
     let newGame = await gameCollection.findOne({ gameID: parseInt(gameID) })
     return newGame.players
 }
@@ -75,11 +76,15 @@ async function removePlayer(gameID, playerID) {
 }
 
 async function getItems(gameID, playerID) {
-    let itemList = await invCollection.findOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) })
-    return itemList
+    let itemLists = await invCollection.findOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) })
+    if (itemLists === null) {
+        itemLists = { gameID: parseInt(gameID), playerID: parseInt(playerID), equipment: [], magic_items: [] }
+    }
+    return itemLists
 }
 async function addItem(gameID, playerID, item) {
-
+    await invCollection.updateOne({ gameID: parseInt(gameID), playerID: parseInt(playerID) }, { $push: { equipment: item } })
+    return await getItems(gameID, playerID)
 }
 async function removeItem(gameID, playerID, id) {
 

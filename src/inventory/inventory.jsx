@@ -54,7 +54,7 @@ export function Inventory(props) {
                 }
                 return response.json()
             })
-            .then((inventory) => { setInventory(inventory); setLoading(false); })
+            .then((inventory) => { console.log("fetched inventory: ", inventory); setInventory(inventory); setLoading(false); })
             .catch((error) => {
                 setErrorText(error.message)
             }
@@ -108,8 +108,7 @@ export function Inventory(props) {
             description: addDescription
         }
 
-        let newInventory = { ...inventory }
-        newInventory["equipment"] = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`, {
+        let newInventory = await fetch(`/api/games/${props.gameID}/players/${props.charID}/equipment-items`, {
             method: "post",
             body: JSON.stringify(newItem),
             headers: {
@@ -203,7 +202,7 @@ export function Inventory(props) {
                             </div>
                         </div>
                     </Accordion.Item>
-                    {(inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
+                    {!console.log(inventory) && (inventory["equipment"] !== undefined) && inventory?.equipment?.map((item, index) => {
                         console.log(inventory)
                         return (
                             <Accordion.Item eventKey={index.toString()} key={index.toString()}>

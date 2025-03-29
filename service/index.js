@@ -132,14 +132,12 @@ apiRouter.delete("/games/:gameID/players/:playerID", verifyAuth, verifyGameExist
 apiRouter.get("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
     // console.log("inventories: ", inventories)
     // console.log("games: ", inventories[req.params.gameID])
-    let itemList = await DB.getItems(req.params.gameID, req.params.playerID) // up next: remember that you were also storing magic items and represent both data structures in the database
-    if (itemList === null)
-        itemList = []
-    res.send(itemList)
+    let inventory = await DB.getItems(req.params.gameID, req.params.playerID)
+    res.send(inventory)
 });
 apiRouter.post("/games/:gameID/players/:playerID/equipment-items", verifyAuth, verifyInvExists, async (req, res) => {
-    inventories[req.params.gameID][req.params.playerID] = addItem(req.params.gameID, req.params.playerID, req.body)
-    res.send(inventories[req.params.gameID][req.params.playerID])
+    let inventory = await addItem(req.params.gameID, req.params.playerID, req.body)
+    res.send(inventory)
 });
 apiRouter.delete("/games/:gameID/players/:playerID/equipment-items/:index", verifyAuth, verifyInvExists, async (req, res) => {
     inventories[req.params.gameID][req.params.playerID] = removeItem(req.params.gameID, req.params.playerID, req.params.index)
@@ -188,8 +186,8 @@ async function removePlayer(gameID, playerID) {
     return newPlayerList
 }
 
-function addItem(gameID, playerID, requestBody) {
-    inventories[gameID][playerID]["equipment"].push({
+async function addItem(gameID, playerID, requestBody) {
+    let inventory = await DB.addItem(gameID, playerID, {
         name: requestBody.name,
         category: requestBody.category,
         numDice: requestBody.numDice,
@@ -202,7 +200,7 @@ function addItem(gameID, playerID, requestBody) {
         description: requestBody.description
     })
     // console.log("added an item: ", inventories[gameID][playerID])
-    return inventories[gameID][playerID]
+    return inventory
 }
 function removeItem(gameID, playerID, index) {
     inventories[gameID][playerID]["equipment"].splice(index, 1)
