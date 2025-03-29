@@ -102,3 +102,10 @@ Rubric:
     - a list of items for each player
 - frontend calls service endpoints: uses fetch function
 - users can register, login, and logout. I'm not sure what restricted means in the rubric, but my guess is that it indicates middleware to verify the user's authentication before sending a response, which I have implemented.
+
+## Database Deliverable
+For this deliverable, I used MongoDB to store all information in an external database.
+Rubric:
+- Stores data in MongoDB: done!
+    - I had to change my data format (ex. switching a dictionary to an array) for the inventory items, games, and players to work better with Mongo
+- login credentials stored in Mongo: done, stores users and login information
