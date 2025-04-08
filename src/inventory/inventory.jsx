@@ -90,9 +90,12 @@ export function Inventory(props) {
             .catch((error) => console.error(error)
             )
     }, [])
+
     React.useEffect(() => {
         setNotifTexts(["test1", "test2", "test3"])
     }, [])
+
+
     function sanitize(str) {
         const reg = /[\[\]\(\)\{\}\*\+\?\.\^\$\|\\]/;
         return str.replace(reg, (match) => (""))

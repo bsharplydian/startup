@@ -12,10 +12,10 @@ export function NotifToasts(props) {
         //         <Button onClick={props.onHide}>Close</Button>
         //     </Modal.Footer>
         // </Modal>
-        <ToastContainer className="notif" position={'bottom-end'}>
+        <ToastContainer className="notif-box" position={'bottom-end'}>
             {props.messages.map((message, index) => {
                 return (
-                    <Toast show={message} onClose={() => props.onHide(index)}>
+                    <Toast className="notif" key={index} show={message} onClose={() => props.onHide(index)}>
                         <Toast.Header>
                             <strong className="me-auto">Update</strong>
                         </Toast.Header>

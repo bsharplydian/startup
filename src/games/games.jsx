@@ -5,9 +5,12 @@ import Accordion from 'react-bootstrap/Accordion';
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
+import { NotifToasts } from "../notifToasts.jsx"
 
 export function Games(props) {
     const username = props.username;
+    const [notifTexts, setNotifTexts] = React.useState([])
+
     const [addGameVisible, setAddGameVisible] = React.useState(false);
     const [joinGameVisible, setJoinGameVisible] = React.useState(false);
     const [games, setGames] = React.useState([])
@@ -23,6 +26,9 @@ export function Games(props) {
         fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); }, [])
     }, [])
 
+    React.useEffect(() => {
+        setNotifTexts(["test1", "test2", "test3"])
+    }, [])
 
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
@@ -200,6 +206,12 @@ export function Games(props) {
 
     return (
         <main className="games-main">
+            <NotifToasts messages={notifTexts} onHide={(index) => {
+                let newNotifTexts = [...notifTexts]
+                newNotifTexts[index] = null
+                setNotifTexts(newNotifTexts)
+            }
+            }></NotifToasts>
             <h1>Games</h1>
 
             <GameAccordion />

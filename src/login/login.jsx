@@ -4,15 +4,21 @@ import { Link } from "react-router-dom"
 import { AuthState } from './authState.js'
 import { useNavigate } from 'react-router-dom'
 import { ErrorToast } from "../errorToast.jsx"
+import { NotifToasts } from "../notifToasts.jsx"
 
 import Button from 'react-bootstrap/Button'
 export function Login({ username, authState, onAuthChange }) {
     const [errorText, setErrorText] = React.useState(null)
+    const [notifTexts, setNotifTexts] = React.useState([])
 
     const [newUsername, setNewUsername] = React.useState(username)
     const [password, setPassword] = React.useState('')
 
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        setNotifTexts(["test1", "test2", "test3"])
+    }, [])
 
     async function login() {
         loginOrCreate(`/api/auth/login`)
@@ -82,6 +88,14 @@ export function Login({ username, authState, onAuthChange }) {
                     </div>
                 }
                 <ErrorToast message={errorText} onHide={() => setErrorText(null)}></ErrorToast>
+                {authState === AuthState.Authenticated &&
+                    <NotifToasts messages={notifTexts} onHide={(index) => {
+                        let newNotifTexts = [...notifTexts]
+                        newNotifTexts[index] = null
+                        setNotifTexts(newNotifTexts)
+                    }
+                    }></NotifToasts>
+                }
             </div>
         </main>
     );
