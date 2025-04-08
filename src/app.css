@@ -17,6 +17,11 @@
     background: #a00
 }
 
+.notif {
+    margin: 20px;
+    background: #ffff00;
+}
+
 header {
     flex: 0 80px;
     margin: 0px;

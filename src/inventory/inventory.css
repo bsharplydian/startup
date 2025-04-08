@@ -19,6 +19,7 @@
     width: 100px;
     background-color: #4EC84E !important;
     margin: 0 1em;
+    display: none;
 }
 
 /* USE THIS FOR THE ERASING COLOR #C84E4E */

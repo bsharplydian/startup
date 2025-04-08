@@ -5,10 +5,12 @@ import Dropdown from "react-bootstrap/Dropdown";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 import { ErrorToast } from "../errorToast.jsx"
+import { NotifToasts } from "../notifToasts.jsx"
 
 
 export function Inventory(props) {
     const [errorText, setErrorText] = React.useState(null)
+    const [notifTexts, setNotifTexts] = React.useState([])
 
     const [inventory, setInventory] = React.useState([])
     const [charName, setCharName] = React.useState("")
@@ -88,7 +90,9 @@ export function Inventory(props) {
             .catch((error) => console.error(error)
             )
     }, [])
-
+    React.useEffect(() => {
+        setNotifTexts(["test1", "test2", "test3"])
+    }, [])
     function sanitize(str) {
         const reg = /[\[\]\(\)\{\}\*\+\?\.\^\$\|\\]/;
         return str.replace(reg, (match) => (""))
@@ -280,6 +284,12 @@ export function Inventory(props) {
     return (
         <main>
             <ErrorToast message={errorText} onHide={() => setErrorText(null)}></ErrorToast>
+            <NotifToasts messages={notifTexts} onHide={(index) => {
+                let newNotifTexts = [...notifTexts]
+                newNotifTexts[index] = null
+                setNotifTexts(newNotifTexts)
+            }
+            }></NotifToasts>
             <Link className="char-select-link" to="/games">{"\u2190"} back to character select</Link>
 
             <div className="inventory-modules">
