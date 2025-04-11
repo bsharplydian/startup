@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const uuid = require('uuid')
 const app = express();
 const DB = require("./database.js")
+const { peerProxy } = require('./peerProxy.js');
 
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -202,6 +203,8 @@ async function createUser(username, password) {
     await DB.addUser(user)
     return user
 }
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService)
