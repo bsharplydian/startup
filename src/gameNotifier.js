@@ -24,6 +24,7 @@ class GameEventNotifier {
         this.socket.onmessage = async (msg) => {
             try {
                 const event = JSON.parse(await msg.data.text());
+                console.log("WOAH IT WORKED")
                 console.log("this is what an event looks like", event)
                 this.receiveEvent(event);
             } catch { }
@@ -45,6 +46,7 @@ class GameEventNotifier {
 
         //jsx files give gameNotifier.js a handler function to call when it receives an event.
         //
+        console.log("I HAVE RECEIVED AN EVENT", event)
         this.events.forEach((e) => {
             this.handlers.forEach((handler) => {
                 handler(e)
@@ -52,3 +54,6 @@ class GameEventNotifier {
         })
     }
 }
+
+const GameNotifier = new GameEventNotifier();
+export { GameEvent, GameNotifier }

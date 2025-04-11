@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
 import { NotifToasts } from "../notifToasts.jsx"
+import { GameEvent, GameNotifier } from '../gameNotifier';
 
 export function Games(props) {
     const username = props.username;
@@ -77,7 +78,7 @@ export function Games(props) {
             })
             newPlayers = await response.json();
             newGames.find((obj) => obj.gameID === parseInt(gameID)).players = [...newPlayers]
-
+            GameNotifier.broadcastEvent(username, GameEvent.Join, { "characterName": newCharName, "gamename": game.gameName })
         } else if (playerType === "dm") {
             if (game.dm !== null) {
                 console.error("This game already has a dungeon master. Also this error shouldn't be possible")
@@ -96,6 +97,9 @@ export function Games(props) {
         setCharInputs(newCharInputs)
     }
     async function deleteChar(gameID, charID) {
+        let response = await fetch(`/api/games/id/${gameID}`)
+        let game = await response.json()
+        let characterName = game.players.find(item => item.playerID === charID).characterName
         let newGames = [...games]
         let newPlayers = await fetch(`/api/games/${gameID}/players/${charID}`, {
             method: 'delete',
@@ -105,6 +109,7 @@ export function Games(props) {
         }).then((response) => response.json());
         newGames.find((obj) => obj.gameID === gameID).players = newPlayers
         setGames([...newGames])
+        GameNotifier.broadcastEvent(username, GameEvent.Leave, { "characterName": characterName, "gamename": game.gameName })
     }
     async function deleteGame(gameID) {
         //clean up inventories
