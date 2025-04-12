@@ -40,15 +40,11 @@ class GameEventNotifier {
         this.handlers.filter((h) => h !== handler)
     }
     receiveEvent(event) {
-        this.events.push(event);
-
         //jsx files give gameNotifier.js a handler function to call when it receives an event.
         //
-        console.log("I HAVE RECEIVED AN EVENT", event)
-        this.events.forEach((e) => {
-            this.handlers.forEach((handler) => {
-                handler(e)
-            })
+
+        this.handlers.forEach((handler) => {
+            handler(event)
         })
     }
 }
