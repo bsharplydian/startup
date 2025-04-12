@@ -28,9 +28,25 @@ export function Games(props) {
     }, [])
 
     React.useEffect(() => {
-        setNotifTexts(["test1", "test2", "test3"])
+        GameNotifier.addHandler(handleGameEvent);
+        return () => {
+            GameNotifier.removeHandler(handleGameEvent);
+        }
     }, [])
-
+    function handleGameEvent(event) {
+        // const notifCopy = [...notifTexts]
+        // console.log("current notif texts", notifCopy)
+        // console.log("adding a an event:", event.type)
+        // let newNotifTexts = [...notifTexts]
+        // if (event.type === GameEvent.Join) {
+        //     newNotifTexts.push(`${event.from} joined ${event.value.gamename} as ${event.value.characterName}`);
+        //     setNotifTexts(newNotifTexts)
+        // } else if (event.type === GameEvent.Leave) {
+        //     newNotifTexts.push(`${event.from} removed ${event.value.characterName} from ${event.value.gamename}`);
+        //     setNotifTexts(newNotifTexts)
+        // }
+        setNotifTexts([...notifTexts, event])
+    }
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
 

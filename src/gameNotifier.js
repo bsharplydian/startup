@@ -24,8 +24,6 @@ class GameEventNotifier {
         this.socket.onmessage = async (msg) => {
             try {
                 const event = JSON.parse(await msg.data.text());
-                console.log("WOAH IT WORKED")
-                console.log("this is what an event looks like", event)
                 this.receiveEvent(event);
             } catch { }
         };

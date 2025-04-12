@@ -1,5 +1,6 @@
 import { Toast, ToastContainer } from 'react-bootstrap';
 import React from 'react';
+import { GameEvent } from './gameNotifier';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -17,9 +18,9 @@ export function NotifToasts(props) {
                 return (
                     <Toast className="notif" key={index} show={message} onClose={() => props.onHide(index)}>
                         <Toast.Header>
-                            <strong className="me-auto">Update</strong>
+                            <strong className="me-auto">{message?.value?.gamename}</strong>
                         </Toast.Header>
-                        <Toast.Body>{message}</Toast.Body>
+                        <Toast.Body>{message?.type == GameEvent.Join ? `${message?.from} has added ${message?.value?.characterName}` : `${message?.from} has removed ${message?.value?.characterName}`}</Toast.Body>
                     </Toast>
                 )
             })}

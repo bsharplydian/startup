@@ -19,7 +19,9 @@
 
 .notif {
     margin: 20px;
-    background: #ffff00;
+    border: 1px thick;
+    border-color: #4e4ec8;
+    background: #2e2e2e;
 }
 
 header {
