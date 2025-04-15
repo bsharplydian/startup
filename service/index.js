@@ -81,7 +81,7 @@ const verifyInvExists = async (req, res, next) => {
 }
 
 // GAMES
-apiRouter.get("/games/id/:gameID", verifyAuth, async (req, res) => {
+apiRouter.get("/games/id/:gameID", verifyAuth, verifyGameExists, async (req, res) => {
     let game = await DB.getGame(req.params.gameID)
     res.send(game)
 })

@@ -6,10 +6,12 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
 import { NotifToasts } from "../notifToasts.jsx"
+import { ErrorToast } from "../errorToast.jsx"
 import { GameEvent, GameNotifier } from '../gameNotifier';
 
 export function Games(props) {
     const username = props.username;
+    const [errorText, setErrorText] = React.useState(null)
     const [notifTexts, setNotifTexts] = React.useState([])
 
     const [addGameVisible, setAddGameVisible] = React.useState(false);
@@ -62,8 +64,8 @@ export function Games(props) {
     async function joinGame(gameID, newCharName, playerType) {
         let response = await fetch(`/api/games/id/${gameID}`)
         let game = await response.json()
-        if (game === null) {
-            console.error("no game here")
+        if (!response.ok) {
+            setErrorText(`No game found with ID ${gameID}`)
             return
         }
         let newGames = [...games]
@@ -222,6 +224,7 @@ export function Games(props) {
 
     return (
         <main className="games-main">
+            <ErrorToast message={errorText} onHide={() => setErrorText(null)}></ErrorToast>
             <NotifToasts messages={notifTexts} onHide={(index) => {
                 let newNotifTexts = [...notifTexts]
                 newNotifTexts[index] = null

@@ -109,3 +109,12 @@ Rubric:
 - Stores data in MongoDB: done!
     - I had to change my data format (ex. switching a dictionary to an array) for the inventory items, games, and players to work better with Mongo
 - login credentials stored in Mongo: done, stores users and login information
+
+## WebSocket Deliverable
+For this deliverable, I used WebSocket to add a notification system.
+Rubric:
+- Backend listens for WebSocket connection: this functionality is found in peerProxy.js
+- Frontend makes WebSocket connection: found in gameNotifier.js
+- Data sent over WebSocket connection: found on lines 89 and 125 in games.jsx, in the joinGame and deleteChar functions; it sends the game name, username, character name, and action to the server when a user adds or removes a player from a game.
+- WebSocket data displayed in the application interface: Most of the logic for this is in notifToasts.jsx, which is imported to the login, inventory, and games pages. When the client receives a notification from the server, it displays it along with previous undismissed notifications using bootstrap toasts.
+- The application is fully functional: It has everything needed for this course. There are still a couple features I want to add after the course is over, but it has all the functionality it needs to accomplish its design goal. I removed or implemented all mockups.

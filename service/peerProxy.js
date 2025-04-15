@@ -9,7 +9,6 @@ function peerProxy(httpServer) {
         // *different from Simon* I need to somehow group the clients into different games, sending the messages only to clients in the same game
         socket.on('message', function message(data) {
             socketServer.clients.forEach((client) => {
-                console.log(client)
                 if (client !== socket && client.readyState === WebSocket.OPEN) {
                     client.send(data)
                 }
