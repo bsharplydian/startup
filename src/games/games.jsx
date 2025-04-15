@@ -25,7 +25,7 @@ export function Games(props) {
 
     React.useEffect(() => {
         fetch(`/api/games/${username}`).then((response) => response.json()).then((games) => { setGames(games); }, [])
-    }, [])
+    }, [notifTexts])
 
     React.useEffect(() => {
         GameNotifier.addHandler(handleGameEvent);
@@ -35,6 +35,7 @@ export function Games(props) {
     }, [])
     function handleGameEvent(event) {
         setNotifTexts(notifTexts => [...notifTexts, event])
+        // setGames(games)
     }
     async function addGame(newGameName, playerType) {
         // generates a random game id and adds a game with the given info to localstorage
@@ -113,6 +114,11 @@ export function Games(props) {
             }
         }).then((response) => response.json());
         newGames.find((obj) => obj.gameID === gameID).players = newPlayers
+
+        if (newPlayers.find((player) => player.playerName === username) === undefined) {
+            newGames = newGames.filter((game) => game.gameID !== gameID);
+        }
+        console.log(newGames)
         setGames([...newGames])
         GameNotifier.broadcastEvent(username, GameEvent.Leave, { "characterName": characterName, "gamename": game.gameName })
     }
