@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from "react-router-dom";
 import { ErrorToast } from "../errorToast.jsx"
 import { NotifToasts } from "../notifToasts.jsx"
+import { GameNotifier } from '../gameNotifier';
 
 
 export function Inventory(props) {
@@ -92,8 +93,14 @@ export function Inventory(props) {
     }, [])
 
     React.useEffect(() => {
-        setNotifTexts(["test1", "test2", "test3"])
+        GameNotifier.addHandler(handleGameEvent);
+        return () => {
+            GameNotifier.removeHandler(handleGameEvent);
+        }
     }, [])
+    function handleGameEvent(event) {
+        setNotifTexts(notifTexts => [...notifTexts, event])
+    }
 
 
     function sanitize(str) {

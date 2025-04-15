@@ -5,6 +5,7 @@ import { AuthState } from './authState.js'
 import { useNavigate } from 'react-router-dom'
 import { ErrorToast } from "../errorToast.jsx"
 import { NotifToasts } from "../notifToasts.jsx"
+import { GameNotifier } from '../gameNotifier';
 
 import Button from 'react-bootstrap/Button'
 export function Login({ username, authState, onAuthChange }) {
@@ -17,8 +18,14 @@ export function Login({ username, authState, onAuthChange }) {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        setNotifTexts(["test1", "test2", "test3"])
+        GameNotifier.addHandler(handleGameEvent);
+        return () => {
+            GameNotifier.removeHandler(handleGameEvent);
+        }
     }, [])
+    function handleGameEvent(event) {
+        setNotifTexts(notifTexts => [...notifTexts, event])
+    }
 
     async function login() {
         loginOrCreate(`/api/auth/login`)
