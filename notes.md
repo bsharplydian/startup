@@ -108,9 +108,9 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 
 ## Websocket
 ### last things needed
-- [ ] put notification stuff in every page
+- [x] put notification stuff in every page
 - [x] final bug fixes (logging back in afterward)
-- [ ] error handling for incorrect game id when joining
+- [x] error handling for incorrect game id when joining
 
 # goals for after the course
 - check for notification game and only send it to people in the game
