@@ -106,9 +106,14 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - add: collection.insertOne
 - modify: collection.updateOne({key: keyValue}, {newItemKey: newItemValue}); can also use { $set: object-with-all-values }
 
-
+## Websocket
+### last things needed
+- [ ] put notification stuff in every page
+- [x] final bug fixes (logging back in afterward)
+- [ ] error handling for incorrect game id when joining
 
 # goals for after the course
+- check for notification game and only send it to people in the game
 - move the add item menu into an offcanvas to avoid cluttering space
 - add magic item support
 - limit actions like deleting characters and adding items to CREATOR and DM
