@@ -118,3 +118,6 @@ I'm familiar with basic HTML, so this section was mostly review. There were a fe
 - add magic item support
 - limit actions like deleting characters and adding items to CREATOR and DM
 - display information of other users (dm and player usernames)
+# known issues
+- reloading the games page sends the user to the generic endpoint
+- removing a dm-created character removes the game from visiblity, even though the game should still be visible
